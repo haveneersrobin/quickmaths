@@ -8,6 +8,7 @@ export default class BigButton extends React.Component {
         return (
             <Button style={this.props.style}  onPress={this.props.onPress}>
                 <MaterialCommunityIcons
+                    style={{backgroundColor: 'transparent'}}
                     name={this.props.icon}
                     size={this.props.size}
                     color={this.props.color}/>

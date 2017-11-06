@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 3,
     width: (Dimensions.get('window').width / 2) - 30,
-    height: (Dimensions.get('window').height / 8),
+    height: (Dimensions.get('window').height / 7),
   },
 
   playButton: {
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 3,
     width: (Dimensions.get('window').width / 2) - 30,
-    height: (Dimensions.get('window').height / 8),
+    height: (Dimensions.get('window').height / 7),
   },
 
   container: {
