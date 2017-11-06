@@ -33,6 +33,7 @@ export default class Menu extends React.Component {
           </View>
           <View style={styles.bottom}>
             <BigButton
+            onPress={() => navigate('Profile')}
               style={styles.bottomButton}
               icon="face-profile"
               size={40}

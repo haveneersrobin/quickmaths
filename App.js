@@ -5,6 +5,12 @@ import {StyleSheet, Text, View, Button, StatusBar} from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import Menu from './screens/Menu';
 import PlayingField from './screens/PlayingField';
+<<<<<<< HEAD
+=======
+import ProfileScreen from './screens/ProfileScreen';
+
+import { Font } from 'expo';
+>>>>>>> 044fcbc76bd12674d1e13c8d5fb25a057e138f36
 
 const Navigator = StackNavigator({
   Home: {
@@ -15,6 +21,9 @@ const Navigator = StackNavigator({
   },
   Field: {
     screen: PlayingField
+  },
+  Profile: {
+    screen: ProfileScreen
   }
 }, {headerMode: 'null'});
 
