@@ -1,6 +1,25 @@
 import React from 'react';
-import {StyleSheet,View, Text} from 'react-native';
+import styled from 'styled-components/native'
+import {StyleSheet, View, Text, Image} from 'react-native';
 
+const BorderBox = styled.View`
+    border: 2px solid black;
+    flex:2;
+    background-color: white;
+    justify-content: center;
+`;
+
+const BottomBox = styled.View`
+    border: 2px solid black;
+    flex:2;
+    background-color: steelblue;
+`;
+
+const MiniBox = styled.View`
+    flex:1;
+    background-color: white;
+    border: 2px solid black;
+`;
 
 export default class ProfileScreen extends React.Component {
 
@@ -9,40 +28,37 @@ export default class ProfileScreen extends React.Component {
         return(
             <View style = {styles.container}>
                 <View style={{
-                    flex: 1,
-                    justifyContent: 'space-around'
-                    }}>
-                    <View style={{
-                            flex: 3,
-                            flexDirection: 'row',
-                            justifyContent: 'space-around',
-                            backgroundColor: 'powderblue'}}>
-                        <View style= {{ flex:1, backgroundColor: 'black' }} />
-                        <View style= {{ flex:1, backgroundColor: 'white', justifyContent: 'center' }}>
-                            <Text style={styles.textLarge}>
-                                {this.props.navigation.state.params.user}
-                            </Text>
-                        </View>
+                        flex: 3,
+                        flexDirection: 'row',
+                        justifyContent: 'center'}}>
+                    <View style= {{ flex:1}}>
+                        {/* TODO: path is niet dynamisch! */}
+                        <Image style={{resizeMode:Image.resizeMode.contain}} source={require('../assets/img.png')}/>  
                     </View>
-                    <View style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            backgroundColor: 'skyblue'}}>
-                        <View style= {{ flex:2, backgroundColor: 'white', justifyContent: 'center' }} >
-                            <Text style={styles.textLarge}>
-                              <Text> Speed Junkie {'\n'}{'\n'} </Text>
-                            </Text>
-                        </View>
-                        <View style= {{ flex:1, backgroundColor: 'white' }} />
-                        <View style= {{ flex:1, backgroundColor: 'white' }} />
-
+                    <View style= {{ flex:1, justifyContent: 'center', backgroundColor: 'white'}}>
+                        <Text style={styles.textLarge}>
+                            {this.props.navigation.state.params.user}
+                        </Text>
                     </View>
-
-                    <View style={{flex: 2, backgroundColor: 'steelblue'}} >
-
-                    </View>
-                    <View style={{flex: 2, backgroundColor: 'darkblue'}} />
                 </View>
+                <View style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        backgroundColor: 'skyblue'}}>
+                    <BorderBox>
+                        <Text style={styles.textLarge}>
+                            {this.props.navigation.state.params.playerstatus}
+                        </Text>
+                    </BorderBox>
+                    <BorderBox>
+                        <Text style={styles.textLarge}>
+                            Achievements
+                        </Text>
+                    </BorderBox>
+                </View>
+
+                <BottomBox/>
+                <BottomBox/>
             </View>
         );
     }
@@ -50,13 +66,13 @@ export default class ProfileScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent: 'space-around',    
     },
     textLarge: {
-        top: 10,
         fontSize: 20,
         fontWeight: 'bold',
         color: 'black',
         textAlign: 'center'
-      }
+    }
 });
