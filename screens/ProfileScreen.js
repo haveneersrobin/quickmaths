@@ -5,7 +5,7 @@ import {StyleSheet,View, Text} from 'react-native';
 export default class ProfileScreen extends React.Component {
 
     render() {
-        const {navigate} = this.props.navigation;        
+        const {navigate} = this.props.navigation;  
         return(
             <View style = {styles.container}> 
                 <View style={{
@@ -20,7 +20,7 @@ export default class ProfileScreen extends React.Component {
                         <View style= {{ flex:1, backgroundColor: 'black' }} />
                         <View style= {{ flex:1, backgroundColor: 'white' }}>
                             <Text style={styles.textLarge}>
-                            Alexander Vandelangenbergh
+                                {this.props.navigation.state.params.user}
                             </Text>
                         </View>
                     </View>
