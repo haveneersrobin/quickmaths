@@ -2,11 +2,12 @@ import React from 'react';
 import { Dimensions, NetInfo, StyleSheet, Text, View,Image} from 'react-native';
 import Button from 'apsl-react-native-button';
 import ImgButton from "../components/ImageButton";
+import resolveAssetSource from 'resolveAssetSource';
 
 
 export default class HomeScreen extends React.Component {
-
-      render() {
+      render() { 
+        let source = resolveAssetSource(require('../assets/button/red_button11.png'));
         const { navigate } = this.props.navigation;
         return (
           <View style={styles.container}>
@@ -15,8 +16,18 @@ export default class HomeScreen extends React.Component {
                         Welcome to QM !
                     </Text>
             }
-            <View style={styles.buttonWrap}>
-                <ImgButton onPress={() =>navigate('Menu')} text="Enter" img={require('../assets/button/red_button11.png')}/>
+            <View>
+                <ImgButton 
+                fontSize={30}
+                paddingBottom={10}
+                marginTop={30}
+                width={source.width}
+                height={source.height}
+                scale={1.2}
+                onPress={() =>navigate('Menu')}
+                text="Enter"
+                pressedImg={require('../assets/button/red_button12.png')}
+                normalImg={require('../assets/button/red_button11.png')}/>
             </View>
           </View>
         );
