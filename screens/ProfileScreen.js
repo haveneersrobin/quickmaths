@@ -7,7 +7,7 @@ export default class ProfileScreen extends React.Component {
     render() {
         const {navigate} = this.props.navigation;  
         return(
-            <View style = {styles.container}> 
+            <View style = {styles.container}>
                 <View style={{
                     flex: 1,
                     justifyContent: 'space-around'
@@ -18,7 +18,7 @@ export default class ProfileScreen extends React.Component {
                             justifyContent: 'space-around',
                             backgroundColor: 'powderblue'}}>
                         <View style= {{ flex:1, backgroundColor: 'black' }} />
-                        <View style= {{ flex:1, backgroundColor: 'white' }}>
+                        <View style= {{ flex:1, backgroundColor: 'white', justifyContent: 'center' }}>
                             <Text style={styles.textLarge}>
                                 {this.props.navigation.state.params.user}
                             </Text>
@@ -28,13 +28,19 @@ export default class ProfileScreen extends React.Component {
                             flex: 1,
                             flexDirection: 'row',
                             backgroundColor: 'skyblue'}}>
-                        <View style= {{ flex:2, backgroundColor: 'red' }} />
-                        <View style= {{ flex:1, backgroundColor: 'black' }} />
-                        <View style= {{ flex:1, backgroundColor: 'green' }} />
+                        <View style= {{ flex:2, backgroundColor: 'white', justifyContent: 'center' }} >
+                            <Text style={styles.textLarge}>
+                              <Text> Speed Junkie {'\n'}{'\n'} </Text>
+                            </Text>
+                        </View>
+                        <View style= {{ flex:1, backgroundColor: 'white' }} />
+                        <View style= {{ flex:1, backgroundColor: 'white' }} />
 
                     </View>
 
-                    <View style={{flex: 2, backgroundColor: 'steelblue'}} />
+                    <View style={{flex: 2, backgroundColor: 'steelblue'}} >
+
+                    </View>
                     <View style={{flex: 2, backgroundColor: 'darkblue'}} />
                 </View>
             </View>
