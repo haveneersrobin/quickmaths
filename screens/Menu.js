@@ -70,24 +70,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonWrap1: {
+    flex:1,
     position: 'absolute',
-    top: 40
+    top: 80
   },
 
   highScoresButton: {
+    flex:1,
     borderColor: '#34495e',
     borderRadius: 10,
     borderWidth: 3,
-    width: 200,
-    height: 70
   },
 
   playButton: {
+    flex:1,
     borderColor: '#34495e',
     borderRadius: 10,
     borderWidth: 3,
-    width: 200,
-    height: 110
   },
 
   container: {
@@ -98,6 +97,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   textLarge: {
+    fontFamily:'lovelo',
+    textShadowColor:'#34495e',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius : 8,
     fontSize: 60,
     fontWeight: 'bold',
     color: '#34495e',

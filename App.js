@@ -1,10 +1,10 @@
+import { Font } from 'expo';
 import React from 'react';
 import {StackNavigator, Easing} from 'react-navigation';
 import {StyleSheet, Text, View, Button, StatusBar} from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import Menu from './screens/Menu';
 import PlayingField from './screens/PlayingField';
-import { Font } from 'expo';
 
 const Navigator = StackNavigator({
   Home: {
@@ -19,24 +19,25 @@ const Navigator = StackNavigator({
 }, {headerMode: 'null'});
 
 export default class App extends React.Component {
-  componentDidMount() {
-    Font.loadAsync({
-      'lovelo-black': require('./assets/fonts/Lovelo-Black.otf')
-    });
-    Font.loadAsync({
-    'lovelo-line-bold': require('./assets/fonts/Lovelo-Line-Bold.otf'),
-    });
-    Font.loadAsync({
-    'lovelo-line': require('./assets/fonts/Lovelo-Line-Light.otf')
-    });
-
+  state = {
+    fontLoaded: false
+  };
+  async componentDidMount () {
+    await Font.loadAsync({
+      'lovelo': require('./assets/fonts/Lovelo-Black.ttf'),
+    })
+    console.log('font loaded!!')
+    this.setState({ fontLoaded: true });
   }
+
   render() {
     return (
+      this.state.fontLoaded ? (
       <View style={styles.container}>
         <StatusBar hidden={true}/>
-        <Navigator/>
+        <Navigator screenProps={this.state.fontLoaded}/>
       </View>
+      ) : null
     );
   }
 }

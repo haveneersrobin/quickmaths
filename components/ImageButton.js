@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         textShadowOffset: { width: 1, height: 1 },
         textShadowRadius : 4,
         fontSize:30,
-        fontFamily: 'lovelo-black',
+        fontFamily:'lovelo',
         textAlign: 'center',
         backgroundColor: 'rgba(0,0,0,0)'
     }

@@ -10,11 +10,13 @@ export default class HomeScreen extends React.Component {
         const { navigate } = this.props.navigation;
         return (
           <View style={styles.container}>
-            <Text style={styles.textLarge}>
-                Welcome to QM !
-            </Text>
+            {
+                    <Text style={styles.textLarge}>
+                        Welcome to QM !
+                    </Text>
+            }
             <View style={styles.buttonWrap}>
-                <ImgButton onPress={() =>navigate('Menu')} text="Enter" img={require('../red_button11.png')}/>
+                <ImgButton onPress={() =>navigate('Menu')} text="Enter" img={require('../assets/button/red_button11.png')}/>
             </View>
           </View>
         );
@@ -35,7 +37,7 @@ export default class HomeScreen extends React.Component {
             justifyContent: 'center'
         },
         textLarge: {
-            fontFamily: 'lovelo-black',
+            fontFamily: 'lovelo',
             textAlign: 'center',
             fontSize:50,
             textShadowColor:'#34495e',
