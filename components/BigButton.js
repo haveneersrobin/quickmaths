@@ -6,9 +6,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 export default class BigButton extends React.Component {
     render() {
         return (
-            <Button style={this.props.style}>
+            <Button style={this.props.style}  onPress={this.props.onPress}>
                 <MaterialCommunityIcons
-                    onPress={this.props.onPress}
                     name={this.props.icon}
                     size={this.props.size}
                     color={this.props.color}/>

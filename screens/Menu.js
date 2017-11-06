@@ -17,19 +17,19 @@ export default class Menu extends React.Component {
             </Text>
           </View>
           <View style={styles.middle}>
-            <View style={styles.buttonWrap1}>
-              <BigButton
-                onPress={() => navigate('Field')}
-                style={styles.playButton}
-                icon="play"
-                size={80}
-                color={"#34495e"}/>
-              <BigButton
-                style={styles.highScoresButton}
-                icon="trophy"
-                size={50}
-                color={"#34495e"}/>
-            </View>
+            <View style={styles.buttonwrap}>
+                <BigButton
+                  onPress={() => navigate('Field')}
+                  style={styles.playButton}
+                  icon="play"
+                  size={80}
+                  color={"#34495e"}/>
+                <BigButton
+                  style={styles.highScoresButton}
+                  icon="trophy"
+                  size={50}
+                  color={"#34495e"}/>
+                </View>
           </View>
           <View style={styles.bottom}>
             <BigButton
@@ -53,14 +53,20 @@ export default class Menu extends React.Component {
 const styles = StyleSheet.create({
   middle: {
     flex: 3,
-    alignItems: 'center'
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonWrap: {
+    flex: 1,
   },
 
   bottomButton: {
     borderColor: '#34495e',
     borderRadius: 10,
     borderWidth: 3,
-    width: (Dimensions.get('window').width / 2) - 30,
+    width: (Dimensions.get('window').width / 2) - 80,
     height: 80,
     margin: 10
   },
@@ -72,22 +78,24 @@ const styles = StyleSheet.create({
   },
   buttonWrap1: {
     flex:1,
-    position: 'absolute',
     top: 80
   },
 
   highScoresButton: {
-    flex:1,
+    marginTop: 30,
     borderColor: '#34495e',
     borderRadius: 10,
     borderWidth: 3,
+    width: (Dimensions.get('window').width / 2) - 30,
+    height: (Dimensions.get('window').height / 8),
   },
 
   playButton: {
-    flex:1,
     borderColor: '#34495e',
     borderRadius: 10,
     borderWidth: 3,
+    width: (Dimensions.get('window').width / 2) - 30,
+    height: (Dimensions.get('window').height / 8),
   },
 
   container: {
