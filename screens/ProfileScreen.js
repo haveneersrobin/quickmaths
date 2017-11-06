@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet,View} from 'react-native';
+import {StyleSheet,View, Text} from 'react-native';
 
 
 export default class ProfileScreen extends React.Component {
@@ -18,7 +18,11 @@ export default class ProfileScreen extends React.Component {
                             justifyContent: 'space-around',
                             backgroundColor: 'powderblue'}}>
                         <View style= {{ flex:1, backgroundColor: 'black' }} />
-                        <View style= {{ flex:1, backgroundColor: 'blue' }} />
+                        <View style= {{ flex:1, backgroundColor: 'white' }}>
+                            <Text style={styles.textLarge}>
+                            Alexander Vandelangenbergh
+                            </Text>
+                        </View>
                     </View>
                     <View style={{
                             flex: 1,
@@ -41,5 +45,12 @@ export default class ProfileScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    }
+    },
+    textLarge: {
+        top: 10,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'black',
+        textAlign: 'center'
+      }
 });
