@@ -6,7 +6,6 @@ import HomeScreen from './screens/HomeScreen';
 import Menu from './screens/Menu';
 import PlayingField from './screens/PlayingField';
 import ProfileScreen from './screens/ProfileScreen';
-import { Font } from 'expo';
 
 const Navigator = StackNavigator({
   Home: {
