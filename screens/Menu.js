@@ -1,8 +1,79 @@
 import React from 'react';
 import BigButton from '../components/BigButton';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import ImgButton from '../components/ImageButton';
+import styled from 'styled-components/native';
+
+const BackgroundContainer = styled.View`
+  position: absolute;
+`;
+
+const Overlay = styled.View`
+  flex:1;
+  flex-direction: column;
+`;
+
+const Container = styled.View`
+  flex: 1;
+  flex-direction:column;
+  align-items: center;
+`;
+
+const BackdropImage = styled.Image`
+  flex-direction: column;
+  opacity: 0.5;
+`;
+
+const Logo = styled.Image`
+  backgroundColor: transparent;
+  align-items: center;
+  width: 100;
+  height: 100;
+  margin-top: 130;
+`;
+
+const LogoContainer = styled.View`
+  flex: 1;
+  align-items: center;
+`;
+
+const ButtonContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+
 
 export default class Menu extends React.Component {
+  render() { 
+    const resizeMode = 'center';
+    const text = 'This is some text inlaid in an <Image />';
+    const { navigate } = this.props.navigation;
+    return (
+        <Container>
+            <BackgroundContainer>
+                <BackdropImage source = {require('../assets/img/background.jpg')} resizeMode = 'cover'/>
+            </BackgroundContainer>
+            <Overlay>
+                <LogoContainer>
+                    <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
+                </LogoContainer>
+                <ButtonContainer>
+                    <ImgButton onPress={() =>navigate('Menu')} fontSize={30} text={"Enter"} image={require('../assets/button/grey_button14.png')}/>
+                    <ImgButton onPress={() =>navigate('Menu')} fontSize={30} text={"Second"} image={require('../assets/button/grey_button14.png')}/>
+                    <ImgButton onPress={() =>navigate('Menu')} fontSize={30} text={"Third"} image={require('../assets/button/grey_button14.png')}/>
+                </ButtonContainer>
+            </Overlay>
+        </Container>
+    );
+  }
+}
+
+
+
+
+{/*export default class Menu extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
@@ -36,7 +107,7 @@ export default class Menu extends React.Component {
               onPress={() => navigate('Profile', 
                           {user:'Sander, Mathias, Robin en Laurens',
                            playerstatus:'Speed Junkie',
-                           img:'../assets/icon.png'
+                           img:'../assets/img/icon.png'
                           })} 
               style={styles.bottomButton}
               icon="face-profile"
@@ -120,4 +191,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0
   }
-});
+});*/}

@@ -1,66 +1,70 @@
 import React from 'react';
 import { Dimensions, NetInfo, StyleSheet, Text, View,Image} from 'react-native';
-import Button from 'apsl-react-native-button';
-import ImgButton from "../components/ImageButton";
-import resolveAssetSource from 'resolveAssetSource';
+import ImgButton from '../components/ImageButton';
+import styled from 'styled-components/native';
+
+const BackgroundContainer = styled.View`
+    position: absolute;
+`;
+
+const Overlay = styled.View`
+    flex:1;
+    flex-direction: column;
+
+`;
+
+const Container = styled.View`
+    flex: 1;
+    flex-direction:column;
+    align-items: center;
+`;
+
+const BackdropImage = styled.Image`
+    flex-direction: column;
+    opacity: 0.5;
+`;
+
+const Logo = styled.Image`
+    backgroundColor: transparent;
+    align-items: center;
+    width: 360;
+    height: 360;
+    margin-top: 130;
+`;
+
+const LogoContainer = styled.View`
+    flex: 2;
+    align-items: center;
+`;
+
+const ButtonContainer = styled.View`
+    flex: 1;
+    align-items: center;
+`;
+
 
 
 export default class HomeScreen extends React.Component {
       render() { 
-        let normal = resolveAssetSource(require('../assets/button/red_button11.png'));
-        let pressed = resolveAssetSource(require('../assets/button/red_button12.png'));
+        const resizeMode = 'center';
+        const text = 'This is some text inlaid in an <Image />';
         const { navigate } = this.props.navigation;
         return (
-          <View style={styles.container}>
-            {
-                    <Text style={styles.textLarge}>
-                        Welcome to QM !
-                    </Text>
-            }
-            <View>
-                <ImgButton 
-                fontSize={30}
-                paddingBottom={10}
-                marginTop={30}
-                widthNormal={normal.width}
-                heightNormal={normal.height}
-                widthPressed={pressed.width}
-                heightPressed={pressed.height}
-                scale={1.2}
-                onPress={() =>navigate('Menu')}
-                text="Enter"
-                pressedImg={require('../assets/button/red_button12.png')}
-                normalImg={require('../assets/button/red_button11.png')}/>
-            </View>
-          </View>
+            <Container>
+                <BackgroundContainer>
+                    <BackdropImage source = {require('../assets/img/background.jpg')} resizeMode = 'cover'/>
+                </BackgroundContainer>
+                <Overlay>
+                    <LogoContainer>
+                        <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
+                    </LogoContainer>
+                    <ButtonContainer>
+                        <ImgButton onPress={() =>navigate('Menu')} fontSize={30} text={"Enter"} image={require('../assets/button/grey_button14.png')}/>
+                    </ButtonContainer>
+                </Overlay>
+            </Container>
         );
       }
     }
-    
-    const styles = StyleSheet.create({
-        
-        wrapper: {
-            flex:1,
-            justifyContent: 'center'
-        },
-        container: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-        },
-        textLarge: {
-            fontFamily: 'lovelo',
-            textAlign: 'center',
-            fontSize:50,
-            textShadowColor:'#34495e',
-            color: '#2c3e50',
-            textShadowOffset: { width: 3, height: 3 },
-            textShadowRadius : 8,
-            marginBottom: 20
-        },
-        btn: {
-            width: 50,
-            height: 50,
-          }
-    });
+
     

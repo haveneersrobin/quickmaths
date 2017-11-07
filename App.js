@@ -29,6 +29,7 @@ export default class App extends React.Component {
   async componentDidMount () {
     await Font.loadAsync({
       'lovelo': require('./assets/fonts/Lovelo-Black.ttf'),
+      'roboto': require('./assets/fonts/Roboto-Light.ttf'),
     })
     console.log('font loaded!!')
     this.setState({ fontLoaded: true });

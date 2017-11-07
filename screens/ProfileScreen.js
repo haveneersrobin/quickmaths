@@ -39,7 +39,7 @@ export default class ProfileScreen extends React.Component {
                         justifyContent: 'center'}}>
                     <View style= {{ flex:1}}>
                         {/* TODO: path is niet dynamisch! */}
-                        <Image style={{resizeMode:Image.resizeMode.contain}} source={require('../assets/img.png')}/>
+                        <Image style={{resizeMode:Image.resizeMode.contain}} source={require('../assets/img/img.png')}/>
                     </View>
                     <View style= {{ flex:1, justifyContent: 'center', backgroundColor: 'white'}}>
                         <Text style={styles.textLarge}>
