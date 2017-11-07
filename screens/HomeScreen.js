@@ -7,7 +7,8 @@ import resolveAssetSource from 'resolveAssetSource';
 
 export default class HomeScreen extends React.Component {
       render() { 
-        let source = resolveAssetSource(require('../assets/button/red_button11.png'));
+        let normal = resolveAssetSource(require('../assets/button/red_button11.png'));
+        let pressed = resolveAssetSource(require('../assets/button/red_button12.png'));
         const { navigate } = this.props.navigation;
         return (
           <View style={styles.container}>
@@ -21,8 +22,10 @@ export default class HomeScreen extends React.Component {
                 fontSize={30}
                 paddingBottom={10}
                 marginTop={30}
-                width={source.width}
-                height={source.height}
+                widthNormal={normal.width}
+                heightNormal={normal.height}
+                widthPressed={pressed.width}
+                heightPressed={pressed.height}
                 scale={1.2}
                 onPress={() =>navigate('Menu')}
                 text="Enter"

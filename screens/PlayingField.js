@@ -4,7 +4,70 @@ import Button from 'apsl-react-native-button';
 import Grid from '../components/Grid';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const NUMBERS = [
+    [
+        1, 2, 3
+    ],
+    [
+        4, 6, 7
+    ],
+    [
+        8,"", 0
+    ],
+    [
+        10, 3, 1
+    ],
+    [
+        3, 1,""
+    ],
+    [
+        0, 1, 3
+    ],
+    [
+        1, 2, 3
+    ],
+    [
+        4, 6, 7
+    ],
+    [
+        8, 9, 0
+    ],
+    [
+        10, 3, 1
+    ],
+    [
+        3, 1, 2
+    ],
+    [0, 1, 3]
+];
+
 export default class PlayingField extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = { currentRow: NUMBERS.length - 1, number: undefined }
+    }
+
+    handleClick(number) {
+        this.setState({number});
+    }
+
+    nextRow() {
+        if(this.state.number == 3)
+            console.log("YAY")
+        else
+            console.log("GE SUCKT BALLZ")
+        this.setState({
+            currentRow: this.state.currentRow - 1,
+            number: undefined
+        });
+    }
+
+    componentDidMount() {
+        setInterval(() => this.nextRow(), 3000);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -28,7 +91,7 @@ export default class PlayingField extends React.Component {
                     </View>
                 </View>
                 <View style={styles.field}>
-                    <Grid/>
+                    <Grid currentRow={this.state.currentRow} data={NUMBERS} onClick={(number) => this.handleClick(number)}/>
                 </View>
                 <View style={styles.end}>
                     <MaterialCommunityIcons name={"pause"} size={30} color={"#e67e22"}/>
