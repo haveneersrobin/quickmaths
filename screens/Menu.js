@@ -27,8 +27,8 @@ const BackdropImage = styled.Image`
 const Logo = styled.Image`
   backgroundColor: transparent;
   align-items: center;
-  width: 100;
-  height: 100;
+  width: 150;
+  height: 150;
   margin-top: 130;
 `;
 
@@ -38,9 +38,9 @@ const LogoContainer = styled.View`
 `;
 
 const ButtonContainer = styled.View`
-  flex: 1;
+  margin-top:70px;
+  flex: 2;
   align-items: center;
-  justify-content: space-around;
 `;
 
 
@@ -60,9 +60,16 @@ export default class Menu extends React.Component {
                     <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
                 </LogoContainer>
                 <ButtonContainer>
-                    <ImgButton onPress={() =>navigate('Menu')} fontSize={30} text={"Enter"} image={require('../assets/button/grey_button14.png')}/>
-                    <ImgButton onPress={() =>navigate('Menu')} fontSize={30} text={"Second"} image={require('../assets/button/grey_button14.png')}/>
-                    <ImgButton onPress={() =>navigate('Menu')} fontSize={30} text={"Third"} image={require('../assets/button/grey_button14.png')}/>
+                    <ImgButton margin={20} onPress={() => navigate('Question')} fontSize={30} image={require('../assets/buttons/play.png')}/>
+                    <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/highscores.png')}/>
+                    <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}]}>
+                      <ImgButton margin={20} onPress={() => navigate('Profile', 
+                          {user:'Sander, Mathias, Robin en Laurens',
+                           playerstatus:'Speed Master',
+                           img:'../assets/img/icon.png'
+                          })}  fontSize={30} image={require('../assets/buttons/profile.png')}/>
+                      <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/settings.png')}/>
+                    </View>
                 </ButtonContainer>
             </Overlay>
         </Container>

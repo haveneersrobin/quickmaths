@@ -19,9 +19,8 @@ export default class ImgButton extends React.Component {
         return (
                 <TouchableOpacity onPress={this.props.onPress}>
                         <SpecialImg
-                        style={[{width:300},{height:300}]} 
+                        margin={this.props.margin}
                         source={this.props.image}>
-                        <Text style={textStyle(this.props.fontSize)}>{this.props.text}</Text>
                     </SpecialImg>
             </TouchableOpacity>
         );

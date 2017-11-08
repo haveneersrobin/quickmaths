@@ -18,7 +18,7 @@ const NumberBox = styled(TouchableOpacity).attrs({
     align-items: stretch;
     justify-content: center;
     border: 1px solid black;
-    background-color: ${props => props.selected ? "red" : "white"}
+    background-color: ${props => props.selected ? "#5688B3" : "transparent"}
     height:100%;
 `;
 
@@ -27,14 +27,15 @@ const Row = styled.View `
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #ecf0f1; 
-    border: ${props => props.isLast ? "3px solid yellow" : "1px solid black" };
+    background-color: ${props => props.isLast ? "#A1C1B9" : "white" };; 
+    border: ${props => props.isLast ? "4px solid #2A435C " : "1px solid black" };
 `;
 
 const NumberCell = styled.Text`
+    font-family: 'proxima';
     text-align:center;
     font-size: 80px;
-    color: #34495e;
+    color: ${props => props.isLast ? "#34495e" : "#5688B3" };
 `;
 
 class Grid extends Component {
@@ -48,15 +49,21 @@ class Grid extends Component {
 
     constructor(props) {
         super(props);
+        this.state = { selectedTileinRow: -1}
+    }
 
-        this.state = { selectedTileinRow: -1 }
+    componentWillReceiveProps(nextProps) {
+        if (this.props.currentRow !== nextProps.currentRow) {
+            this.setState({ selectedTileinRow: -1 });
+        }
     }
     
 
     onClick(number, index) {
-        this.setState({ selectedTileinRow: index });
+        this.setState({ selectedTileinRow: index});
         this.props.onClick(number);
     }
+
 
     renderRow(index, isLast) {
         if (index < 0) {
@@ -68,7 +75,7 @@ class Grid extends Component {
         return this
             .props
             .data[index]
-            .map((number, idx) => <NumberBox isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}><NumberCell>{number}</NumberCell></NumberBox> );
+            .map((number, idx) => <NumberBox isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}><NumberCell isLast={isLast}>{number}</NumberCell></NumberBox> );
     };
 
     

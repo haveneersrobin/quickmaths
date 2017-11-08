@@ -6,6 +6,8 @@ import HomeScreen from './screens/HomeScreen';
 import Menu from './screens/Menu';
 import PlayingField from './screens/PlayingField';
 import ProfileScreen from './screens/ProfileScreen';
+import GameOver from './screens/GameOver';
+import Question from './screens/Question';
 
 const Navigator = StackNavigator({
   Home: {
@@ -19,6 +21,12 @@ const Navigator = StackNavigator({
   },
   Profile: {
     screen: ProfileScreen
+  },
+  GameOver: {
+    screen: GameOver
+  },
+  Question: {
+    screen: Question
   }
 }, {headerMode: 'null'});
 
@@ -30,6 +38,7 @@ export default class App extends React.Component {
     await Font.loadAsync({
       'lovelo': require('./assets/fonts/Lovelo-Black.ttf'),
       'roboto': require('./assets/fonts/Roboto-Light.ttf'),
+      'proxima': require('./assets/fonts/Proxima.ttf'),
     })
     console.log('font loaded!!')
     this.setState({ fontLoaded: true });

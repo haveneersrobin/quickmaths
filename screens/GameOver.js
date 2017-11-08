@@ -27,7 +27,6 @@ const BackdropImage = styled.Image`
 const Logo = styled.Image`
     backgroundColor: transparent;
     align-items: center;
-    width: 360;
     height: 360;
     margin-top: 130;
 `;
@@ -44,8 +43,9 @@ const ButtonContainer = styled.View`
 
 
 
-export default class HomeScreen extends React.Component {
+export default class GameOver extends React.Component {
       render() { 
+        console.log(this.props.navigation);
         const { navigate } = this.props.navigation;
         return (
             <Container>
@@ -54,11 +54,12 @@ export default class HomeScreen extends React.Component {
                 </BackgroundContainer>
                 <Overlay>
                     <LogoContainer>
-                        <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
+                        <Logo style={{wdith:200, height:200}} resizeMode = 'contain' source = {require('../assets/img/game-over.png')} />
                     </LogoContainer>
-                    <ButtonContainer>
-                        <ImgButton margin={0} onPress={() =>navigate('Menu')} fontSize={30} image={require('../assets/buttons/enter.png')}/>
-                    </ButtonContainer>
+                    <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}]}>
+                      <ImgButton margin={20} onPress={() => navigate('Menu')}  fontSize={30} image={require('../assets/buttons/play.png')}/>
+                      <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/settings.png')}/>
+                    </View>
                 </Overlay>
             </Container>
         );
