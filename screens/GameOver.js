@@ -54,7 +54,7 @@ export default class GameOver extends React.Component {
                 </BackgroundContainer>
                 <Overlay>
                     <LogoContainer>
-                        <Logo style={{wdith:200, height:200}} resizeMode = 'contain' source = {require('../assets/img/game-over.png')} />
+                        <Logo style={{width:200, height:200}} resizeMode = 'contain' source = {require('../assets/img/game-over.png')} />
                     </LogoContainer>
                     <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}]}>
                       <ImgButton margin={20} onPress={() => navigate('Menu')}  fontSize={30} image={require('../assets/buttons/play.png')}/>

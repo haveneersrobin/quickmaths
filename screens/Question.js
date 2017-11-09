@@ -53,7 +53,7 @@ export default class Question extends React.Component {
     constructor(props) {
         super(props);
         this.handleBackButton = this.handleBackButton.bind(this);
-        this.state = {timer : this.props.interval/1000};
+        this.state = { timer : this.props.interval/1000 };
     }
 
     goToQuestion() {
@@ -76,17 +76,20 @@ export default class Question extends React.Component {
 
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        const timer = setTimeout(() => this.goToQuestion(), this.props.interval);
-        setInterval(() => {
+        const timerz = setTimeout(() => this.goToQuestion(), this.props.interval);
+        const timer2 = setInterval(() => {
             this.setState(previousState => {
               return { timer: previousState.timer - 1 };
             });
           }, 1000);
-        
+        this.setState({ timerz, timer2 });
     }
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        const { timerz, timer2 } = this.state;
+        if (timerz) { clearInterval(timerz); }
+        if (timer2) { clearInterval(timer2); }
     }
 
       render() { 

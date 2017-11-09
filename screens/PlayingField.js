@@ -4,7 +4,10 @@ import Button from 'apsl-react-native-button';
 import Grid from '../components/Grid';
 import { NavigationActions } from 'react-navigation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import BottomTimer from '../components/BottomTimer'
 import styled from 'styled-components/native';
+
+const PARTS = 20;
 
 const NUMBERS = [
     [
@@ -52,14 +55,14 @@ const QuestionText = styled.Text`
 
 export default class PlayingField extends React.Component {
     static defaultProps = {
-        interval: 3000,
+        interval: 5000,
         checker: number => number % 3 === 0,
         questionText: "Welk getal is deelbaar door 3?"
     };
 
     constructor(props) {
         super(props);
-        this.state = { currentRow: NUMBERS.length - 1, number: undefined};
+        this.state = { currentRow: NUMBERS.length - 1, number: undefined, filled: PARTS };
         this.handleBackButton = this.handleBackButton.bind(this);
     }
 
@@ -69,7 +72,7 @@ export default class PlayingField extends React.Component {
 
     nextRow() {
         const { checker } = this.props;
-        const { number, timer } = this.state;
+        const { number, timer, sliderTimer } = this.state;
         if (checker(number)) {
             console.log(number);
             console.log("Correct");
@@ -81,6 +84,7 @@ export default class PlayingField extends React.Component {
         else {
             console.log("GE SUCKT BALLZ")
             if (timer) { clearInterval(timer); }
+            if (sliderTimer) { clearInterval(sliderTimer); }
             const resetAction = NavigationActions.reset({
                 index: 2,
                 actions: [
@@ -91,10 +95,12 @@ export default class PlayingField extends React.Component {
             });
             this.props.navigation.dispatch(resetAction);
         }
+        this.setState({ filled: PARTS });
     }
 
     handleBackButton() {
         console.log("back button pressed");
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);  
         const resetAction = NavigationActions.reset({
             index: 1,
             actions: [
@@ -102,23 +108,26 @@ export default class PlayingField extends React.Component {
                 NavigationActions.navigate({ routeName: 'Menu' }),
                 // Here put ge uw lost screen
             ]
-        });
-        const { timer } = this.state;
+        });        
+        const { timer, sliderTimer } = this.state;
         if (timer) { clearInterval(timer); }
+        if (sliderTimer) { clearInterval(sliderTimer); }
         this.props.navigation.dispatch(resetAction);
         return true;
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.props.interval *0.9) / PARTS);
         const timer = setInterval(() => this.nextRow(), this.props.interval);
-        this.setState({ timer });
+        this.setState({ timer, sliderTimer });
+    }
+
+    componentWillUnmount() {
+        const { timer, sliderTimer } = this.state;
+        if (timer) { clearInterval(timer); }
+        if (sliderTimer) { clearInterval(sliderTimer); }
     }
     
-    componentWillUnMount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);        
-        const { timer } = this.state;
-        if (timer) { clearInterval(timer); }
-    }
 
     render() {
         return (
@@ -145,10 +154,7 @@ export default class PlayingField extends React.Component {
                 <View style={styles.field}>
                     <Grid currentRow={this.state.currentRow} data={NUMBERS} onClick={(number) => this.handleClick(number)}/>
                 </View>
-                <View style={styles.end}>
-                    <MaterialCommunityIcons name={"pause"} size={30} color={"#e67e22"}/>
-                </View>
-
+                <BottomTimer total={PARTS} filled={this.state.filled}/>
             </View>
         );
     }
@@ -182,8 +188,6 @@ const styles = StyleSheet.create({
         borderWidth: 3
     },
     header: {
-
-        fontFamily: 'proxima',
         flex: 2,
         flexDirection: 'row',
         backgroundColor: '#95a5a6'
@@ -192,10 +196,4 @@ const styles = StyleSheet.create({
         flex: 10,
         backgroundColor: 'white'
     },
-    end: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 60,
-        backgroundColor: '#e74c3c'
-    }
 });

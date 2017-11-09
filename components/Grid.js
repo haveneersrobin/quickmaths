@@ -75,7 +75,7 @@ class Grid extends Component {
         return this
             .props
             .data[index]
-            .map((number, idx) => <NumberBox isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}><NumberCell isLast={isLast}>{number}</NumberCell></NumberBox> );
+            .map((number, idx) => <NumberBox key={idx} isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}><NumberCell isLast={isLast}>{number}</NumberCell></NumberBox> );
     };
 
     
@@ -83,7 +83,7 @@ class Grid extends Component {
         const rows = [];
         for (let i = this.props.currentRow - this.props.height + 1; i <= this.props.currentRow; i++) {
             const isLast = (i === this.props.currentRow);
-            rows.push( <Row isLast={isLast} key = {i}>{this.renderRow(i, isLast)}</Row>);
+            rows.push( <Row isLast={isLast} key={i}>{this.renderRow(i, isLast)}</Row>);
         }
         return rows;
     };
