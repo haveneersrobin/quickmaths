@@ -19,7 +19,7 @@ function createEmptyGrid(nbCols, levelLength) {
  * @param {*} solution - The solution of the level
  * @param {*} maxNumber - The heighest possible number to be generated
  */
-function createSumGridOLD(nbCols, levelLength, solution, maxNumber) {
+/* function createSumGridOLD(nbCols, levelLength, solution, maxNumber) {
 
     const fillRate = 0.75; // The ratio of filled tiles to total tiles
     const correctRate = 0.33 // The ratio of correct tiles to filled tiles
@@ -118,14 +118,13 @@ function createSumGridOLD(nbCols, levelLength, solution, maxNumber) {
     result[0] = grid;
     result[1] = resultMap;
     return result;
-}
+} */
 
 // General Helper Functions
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Tweede versie
 /**
  * 
  * @param {*} nbCols - The width of the grid
@@ -135,12 +134,13 @@ function getRandomInt(min, max) {
  */
 function createSumGrid(nbCols, levelLength, solution, maxNumber) {
 
-    const fillRate = 0.8; // The ratio of filled tiles to total tiles
-    const correctRate = 0.33 // The ratio of correct tiles to filled tiles
+    const fillRate = 0.7; // The ratio of filled tiles to total tiles
+    const correctRate = 0.45; // The ratio of correct tiles to filled tiles
 
     // Init result
     var result = {
-        objective: solution,
+        objective: 'Welke uitkomst is ' + solution + '?',
+        numericSolution: solution,
         grid: []
     }
 
@@ -155,6 +155,8 @@ function createSumGrid(nbCols, levelLength, solution, maxNumber) {
     while (i < levelLength) {
         // Reset hasCorrectTile flag
         hasCorrectTile = false;
+        // Clear temp var currentRow
+        currentRow = [];
         for (var j = 0; j < nbCols; j++) {
 
             // Init columnElem
@@ -162,7 +164,8 @@ function createSumGrid(nbCols, levelLength, solution, maxNumber) {
             // numResult = result of given string (int)
             var currentElem = {
                 string: '',
-                numResult: -1
+                numResult: -1,
+                correct: false
             }
 
             // Generate random number
@@ -175,22 +178,8 @@ function createSumGrid(nbCols, levelLength, solution, maxNumber) {
                 currentNum = -1;
             }
 
-            // Logic about tile filling
-            if (!hasCorrectTile && currentNum != -1) {
-                // Test whether to fill with correct number or not
-                if (Math.random() <= correctRate) {
-                    // Set flag and generate parts of sum
-                    hasCorrectTile = true;
-                    var randPart = getRandomInt(0, solution);
-                    var counterPart = solution - randPart;
-
-                    currentElem.string = randPart + '+' + counterPart;
-                    currentElem.numResult = solution;
-                }
-            }
-
             // Edge case: randomly generated number is equal to the solution
-            else if (!hasCorrectTile && currentNum === solution) {
+            if (!hasCorrectTile && currentNum === solution) {
                 // Set flag and generate parts of sum
                 hasCorrectTile = true;
                 var randPart = getRandomInt(0, currentNum);
@@ -198,6 +187,31 @@ function createSumGrid(nbCols, levelLength, solution, maxNumber) {
 
                 currentElem.string = randPart + '+' + counterPart;
                 currentElem.numResult = currentNum; // === solution
+                currentElem.correct = true;
+            }
+
+            // Logic about tile filling
+            else if (!hasCorrectTile && currentNum != -1) {
+                // Test whether to fill with correct number or not
+                if (Math.random() <= correctRate) {
+                    // Add correct tile
+                    // Set flag and generate parts of sum
+                    hasCorrectTile = true;
+                    var randPart = getRandomInt(0, solution);
+                    var counterPart = solution - randPart;
+
+                    currentElem.string = randPart + '+' + counterPart;
+                    currentElem.numResult = solution;
+                    currentElem.correct = true;
+                }
+                else {
+                    // Else generate parts of sum of wrong tile
+                    var randPart = getRandomInt(0, currentNum);
+                    var counterPart = currentNum - randPart;
+
+                    currentElem.string = randPart + '+' + counterPart;
+                    currentElem.numResult = currentNum
+                }
             }
 
             else if (currentNum != -1) {
@@ -215,18 +229,131 @@ function createSumGrid(nbCols, levelLength, solution, maxNumber) {
         }
 
         // Check if row is empty
-        var empty = true;
-        for (elem in currentRow) {
-            if (elem.numResult !== -1) {
-                empty = false;
+        var filled = false;
+        for (var k = 0; k < nbCols; k++) {
+            if (currentRow[k].numResult !== -1) {
+                filled = true;
             }
         }
 
         // if row is empty, try again (don't increment i)
         // if row is not empty, write to grid and increment i
-        if (!empty) {
+        if (filled) {
             result.grid.push(currentRow);
-            currentRow = []; // Clear temp var currentRow
+            i++; // Increment row counter
+        }
+    }
+    return result;
+}
+
+/**
+ * 
+ * @param {*} nbCols - The width of the grid
+ * @param {*} levelLength - The height of the grid
+ * @param {*} divider - The number by what the numbers in the grid have to be dividable
+ * @param {*} maxNumber - The heighest possible number to be generated
+ */
+function createModuloGrid(nbCols, levelLength, divider, maxNumber) {
+
+    const fillRate = 0.7; // The ratio of filled tiles to total tiles
+    const correctRate = 0.45; // The ratio of correct tiles to filled tiles
+
+    // Init result
+    // grid contains the numbers, and a boolean if a tile is a correct answer
+    var result = {
+        objective: 'Welk getal is deelbaar door ' + divider + '?',
+        grid: []
+    }
+
+    var hasCorrectTile = false; // Denotes whether a row already has a correct tile
+    // currentRow will be added to the grid elem of result
+    var currentRow = [];
+    // denotes whether a tile will be filled
+    var fillTile = false;
+    // Temp var to generate new number into
+    var currentNum = 0;
+
+    // Iterate over each row
+    var i = 0;
+    while (i < levelLength) {
+        // Reset hasCorrectTile flag
+        hasCorrectTile = false;
+        // Clear temp var currentRow
+        currentRow = [];
+        for (var j = 0; j < nbCols; j++) {
+
+            // Clear temp var currentNum
+            currentNum = 0;
+
+            // Init columnElem
+            // string = string representation on grid
+            // correct = denotes whether a tile is correct or not (bool)
+            var currentElem = {
+                string: '',
+                correct: false
+            }
+
+            // Calculate whether to fill tile
+            if (Math.random() <= fillRate) {
+                fillTile = true;
+            }
+            else {
+                // Else don't fill tile
+                fillTile = false;
+            }
+
+            // Logic about tile filling
+            if (!hasCorrectTile && fillTile) {
+                // Test whether to fill with correct number or not
+                if (Math.random() <= correctRate) {
+                    // Add correct tile
+                    // Set flag
+                    hasCorrectTile = true;
+                    // Fill tile
+                    // Get random number to multiply with
+                    currentNum = getRandomInt(1, 10) * divider;
+                    currentElem.string = currentNum;
+                    currentElem.correct = true;
+                }
+                else {
+                    // Add wrong tile
+                    // Get random number to fill tile
+                    // Make sure the random number is not dividable by divider
+                    while (currentNum % divider === 0) {
+                        currentNum = getRandomInt(1, maxNumber)
+                    }
+                    currentElem.string = currentNum
+                    currentElem.correct = false;
+                }
+            }
+
+            else if (fillTile) {
+                // Get random number to fill tile
+                // Make sure the random number is not dividable by divider
+                while (currentNum % divider === 0) {
+                    currentNum = getRandomInt(1, maxNumber)
+                }
+                currentElem.string = currentNum
+                currentElem.correct = false;
+            }
+            // Else leave elem as default, no action needed
+
+            // Push new elemenent into row
+            currentRow.push(currentElem);
+        }
+
+        // Check if row is empty
+        var filled = false;
+        for (var k = 0; k < nbCols; k++) {
+            if (currentRow[k].string !== -1) {
+                filled = true;
+            }
+        }
+
+        // if row is empty, try again (don't increment i)
+        // if row is not empty, write to grid and increment i
+        if (filled) {
+            result.grid.push(currentRow);
             i++; // Increment row counter
         }
     }
