@@ -16,6 +16,18 @@ const NUMBERS = [
     [
         4, 6, 7
     ],
+    [
+        1, 2, 3
+    ],
+    [
+        4, 6, 7
+    ],
+    [
+        1, 2, 3
+    ],
+    [
+        4, 6, 7
+    ],
     
 ];
 
@@ -90,7 +102,6 @@ export default class PlayingField extends React.Component {
             actions: [
                 NavigationActions.navigate({ routeName: 'Home' }),
                 NavigationActions.navigate({ routeName: 'Menu' }),
-                // Here put ge uw lost screen
             ]
         });        
         const { timer, sliderTimer } = this.state;
@@ -124,14 +135,14 @@ export default class PlayingField extends React.Component {
                     </View>
                     <View style={styles.rest}>
                         <View style={styles.aux}>
-                            <Text>
-                                03:14
-                            </Text>
+                            <QuestionText>
+                                Resterend: {this.state.currentRow+1}/{NUMBERS.length}
+                            </QuestionText>
                         </View>
                         <View style={styles.aux}>
-                            <Text>
+                            <QuestionText>
                                 Level 1
-                            </Text>
+                            </QuestionText>
                         </View>
                     </View>
                 </View>
@@ -150,6 +161,7 @@ const styles = StyleSheet.create({
     },
 
     aux: {
+        backgroundColor:'#E7E8EA',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

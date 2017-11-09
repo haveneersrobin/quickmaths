@@ -17,7 +17,7 @@ const NumberBox = styled(TouchableOpacity).attrs({
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
-    border: 1px solid black;
+    border: 1px solid #2A435C;
     background-color: ${props => props.selected ? "#5688B3" : "transparent"}
     height:100%;
 `;
@@ -28,7 +28,7 @@ const Row = styled.View `
     justify-content: center;
     align-items: center;
     background-color: ${props => props.isLast ? "#A1C1B9" : "white" };; 
-    border: ${props => props.isLast ? "4px solid #2A435C " : "1px solid black" };
+    border: ${props => props.isLast ? "4px solid #2A435C " : "1px solid #2A435C" };
 `;
 
 const NumberCell = styled.Text`

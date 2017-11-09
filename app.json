@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "quickmaths",
-    "description": "An empty new project",
-    "slug": "quickmaths",
+    "name": "Quick Maths",
+    "description": "Test je wiskunde-snelheden in deze puzzel tegen de tijd!",
+    "slug": "hciproject-quickmaths",
     "privacy": "public",
     "sdkVersion": "22.0.0",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
-    "primaryColor": "#cccccc",
     "icon": "./assets/img/logo.png",
     "splash": {
       "image": "./assets/img/splash.png",
@@ -18,10 +17,14 @@
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
+      "bundleIdentifier": "cs.hciproject.quickmaths",      
       "supportsTablet": true
     },
+    "android": {
+      "package": "cs.hciproject.quickmaths",
+    },
     "loading": {
-      "icon": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png"
+      "icon": "./assets/img/logo.png"
     }
   }
 }
