@@ -27,24 +27,26 @@ const BackdropImage = styled.Image`
 const Logo = styled.Image`
     backgroundColor: transparent;
     align-items: center;
-    width: 360;
     height: 360;
     margin-top: 130;
 `;
 
 const LogoContainer = styled.View`
-    flex: 2;
-    align-items: center;
-`;
-
-const ButtonContainer = styled.View`
     flex: 1;
     align-items: center;
 `;
 
+const WinText = styled.Text`
+    font-size: 40;
+    color: #2A435C;
+    font-family: 'proxima';
+    width: 50%;
+    text-align: center;
+`;
 
 
-export default class HomeScreen extends React.Component {
+
+export default class Won extends React.Component {
       render() { 
         const { navigate } = this.props.navigation;
         return (
@@ -54,11 +56,17 @@ export default class HomeScreen extends React.Component {
                 </BackgroundContainer>
                 <Overlay>
                     <LogoContainer>
-                        <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
+                        <Logo style={{width:250, height:250}} resizeMode = 'contain' source = {require('../assets/img/won.gif')} />
                     </LogoContainer>
-                    <ButtonContainer>
-                        <ImgButton margin={0} onPress={() =>navigate('Menu')} fontSize={30} image={require('../assets/buttons/enter.png')}/>
-                    </ButtonContainer>
+                    <View style={[{flex:1}, {alignItems: 'center'},{flexDirection:'column'},{justifyContent:'space-around'},{marginTop:-0}]}>
+                        <WinText style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}]}>
+                            <Text> Proficiat, je hebt gewonnen!</Text>
+                        </WinText>
+                        <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'center'}]}>
+                            <ImgButton margin={10} onPress={() => navigate('Home')} fontSize={30} image={require('../assets/buttons/home-small.png')}/>
+                            <ImgButton margin={10} image={require('../assets/buttons/next.png')}/>
+                        </View>
+                    </View>
                 </Overlay>
             </Container>
         );

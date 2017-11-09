@@ -1,8 +1,86 @@
 import React from 'react';
 import BigButton from '../components/BigButton';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import ImgButton from '../components/ImageButton';
+import styled from 'styled-components/native';
+
+const BackgroundContainer = styled.View`
+  position: absolute;
+`;
+
+const Overlay = styled.View`
+  flex:1;
+  flex-direction: column;
+`;
+
+const Container = styled.View`
+  flex: 1;
+  flex-direction:column;
+  align-items: center;
+`;
+
+const BackdropImage = styled.Image`
+  flex-direction: column;
+  opacity: 0.5;
+`;
+
+const Logo = styled.Image`
+  backgroundColor: transparent;
+  align-items: center;
+  width: 150;
+  height: 150;
+  margin-top: 130;
+`;
+
+const LogoContainer = styled.View`
+  flex: 1;
+  align-items: center;
+`;
+
+const ButtonContainer = styled.View`
+  margin-top:70px;
+  flex: 2;
+  align-items: center;
+`;
+
+
 
 export default class Menu extends React.Component {
+  render() { 
+    const resizeMode = 'center';
+    const text = 'This is some text inlaid in an <Image />';
+    const { navigate } = this.props.navigation;
+    return (
+        <Container>
+            <BackgroundContainer>
+                <BackdropImage source = {require('../assets/img/background.jpg')} resizeMode = 'cover'/>
+            </BackgroundContainer>
+            <Overlay>
+                <LogoContainer>
+                    <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
+                </LogoContainer>
+                <ButtonContainer>
+                    <ImgButton margin={20} onPress={() => navigate('Question')} fontSize={30} image={require('../assets/buttons/play.png')}/>
+                    <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/highscores.png')}/>
+                    <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}]}>
+                      <ImgButton margin={20} onPress={() => navigate('Profile', 
+                          {user:'Sander, Mathias, Robin en Laurens',
+                           playerstatus:'Speed Master',
+                           img:'../assets/img/icon.png'
+                          })}  fontSize={30} image={require('../assets/buttons/profile.png')}/>
+                      <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/settings.png')}/>
+                    </View>
+                </ButtonContainer>
+            </Overlay>
+        </Container>
+    );
+  }
+}
+
+
+
+
+{/*export default class Menu extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
@@ -36,7 +114,7 @@ export default class Menu extends React.Component {
               onPress={() => navigate('Profile', 
                           {user:'Sander, Mathias, Robin en Laurens',
                            playerstatus:'Speed Junkie',
-                           img:'../assets/icon.png'
+                           img:'../assets/img/icon.png'
                           })} 
               style={styles.bottomButton}
               icon="face-profile"
@@ -120,4 +198,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0
   }
-});
+});*/}

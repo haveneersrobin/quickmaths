@@ -1,42 +1,7 @@
 import React, {Component} from 'react';
 import { TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-const NUMBERS = [
-    [
-        1, 2, 3
-    ],
-    [
-        4, 6, 7
-    ],
-    [
-        8,"", 0
-    ],
-    [
-        10, 3, 1
-    ],
-    [
-        3, 1,""
-    ],
-    [
-        0, 1, 3
-    ],
-    [
-        1, 2, 3
-    ],
-    [
-        4, 6, 7
-    ],
-    [
-        8, 9, 0
-    ],
-    [
-        10, 3, 1
-    ],
-    [
-        3, 1, 2
-    ],
-    [0, 1, 3]
-];
+
 
 const Container = styled.View `
     flex: 1;
@@ -45,14 +10,16 @@ const Container = styled.View `
 
 `;
 
-const NumberBox = styled(TouchableOpacity)`
+const NumberBox = styled(TouchableOpacity).attrs({
+        activeOpacity:1
+    })`
     flex: 1;
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
     border: 1px solid black;
+    background-color: ${props => props.selected ? "#5688B3" : "transparent"}
     height:100%;
-    ${props => props.isLast && "background-color: #95a5a6;" }
 `;
 
 const Row = styled.View `
@@ -60,41 +27,43 @@ const Row = styled.View `
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #ecf0f1; 
-    border: ${props => props.isLast ? "3px solid yellow" : "1px solid black" };
+    background-color: ${props => props.isLast ? "#A1C1B9" : "white" };; 
+    border: ${props => props.isLast ? "4px solid #2A435C " : "1px solid black" };
 `;
 
 const NumberCell = styled.Text`
+    font-family: 'proxima';
     text-align:center;
     font-size: 80px;
-    color: #34495e;
+    color: ${props => props.isLast ? "#34495e" : "#5688B3" };
 `;
 
 class Grid extends Component {
-    componentDidMount() {
-        setInterval(() => this.nextRow(), 2000);
-    }
+
     static defaultProps = {
-        height: 5,
-        data: NUMBERS,
-        onClick: console.log
+        data: [],
+        onClick: console.log,
+        currentRow: 0,
+        height: 5
     };
 
     constructor(props) {
         super(props);
-        this.state = {
-            currentRow: this.props.data.length - this.props.height - 1
-        };
+        this.state = { selectedTileinRow: -1}
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.currentRow !== nextProps.currentRow) {
+            this.setState({ selectedTileinRow: -1 });
+        }
     }
     
 
-    isFinished() {
-        return this.state.currentRow === 0;
+    onClick(number, selected) {
+        this.setState({ selectedTileinRow: selected});
+        this.props.onClick(number);
     }
 
-    nextRow() {
-        this.setState({currentRow: Math.max(this.state.currentRow - 1, 1 - this.props.height)});
-    }
 
     renderRow(index, isLast) {
         if (index < 0) {
@@ -106,15 +75,15 @@ class Grid extends Component {
         return this
             .props
             .data[index]
-            .map((number, idx) => <NumberBox isLast={isLast} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.props.onClick(number)}><NumberCell>{number}</NumberCell></NumberBox> );
+            .map((number, idx) => <NumberBox key={idx} isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}><NumberCell isLast={isLast}>{number}</NumberCell></NumberBox> );
     };
 
     
     renderRows() {
         const rows = [];
-        for (let i = this.state.currentRow; i < this.state.currentRow + this.props.height; i++) {
-            const isLast = (i === (this.state.currentRow + this.props.height -1 ));
-            rows.push( <Row isLast={isLast} key = {i}>{this.renderRow(i, isLast)}</Row>);
+        for (let i = this.props.currentRow - this.props.height + 1; i <= this.props.currentRow; i++) {
+            const isLast = (i === this.props.currentRow);
+            rows.push( <Row isLast={isLast} key={i}>{this.renderRow(i, isLast)}</Row>);
         }
         return rows;
     };

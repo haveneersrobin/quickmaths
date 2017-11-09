@@ -1,11 +1,15 @@
+import {StyleSheet, Text, View, Button, StatusBar} from 'react-native';
+import {StackNavigator, Easing} from 'react-navigation';
 import { Font } from 'expo';
 import React from 'react';
-import {StackNavigator, Easing} from 'react-navigation';
-import {StyleSheet, Text, View, Button, StatusBar} from 'react-native';
-import HomeScreen from './screens/HomeScreen';
-import Menu from './screens/Menu';
-import PlayingField from './screens/PlayingField';
+
 import ProfileScreen from './screens/ProfileScreen';
+import PlayingField from './screens/PlayingField';
+import HomeScreen from './screens/HomeScreen';
+import GameOver from './screens/GameOver';
+import Question from './screens/Question';
+import Menu from './screens/Menu';
+import Won from './screens/Won';
 
 const Navigator = StackNavigator({
   Home: {
@@ -19,6 +23,15 @@ const Navigator = StackNavigator({
   },
   Profile: {
     screen: ProfileScreen
+  },
+  GameOver: {
+    screen: GameOver
+  },
+  Question: {
+    screen: Question
+  },
+  Won: {
+    screen: Won
   }
 }, {headerMode: 'null'});
 
@@ -29,6 +42,8 @@ export default class App extends React.Component {
   async componentDidMount () {
     await Font.loadAsync({
       'lovelo': require('./assets/fonts/Lovelo-Black.ttf'),
+      'roboto': require('./assets/fonts/Roboto-Light.ttf'),
+      'proxima': require('./assets/fonts/Proxima.ttf'),
     })
     console.log('font loaded!!')
     this.setState({ fontLoaded: true });
