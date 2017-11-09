@@ -59,8 +59,8 @@ class Grid extends Component {
     }
     
 
-    onClick(number, index) {
-        this.setState({ selectedTileinRow: index});
+    onClick(number, selected) {
+        this.setState({ selectedTileinRow: selected});
         this.props.onClick(number);
     }
 

@@ -16,34 +16,7 @@ const NUMBERS = [
     [
         4, 6, 7
     ],
-    [
-        8,"", 0
-    ],
-    [
-        10, 3, 1
-    ],
-    [
-        3, 1,""
-    ],
-    [
-        0, 1, 3
-    ],
-    [
-        1, 2, 3
-    ],
-    [
-        4, 6, 7
-    ],
-    [
-        8, 9, 0
-    ],
-    [
-        10, 3, 1
-    ],
-    [
-        3, 1, 2
-    ],
-    [0, 1, 3]
+    
 ];
 
 const QuestionText = styled.Text`
@@ -71,18 +44,29 @@ export default class PlayingField extends React.Component {
     }
 
     nextRow() {
+        console.log("current" + this.state.currentRow);
         const { checker } = this.props;
         const { number, timer, sliderTimer } = this.state;
-        if (checker(number)) {
-            console.log(number);
-            console.log("Correct");
+        if (this.state.currentRow >= 1 && checker(number)) {
             this.setState({
                 currentRow: this.state.currentRow - 1,
                 number: undefined,
             });
         }
+        else if(this.state.currentRow === 0 && checker(number)) {
+            if (timer) { clearInterval(timer); }
+            if (sliderTimer) { clearInterval(sliderTimer); }
+            const resetAction = NavigationActions.reset({
+                index: 2,
+                actions: [
+                    NavigationActions.navigate({ routeName: 'Home' }),
+                    NavigationActions.navigate({ routeName: 'Menu' }),
+                    NavigationActions.navigate({ routeName: 'Won' }),
+                ]
+            });
+            this.props.navigation.dispatch(resetAction);
+        }
         else {
-            console.log("GE SUCKT BALLZ")
             if (timer) { clearInterval(timer); }
             if (sliderTimer) { clearInterval(sliderTimer); }
             const resetAction = NavigationActions.reset({
@@ -152,7 +136,7 @@ export default class PlayingField extends React.Component {
                     </View>
                 </View>
                 <View style={styles.field}>
-                    <Grid currentRow={this.state.currentRow} data={NUMBERS} onClick={(number) => this.handleClick(number)}/>
+                    <Grid currentRow={this.state.currentRow} data={NUMBERS} onClick={(number) => this.handleClick(number)} />
                 </View>
                 <BottomTimer total={PARTS} filled={this.state.filled}/>
             </View>

@@ -1,13 +1,15 @@
+import {StyleSheet, Text, View, Button, StatusBar} from 'react-native';
+import {StackNavigator, Easing} from 'react-navigation';
 import { Font } from 'expo';
 import React from 'react';
-import {StackNavigator, Easing} from 'react-navigation';
-import {StyleSheet, Text, View, Button, StatusBar} from 'react-native';
-import HomeScreen from './screens/HomeScreen';
-import Menu from './screens/Menu';
-import PlayingField from './screens/PlayingField';
+
 import ProfileScreen from './screens/ProfileScreen';
+import PlayingField from './screens/PlayingField';
+import HomeScreen from './screens/HomeScreen';
 import GameOver from './screens/GameOver';
 import Question from './screens/Question';
+import Menu from './screens/Menu';
+import Won from './screens/Won';
 
 const Navigator = StackNavigator({
   Home: {
@@ -27,6 +29,9 @@ const Navigator = StackNavigator({
   },
   Question: {
     screen: Question
+  },
+  Won: {
+    screen: Won
   }
 }, {headerMode: 'null'});
 

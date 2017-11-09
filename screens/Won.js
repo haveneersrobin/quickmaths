@@ -36,9 +36,17 @@ const LogoContainer = styled.View`
     align-items: center;
 `;
 
+const WinText = styled.Text`
+    font-size: 40;
+    color: #2A435C;
+    font-family: 'proxima';
+    width: 50%;
+    text-align: center;
+`;
 
 
-export default class GameOver extends React.Component {
+
+export default class Won extends React.Component {
       render() { 
         const { navigate } = this.props.navigation;
         return (
@@ -48,12 +56,15 @@ export default class GameOver extends React.Component {
                 </BackgroundContainer>
                 <Overlay>
                     <LogoContainer>
-                        <Logo style={{width:250, height:250}} resizeMode = 'contain' source = {require('../assets/img/game-over.png')} />
+                        <Logo style={{width:250, height:250}} resizeMode = 'contain' source = {require('../assets/img/won.gif')} />
                     </LogoContainer>
-                    <View style={[{flex:1}, {flexDirection:'column'},{justifyContent:'space-around'}]}>
-                        <View style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}, {marginTop:30}]}>
-                            <ImgButton margin={10} onPress={() => navigate('Home')} image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton margin={10} onPress={() => navigate('Field')}  fontSize={30} image={require('../assets/buttons/replay.png')}/>
+                    <View style={[{flex:1}, {alignItems: 'center'},{flexDirection:'column'},{justifyContent:'space-around'},{marginTop:-0}]}>
+                        <WinText style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}]}>
+                            <Text> Proficiat, je hebt gewonnen!</Text>
+                        </WinText>
+                        <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'center'}]}>
+                            <ImgButton margin={10} onPress={() => navigate('Home')} fontSize={30} image={require('../assets/buttons/home-small.png')}/>
+                            <ImgButton margin={10} image={require('../assets/buttons/next.png')}/>
                         </View>
                     </View>
                 </Overlay>
