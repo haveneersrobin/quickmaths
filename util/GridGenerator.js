@@ -46,7 +46,13 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
             // Generate random number
             if (Math.random() <= fillRate) {
                 // Generate random integer
-                currentNum = getRandomInt(0, maxNumber);
+
+                // Reset temp var currentNum
+                currentNum = solution; // Init with illegal number
+                // Make sure that the random number is not equal to the solution
+                while(currentNum === solution){
+                    currentNum = getRandomInt(0, maxNumber);
+                }
             }
             else {
                 // Else fill in -1.
@@ -125,7 +131,7 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
  * @param {*} solution - The number by what the numbers in the grid have to be dividable
  * @param {*} maxNumber - The heighest possible number to be generated
  * @param {*} levelLength - The height of the grid
- * @param {*} nbCols - The width of the grid
+ * @param {*} nbCols - The width of the grid, default: 3
  */
 function createSumGrid(solution, maxNumber, levelLength, nbCols = 3) {
 
@@ -263,7 +269,7 @@ function getModuloRow(divider, maxNumber, nbCols = 3) {
  * @param {*} divider - The number by what the numbers in the grid have to be dividable
  * @param {*} maxNumber - The heighest possible number to be generated
  * @param {*} levelLength - The height of the grid
- * @param {*} nbCols - The width of the grid
+ * @param {*} nbCols - The width of the grid, default: 3
  */
 function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
     // Init result
@@ -277,4 +283,33 @@ function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
         result.grid.push(getModuloRow(divider, maxNumber, nbCols));
     }
     return result;
+}
+
+/**
+ * Returns a grid of a random type, given a specified difficulty
+ * @param {*} difficulty - A number between 1 and 10, denoting how large the numbers get
+ * @param {*} levelLength - The height of the grid
+ * @param {*} nbCols - The width of the grid, default: 3
+ */
+function getRandomGridByDiff(difficulty, levelLength, nbCols =3){
+    // First, generate the kind of level
+    const levelKinds = 2;
+    switch(getRandomInt(1,levelKinds)){
+
+        // Generate Sum Grid
+        case 1:
+            // Set solution, Upperbound fixed: solution * 2
+            var solution = getRandomInt(difficulty*5,difficulty*10);
+            return createSumGrid(solution,solution*2,levelLength,nbCols);
+
+        // Generate Modulo Grid
+        case 2:
+            // Set divider, Upperbound is defined by difficulty
+            var divider = getRandomInt(2,10);
+            var upperBound = difficulty * divider * 3; // Arbitrary, might need tweaking
+            return createModuloGrid(divider,upperBound,levelLength,nbCols);
+
+        default:
+            console.log('Oops, this kind of level does not exist, yet');
+    }
 }
