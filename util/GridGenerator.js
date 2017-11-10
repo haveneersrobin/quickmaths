@@ -2,147 +2,22 @@
  * Grid generator
  */
 
-function createEmptyGrid(nbCols, levelLength) {
-
-    // Create empty grid, given nbCols (x-axis) and levelLength (y-axis)
-    var grid = new Array(nbCols);
-    for (var i = 0; i < nbCols; i++) {
-        grid[i] = new Array(levelLength);
-    }
-    return grid;
-}
-
-/**
- * 
- * @param {*} nbCols - The width of the grid
- * @param {*} levelLength - The height of the grid
- * @param {*} solution - The solution of the level
- * @param {*} maxNumber - The heighest possible number to be generated
- */
-/* function createSumGridOLD(nbCols, levelLength, solution, maxNumber) {
-
-    const fillRate = 0.75; // The ratio of filled tiles to total tiles
-    const correctRate = 0.33 // The ratio of correct tiles to filled tiles
-
-    // Init solution map
-    var resultMap = new Array(nbCols);
-    for (var i = 0; i < nbCols; i++) {
-        resultMap[i] = new Array(levelLength);
-    }
-
-    // Fill solutionMap as false
-    for (var i = 0; i < nbCols; i++) {
-        for (var j = 0; j < levelLength; j++) {
-            resultMap[i][j] = -1; // -1 is the result for empty tiles
-        }
-    }
-
-    // Init grid
-    var grid = new Array(nbCols);
-    for (var i = 0; i < nbCols; i++) {
-        grid[i] = new Array(levelLength);
-    }
-
-    // Fill grid with one space
-    for (var i = 0; i < nbCols; i++) {
-        for (var j = 0; j < levelLength; j++) {
-            grid[i][j] = '';
-        }
-    }
-
-    // Init result
-    var result = {
-        objective: solution,
-        grid: {}
-    }
-
-    // First, generate all random answers
-    var randNums = new Array(nbCols * levelLength);
-    for (var i = 0; i < randNums.length; i++) {
-        // Test wheter a tile needs to be filled (config: fillRate)
-        if (Math.random() <= fillRate) {
-            // Generate random integer
-            randNums[i] = getRandomInt(0, maxNumber);
-        }
-    }
-
-    var hasCorrectTile = false; // Denotes whether a row already has a correct tile
-    // Iterate over each row
-    for (var i = 0; i < levelLength; i++) {
-        // Reset hasCorrectTile flag
-        hasCorrectTile = false;
-        for (var j = 0; j < nbCols; j++) {
-            var currentNum = randNums[i * nbCols + j]; // Contains entry for random number
-            if (Number.isInteger(currentNum) && !hasCorrectTile && currentNum != solution) {
-                // Test whether to fill with correct number or not
-                if (Math.random() <= correctRate) {
-                    // Set flag and generate parts of sum
-                    hasCorrectTile = true;
-                    var randPart = getRandomInt(0, solution);
-                    var counterPart = solution - randPart;
-                    // Parse to string and save to grid
-                    grid[j][i] = randPart + '+' + counterPart;
-                    // Fill in the resultMap
-                    resultMap[j][i] = solution;
-                }
-
-                // Edge case: randomly generated number is equal to the solution
-                else if (currentNum === solution) {
-                    // Set flag and generate parts of sum
-                    hasCorrectTile = true;
-                    var randPart = getRandomInt(0, currentNum);
-                    var counterPart = currentNum - randPart;
-                    // Parse to string and save to grid
-                    grid[j][i] = randPart + '+' + counterPart;
-                    // Fill in the resultMap
-                    resultMap[j][i] = currentNum; // === solution
-                }
-
-                // Else generate parts of sum of wrong tile
-                else if (Number.isInteger(currentNum)) {
-                    var randPart = getRandomInt(0, currentNum);
-                    var counterPart = currentNum - randPart;
-                    // Parse to string and save to grid
-                    grid[j][i] = randPart + '+' + counterPart;
-                    // Fill in the resultMap
-                    resultMap[j][i] = currentNum; // Random number as wrong solution
-
-                }
-                // else leave tile blank, no parsing needed
-            }
-        }
-    }
-
-    // Init resultArray: result[0] = grid, result[1] = solutionMap
-    var result = new Array(2);
-    result[0] = grid;
-    result[1] = resultMap;
-    return result;
-} */
-
 // General Helper Functions
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
- * 
- * @param {*} nbCols - The width of the grid
- * @param {*} levelLength - The height of the grid
- * @param {*} solution - The solution of the level
- * @param {*} maxNumber - The heighest possible number to be generated
+ * Creates a row with sum questions
+ * @param {*} solution - The desired solution
+ * @param {*} maxNumber - The upper bound of results to be generated
+ * @param {*} nbCols - The amount of columns on the grid, default: 3
  */
-function createSumGrid(nbCols, levelLength, solution, maxNumber) {
+function getSumRow(solution, maxNumber, nbCols = 3) {
 
+    // Init constants
     const fillRate = 0.7; // The ratio of filled tiles to total tiles
     const correctRate = 0.45; // The ratio of correct tiles to filled tiles
-
-    // Init result
-    var result = {
-        objective: 'Welke uitkomst is ' + solution + '?',
-        numericSolution: solution,
-        grid: []
-    }
 
     var hasCorrectTile = false; // Denotes whether a row already has a correct tile
     // currentRow will be added to the grid elem of result
@@ -150,9 +25,9 @@ function createSumGrid(nbCols, levelLength, solution, maxNumber) {
     // currentNum is the randomly generated integer
     var currentNum = -1; // Default number
 
-    // Iterate over each row
+    // Generate only one row
     var i = 0;
-    while (i < levelLength) {
+    while (i < 1) {
         // Reset hasCorrectTile flag
         hasCorrectTile = false;
         // Clear temp var currentRow
@@ -237,33 +112,56 @@ function createSumGrid(nbCols, levelLength, solution, maxNumber) {
         }
 
         // if row is empty, try again (don't increment i)
-        // if row is not empty, write to grid and increment i
+        // if row is not empty, increment i => end loop
         if (filled) {
-            result.grid.push(currentRow);
-            i++; // Increment row counter
+            i++; // Increment row counter, row is OK
         }
     }
-    return result;
+    return currentRow;
 }
 
 /**
- * 
- * @param {*} nbCols - The width of the grid
- * @param {*} levelLength - The height of the grid
- * @param {*} divider - The number by what the numbers in the grid have to be dividable
+ * Creates a grid (levelLength x nbCols) with sum questions
+ * @param {*} solution - The number by what the numbers in the grid have to be dividable
  * @param {*} maxNumber - The heighest possible number to be generated
+ * @param {*} levelLength - The height of the grid
+ * @param {*} nbCols - The width of the grid
  */
-function createModuloGrid(nbCols, levelLength, divider, maxNumber) {
+function createSumGrid(solution, maxNumber, levelLength, nbCols = 3) {
 
     const fillRate = 0.7; // The ratio of filled tiles to total tiles
     const correctRate = 0.45; // The ratio of correct tiles to filled tiles
 
     // Init result
-    // grid contains the numbers, and a boolean if a tile is a correct answer
     var result = {
-        objective: 'Welk getal is deelbaar door ' + divider + '?',
+        objective: 'Welke uitkomst is ' + solution + '?',
+        numericSolution: solution,
         grid: []
     }
+
+    var hasCorrectTile = false; // Denotes whether a row already has a correct tile
+    // currentRow will be added to the grid elem of result
+    var currentRow = [];
+    // currentNum is the randomly generated integer
+    var currentNum = -1; // Default number
+
+    // Fill levelLength amount of rows
+    for (var i = 0; i < levelLength; i++) {
+        result.grid.push(getSumRow(solution, maxNumber, nbCols));
+    }
+    return result;
+}
+
+/**
+ * Creates a row with modulo questions
+ * @param {*} divider - The desired divider
+ * @param {*} maxNumber - The upper bound of results to be generated
+ * @param {*} nbCols - The amount of columns on the grid, default: 3
+ */
+function getModuloRow(divider, maxNumber, nbCols = 3) {
+    // Init const values
+    const fillRate = 0.7; // The ratio of filled tiles to total tiles
+    const correctRate = 0.45; // The ratio of correct tiles to filled tiles
 
     var hasCorrectTile = false; // Denotes whether a row already has a correct tile
     // currentRow will be added to the grid elem of result
@@ -273,9 +171,9 @@ function createModuloGrid(nbCols, levelLength, divider, maxNumber) {
     // Temp var to generate new number into
     var currentNum = 0;
 
-    // Iterate over each row
+    // Only one row to be generated
     var i = 0;
-    while (i < levelLength) {
+    while (i < 1) {
         // Reset hasCorrectTile flag
         hasCorrectTile = false;
         // Clear temp var currentRow
@@ -345,17 +243,38 @@ function createModuloGrid(nbCols, levelLength, divider, maxNumber) {
         // Check if row is empty
         var filled = false;
         for (var k = 0; k < nbCols; k++) {
-            if (currentRow[k].string !== -1) {
+            if (currentRow[k].string !== '') {
+                // String is not empty => Tile is not empty
                 filled = true;
             }
         }
 
         // if row is empty, try again (don't increment i)
-        // if row is not empty, write to grid and increment i
+        // if row is not empty, increment i => end loop
         if (filled) {
-            result.grid.push(currentRow);
             i++; // Increment row counter
         }
+    }
+    return currentRow;
+}
+
+/**
+ * Creates a grid (levelLength x nbCols) with modulo questions.
+ * @param {*} divider - The number by what the numbers in the grid have to be dividable
+ * @param {*} maxNumber - The heighest possible number to be generated
+ * @param {*} levelLength - The height of the grid
+ * @param {*} nbCols - The width of the grid
+ */
+function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
+    // Init result
+    // grid contains the numbers, and a boolean if a tile is a correct answer
+    var result = {
+        objective: 'Welk getal is deelbaar door ' + divider + '?',
+        grid: []
+    }
+
+    for (var i = 0; i < levelLength; i++) {
+        result.grid.push(getModuloRow(divider, maxNumber, nbCols));
     }
     return result;
 }
