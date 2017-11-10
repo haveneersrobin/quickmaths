@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { TouchableOpacity} from 'react-native';
+import { TouchableOpacity, StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
-
+import { BlurView } from 'expo';
 
 const Container = styled.View `
     flex: 1;
@@ -32,10 +32,12 @@ const Row = styled.View `
 `;
 
 const NumberCell = styled.Text`
+    color: transparent;
+    text-shadow-color: rgba(0,0,0,0.8);
+    text-shadow-radius:2px;
     font-family: 'proxima';
     text-align:center;
-    font-size: 80px;
-    color: ${props => props.isLast ? "#34495e" : "#5688B3" };
+    font-size: ${props => props.isLast ? "80px" : "40px" };
 `;
 
 class Grid extends Component {
@@ -75,7 +77,13 @@ class Grid extends Component {
         return this
             .props
             .data[index]
-            .map((number, idx) => <NumberBox key={idx} isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}><NumberCell isLast={isLast}>{number}</NumberCell></NumberBox> );
+            .map((number, idx) => 
+            
+                <NumberBox key={idx} isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}>
+                    <NumberCell isLast={isLast}> 
+                        {number}
+                    </NumberCell>
+                </NumberBox> );
     };
 
     
