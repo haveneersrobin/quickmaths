@@ -5,8 +5,8 @@ import { BlurView } from 'expo';
 
 const Container = styled.View `
     flex: 1;
-    background-color: blue;
-    border: 1px solid black;
+    margin: 6px;
+    background-color: #214868;
 
 `;
 
@@ -17,8 +17,10 @@ const NumberBox = styled(TouchableOpacity).attrs({
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
-    border: 1px solid #2A435C;
-    background-color: ${props => props.selected ? "#5688B3" : "transparent"}
+    border: ${props => props.isMiddle ? "3px solid #566e89" : "0px solid black"}
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    background-color: ${props => props.selected ? "#00213d  " : "transparent"}
     height:100%;
 `;
 
@@ -27,18 +29,25 @@ const Row = styled.View `
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: ${props => props.isLast ? "#A1C1B9" : "white" };; 
-    border: ${props => props.isLast ? "4px solid #2A435C " : "1px solid #2A435C" };
+    border:3px solid #566e89;
+    border-left-width: ${props => props.isLast ? "4px" : "0px" };
+    border-right-width: ${props => props.isLast ? "4px" : "0px" };
+    border-top-width: ${props => props.isLast ? "4px" : "0px" };
+    background-color: ${props => props.isLast ? "#214868" : "#E1E2E1" };
+    
 `;
 
 const NumberCell = styled.Text`
-    color: transparent;
-    text-shadow-color: rgba(0,0,0,0.8);
-    text-shadow-radius:2px;
-    font-family: 'proxima';
+    color: ${props => props.isLast ? "#E1E2E1" : "transparent" };;
+    ${props => props.isLast ? "": "text-shadow-offset: 1px 1px"};
+    ${props => props.isLast ? "" : "text-shadow-color: rgba(33, 72, 104, 0.8)" };
+    ${props => props.isLast ? "" : "text-shadow-radius:10px" };
+    font-family: 'roboto-bold';
     text-align:center;
     font-size: ${props => props.isLast ? "80px" : "40px" };
 `;
+
+const data = [];
 
 class Grid extends Component {
 
@@ -59,31 +68,47 @@ class Grid extends Component {
             this.setState({ selectedTileinRow: -1 });
         }
     }
-    
 
-    onClick(number, selected) {
-        this.setState({ selectedTileinRow: selected});
-        this.props.onClick(number);
+    onClick(correct, selected, row) {
+        if(selected === this.state.selectedTileinRow) {
+            this.setState({ selectedTileinRow: -1});
+            this.props.onClick(undefined, row);
+            
+        }
+        else {  
+            this.setState({ selectedTileinRow: selected});
+            this.props.onClick(correct, row);
+        }
     }
 
 
     renderRow(index, isLast) {
         if (index < 0) {
             return [ <NumberBox><NumberCell/></ NumberBox>,  
-                <NumberBox><NumberCell/></NumberBox>,
+                <NumberBox isMiddle={true} ><NumberCell/></NumberBox>,
                 <NumberBox><NumberCell/></NumberBox>
             ]
         }
-        return this
+        const result = [];
+        for(let i = 0; i < this.props.data[index].length; i++) {
+            result.push(
+                <NumberBox key={i} isLast={isLast} isMiddle={i===1} selected={isLast && this.state.selectedTileinRow === i} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(this.props.data[index][i].correct, i,this.props.data[index])}>
+                    <NumberCell isLast={isLast}> 
+                        {this.props.data[index][i].string}
+                    </NumberCell>
+                </NumberBox> );
+        }
+        return result;
+        {/*return this
             .props
             .data[index]
             .map((number, idx) => 
             
-                <NumberBox key={idx} isLast={isLast} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}>
+                <NumberBox key={idx} isLast={isLast} isMiddle={idx===1} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}>
                     <NumberCell isLast={isLast}> 
                         {number}
                     </NumberCell>
-                </NumberBox> );
+        </NumberBox> );*/}
     };
 
     
@@ -97,7 +122,7 @@ class Grid extends Component {
     };
 
     render() {
-        return (<Container >{this.renderRows()}</Container>);
+        return (<Container elevation={9} >{this.renderRows()}</Container>);
     }
 }
 export default Grid;

@@ -1,109 +1,147 @@
 import React from 'react';
-import {StyleSheet, Text, View, Dimensions, BackHandler} from 'react-native';
-import Button from 'apsl-react-native-button';
 import Grid from '../components/Grid';
-import { NavigationActions } from 'react-navigation';
+import Button from 'apsl-react-native-button';
+import BottomTimer from '../components/BottomTimer';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import BottomTimer from '../components/BottomTimer'
-import styled from 'styled-components/native';
+
+import { NavigationActions } from 'react-navigation';
+import { createSumGrid, createModuloGrid } from '../util/GridGenerator';
+import { QuestionText, RestText, Container, InfoText, InfoContainer, QuestionContainer, Header, Field } from './PlayingFieldStyles';
+import { StyleSheet, Text, View, Dimensions, BackHandler } from 'react-native';
+
 
 const PARTS = 20;
 
-const NUMBERS = [
-    [
-        1, 2, 3
-    ],
-    [
-        4, 6, 7
-    ],
-    [
-        1, 2, 3
-    ],
-    [
-        4, 6, 7
-    ],
-    [
-        1, 2, 3
-    ],
-    [
-        4, 6, 7
-    ],
-    
-];
-
-const QuestionText = styled.Text`
-    font-family: 'proxima';
-    text-align:center;
-    font-size: 30;
-    color: #2A435C;
-`;
-
 export default class PlayingField extends React.Component {
     static defaultProps = {
-        interval: 5000,
-        checker: number => number % 3 === 0,
-        questionText: "Welk getal is deelbaar door 3?"
+        interval:3000,
+        solution: 7,
+        level: 1
     };
 
     constructor(props) {
         super(props);
-        this.state = { currentRow: NUMBERS.length - 1, number: undefined, filled: PARTS };
+        let data = [];
+        const params = this.props.navigation.state.params;
+        console.log("PARAMS " + JSON.stringify(params));
+
+        if(params.question === 'som') {
+            console.log("SOM");
+            data = createSumGrid(params.solution, params.level*8, params.level*5, nbCols = 3).grid;
+        }
+        else if(params.question === 'deling') {
+            console.log("DELING");
+            data = createModuloGrid(params.solution, params.level*8, params.level*5, nbCols = 3).grid;
+        }
+
+        console.log("DATA= " + JSON.stringify(data));
+        
+        this.state = { 
+            currentRow: data.length - 1,
+            data: data,
+            timer : this.props.interval/1000,
+            filled: PARTS};
         this.handleBackButton = this.handleBackButton.bind(this);
     }
-
-    handleClick(number) {
-        this.setState({number});
+    
+    handleClick(correct, row) {
+        this.setState({ correct, row });
     }
 
-    nextRow() {
-        console.log("current" + this.state.currentRow);
-        const { checker } = this.props;
-        const { number, timer, sliderTimer } = this.state;
-        if (this.state.currentRow >= 1 && checker(number)) {
-            this.setState({
-                currentRow: this.state.currentRow - 1,
-                number: undefined,
-            });
+    rowHasTrue(row) {
+        let hasTrue = false;
+        for(let i = 0; i < row.length; i++) {
+            if(row[i].correct === true) {
+                hasTrue = true;
+            }
         }
-        else if(this.state.currentRow === 0 && checker(number)) {
-            if (timer) { clearInterval(timer); }
-            if (sliderTimer) { clearInterval(sliderTimer); }
-            const resetAction = NavigationActions.reset({
-                index: 2,
-                actions: [
-                    NavigationActions.navigate({ routeName: 'Home' }),
-                    NavigationActions.navigate({ routeName: 'Menu' }),
-                    NavigationActions.navigate({ routeName: 'Won' }),
-                ]
-            });
-            this.props.navigation.dispatch(resetAction);
-        }
-        else {
-            if (timer) { clearInterval(timer); }
-            if (sliderTimer) { clearInterval(sliderTimer); }
-            const resetAction = NavigationActions.reset({
-                index: 2,
-                actions: [
-                    NavigationActions.navigate({ routeName: 'Home' }),
-                    NavigationActions.navigate({ routeName: 'Menu' }),
-                    NavigationActions.navigate({ routeName: 'GameOver' }),
-                ]
-            });
-            this.props.navigation.dispatch(resetAction);
-        }
-        this.setState({ filled: PARTS });
+        return hasTrue;
     }
 
-    handleBackButton() {
-        console.log("back button pressed");
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);  
-        const resetAction = NavigationActions.reset({
+    resetNavigatorToMenu(dispatch = true) {
+        const reset =  NavigationActions.reset({
             index: 1,
             actions: [
                 NavigationActions.navigate({ routeName: 'Home' }),
                 NavigationActions.navigate({ routeName: 'Menu' }),
             ]
-        });        
+        });
+        if(dispatch)
+            this.props.navigation.dispatch(reset);
+        else
+            return reset;
+    }
+
+    resetNavigatorToGameResult(whereTo, parameters = undefined) {
+        const reset =  NavigationActions.reset({
+            index: 2,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Home' }),
+                NavigationActions.navigate({ routeName: 'Menu' }),
+                NavigationActions.navigate({ routeName: whereTo, params:parameters }),
+            ]
+        });
+        this.props.navigation.dispatch(reset);
+    }
+
+    nextRow() {
+        const { timer, sliderTimer } = this.state;
+        console.log("CORRECT " + this.state.correct)
+        // 1. GEEN ANTWOORD GESELECTEERD
+        if(this.state.correct === undefined) {
+            // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
+            if(!this.rowHasTrue(this.state.data[this.state.currentRow])) {
+                // 1.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
+                if(this.state.currentRow === 0) {
+                    if (timer) { clearInterval(timer); }
+                    if (sliderTimer) { clearInterval(sliderTimer); }
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
+                }
+                // 1.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
+                else {
+                    this.setState({ currentRow: this.state.currentRow - 1, correct:undefined});
+                }
+            }
+            // 1.2 ER WAS WEL EEN JUIST ANTWOORD => GAME OVER
+            else {
+                if (timer) { clearInterval(timer); }
+                if (sliderTimer) { clearInterval(sliderTimer); }
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
+            }
+        }
+
+        // 2. WEL EEN ANTWOORD GESELECTEERD
+        else {
+            // 2.1 HET GESELECTEERDE ANTWOORD IS JUIST
+            if (this.state.correct === true) {
+                // 2.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
+                if(this.state.currentRow === 0) {
+                    if (timer) { clearInterval(timer); }
+                    if (sliderTimer) { clearInterval(sliderTimer); }
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
+                }
+                // 2.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
+                else {
+                    this.setState({
+                        currentRow: this.state.currentRow - 1,
+                        correct:undefined
+                    });
+                }
+            }
+            // 2.2 HET GESELECTEERDE ANTWOORD IS FOUT
+            else {
+                if (timer) { clearInterval(timer); }
+                if (sliderTimer) { clearInterval(sliderTimer); }
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
+            }
+
+        }
+        this.setState({ filled: PARTS });
+    }
+
+    handleBackButton() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);  
+        const resetAction = this.esetNavigatorToMenu(false);       
         const { timer, sliderTimer } = this.state;
         if (timer) { clearInterval(timer); }
         if (sliderTimer) { clearInterval(sliderTimer); }
@@ -112,6 +150,11 @@ export default class PlayingField extends React.Component {
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        const question = this.props.navigation.state.params.question;
+        const solution = this.props.navigation.state.params.solution;
+        const level = this.props.navigation.state.params.level;
+        this.setState({question, solution, level });
+        
         const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.props.interval *0.9) / PARTS);
         const timer = setInterval(() => this.nextRow(), this.props.interval);
         this.setState({ timer, sliderTimer });
@@ -122,74 +165,46 @@ export default class PlayingField extends React.Component {
         if (timer) { clearInterval(timer); }
         if (sliderTimer) { clearInterval(sliderTimer); }
     }
-    
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <View style={styles.question}>
+            <Container>
+                <Header>
+                    <QuestionContainer elevation={5} >
+                        {this.state.question === 'som' && 
                         <QuestionText>
-                            {this.props.questionText}
+                            Welke som is gelijk aan {this.state.solution} ?
                         </QuestionText>
-                    </View>
-                    <View style={styles.rest}>
-                        <View style={styles.aux}>
-                            <QuestionText>
-                                Resterend: {this.state.currentRow+1}/{NUMBERS.length}
-                            </QuestionText>
-                        </View>
-                        <View style={styles.aux}>
-                            <QuestionText>
-                                Level 1
-                            </QuestionText>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.field}>
-                    <Grid currentRow={this.state.currentRow} data={NUMBERS} onClick={(number) => this.handleClick(number)} />
-                </View>
+                        }
+                        {this.state.question === 'deling' && 
+                        <QuestionText>
+                            Welk getal is deelbaar door {this.state.solution} ?
+                        </QuestionText>
+                        }
+                        {this.state.question !== 'som' && this.state.question !== 'deling' &&
+                        <QuestionText>
+                            Voorlopig gaat er iets mis.
+                        </QuestionText>
+                        }
+                    </QuestionContainer>
+                    <InfoContainer>
+                        <InfoText>
+                            <RestText>
+                                Resterend: {this.state.currentRow+1}/{this.state.data.length}
+                            </RestText>
+                        </InfoText>
+                        <InfoText>
+                            <RestText>
+                                Level: {this.state.level}
+                            </RestText>
+                        </InfoText>
+                    </InfoContainer>
+                </Header>
+                <Field>
+                    <Grid data={this.state.data} currentRow={this.state.currentRow} solution={this.state.solution} onClick={(number) => this.handleClick(number)} />
+                </Field>
                 <BottomTimer total={PARTS} filled={this.state.filled}/>
-            </View>
+            </Container>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-
-    aux: {
-        backgroundColor:'#E7E8EA',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#34495e',
-        borderRadius: 0,
-        borderWidth: 3
-    },
-
-    rest: {
-        flex: 3
-    },
-
-    question: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 5,
-        backgroundColor:'#EAEAEC',
-        borderColor: '#34495e',
-        borderRadius: 0,
-        borderWidth: 3
-    },
-    header: {
-        flex: 2,
-        flexDirection: 'row',
-        backgroundColor: '#95a5a6'
-    },
-    field: {
-        flex: 10,
-        backgroundColor: 'white'
-    },
-});

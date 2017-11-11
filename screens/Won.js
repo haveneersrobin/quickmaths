@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, NetInfo, StyleSheet, Text, View,Image} from 'react-native';
+import { Dimensions, NetInfo, StyleSheet, Text, View,Image, Alert} from 'react-native';
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
 
@@ -63,7 +63,16 @@ export default class Won extends React.Component {
                             <Text> Proficiat, je hebt gewonnen!</Text>
                         </WinText>
                         <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'center'}]}>
-                            <ImgButton margin={10} onPress={() => navigate('Home')} fontSize={30} image={require('../assets/buttons/home-small.png')}/>
+                            <ImgButton margin={10} onPress={
+                                () => Alert.alert(
+                                    'Ben je zeker ?',
+                                    'In deze versie van het spel gaat je voortgang verloren als je terug naar het hoofdscherm gaat.',
+                                    [
+                                        {text: 'Ja, ik ben zeker!', onPress: (() => navigate('Home'))},
+                                        {text: 'Annuleer', onPress: () => console.log('Annuleren')},
+                                    ]
+                                  )
+                                } fontSize={30} image={require('../assets/buttons/home-small.png')}/>
                             <ImgButton margin={10} image={require('../assets/buttons/next.png')}/>
                         </View>
                     </View>

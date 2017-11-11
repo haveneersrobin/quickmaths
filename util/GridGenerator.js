@@ -1,11 +1,7 @@
 /**
  * Grid generator
  */
-
-// General Helper Functions
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import _ from 'lodash'
 
 /**
  * Creates a row with sum questions
@@ -13,7 +9,12 @@ function getRandomInt(min, max) {
  * @param {*} maxNumber - The upper bound of results to be generated
  * @param {*} nbCols - The amount of columns on the grid, default: 3
  */
-function getSumRow(solution, maxNumber, nbCols = 3) {
+export function getSumRow(solution, maxNumber=10, nbCols = 3) {
+    
+    if(!solution) {
+        console.log("No correct solution supplied to getSumRow ! Solution is " + typeof solution);
+        return;
+    }
 
     // Init constants
     const fillRate = 0.7; // The ratio of filled tiles to total tiles
@@ -40,7 +41,7 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
             var currentElem = {
                 string: '',
                 numResult: -1,
-                correct: false
+                correct: undefined
             }
 
             // Generate random number
@@ -51,7 +52,7 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
                 currentNum = solution; // Init with illegal number
                 // Make sure that the random number is not equal to the solution
                 while (currentNum === solution) {
-                    currentNum = getRandomInt(0, maxNumber);
+                    currentNum = _.random(0, maxNumber);
                 }
             }
             else {
@@ -63,7 +64,7 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
             if (!hasCorrectTile && currentNum === solution) {
                 // Set flag and generate parts of sum
                 hasCorrectTile = true;
-                var randPart = getRandomInt(0, currentNum);
+                var randPart = _.random(0, currentNum);
                 var counterPart = currentNum - randPart;
 
                 currentElem.string = randPart + '+' + counterPart;
@@ -78,7 +79,7 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
                     // Add correct tile
                     // Set flag and generate parts of sum
                     hasCorrectTile = true;
-                    var randPart = getRandomInt(0, solution);
+                    var randPart = _.random(0, solution);
                     var counterPart = solution - randPart;
 
                     currentElem.string = randPart + '+' + counterPart;
@@ -87,7 +88,7 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
                 }
                 else {
                     // Else generate parts of sum of wrong tile
-                    var randPart = getRandomInt(0, currentNum);
+                    var randPart = _.random(0, currentNum);
                     var counterPart = currentNum - randPart;
 
                     currentElem.string = randPart + '+' + counterPart;
@@ -97,7 +98,7 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
 
             else if (currentNum != -1) {
                 // Else generate parts of sum of wrong tile
-                var randPart = getRandomInt(0, currentNum);
+                var randPart = _.random(0, currentNum);
                 var counterPart = currentNum - randPart;
 
                 currentElem.string = randPart + '+' + counterPart;
@@ -133,14 +134,14 @@ function getSumRow(solution, maxNumber, nbCols = 3) {
  * @param {*} levelLength - The height of the grid
  * @param {*} nbCols - The width of the grid, default: 3
  */
-function createSumGrid(solution, maxNumber, levelLength, nbCols = 3) {
+export function createSumGrid(solution, maxNumber=10, levelLength=20, nbCols = 3) {
 
     const fillRate = 0.7; // The ratio of filled tiles to total tiles
     const correctRate = 0.45; // The ratio of correct tiles to filled tiles
 
     // Init result
     var result = {
-        objective: 'Welke uitkomst is ' + solution + '?',
+        objective: 'Welke som is gelijk aan ' + solution + '?',
         numericSolution: solution,
         grid: []
     }
@@ -164,7 +165,7 @@ function createSumGrid(solution, maxNumber, levelLength, nbCols = 3) {
  * @param {*} maxNumber - The upper bound of results to be generated
  * @param {*} nbCols - The amount of columns on the grid, default: 3
  */
-function getModuloRow(divider, maxNumber, nbCols = 3) {
+export function getModuloRow(divider, maxNumber, nbCols = 3) {
     // Init const values
     const fillRate = 0.7; // The ratio of filled tiles to total tiles
     const correctRate = 0.45; // The ratio of correct tiles to filled tiles
@@ -216,7 +217,7 @@ function getModuloRow(divider, maxNumber, nbCols = 3) {
                     // Fill tile
                     // Get random entry
                     while (currentNum === 0 || currentNum % divider !== 0) {
-                        currentNum = getRandomInt(1, maxNumber);
+                        currentNum = _.random(1, maxNumber);
                     }
                     currentElem.string = currentNum;
                     currentElem.correct = true;
@@ -226,7 +227,7 @@ function getModuloRow(divider, maxNumber, nbCols = 3) {
                     // Get random number to fill tile
                     // Make sure the random number is not dividable by divider
                     while (currentNum % divider === 0) {
-                        currentNum = getRandomInt(1, maxNumber)
+                        currentNum = _.random(1, maxNumber)
                     }
                     currentElem.string = currentNum
                     currentElem.correct = false;
@@ -237,7 +238,7 @@ function getModuloRow(divider, maxNumber, nbCols = 3) {
                 // Get random number to fill tile
                 // Make sure the random number is not dividable by divider
                 while (currentNum % divider === 0) {
-                    currentNum = getRandomInt(1, maxNumber)
+                    currentNum = _.random(1, maxNumber)
                 }
                 currentElem.string = currentNum
                 currentElem.correct = false;
@@ -273,7 +274,7 @@ function getModuloRow(divider, maxNumber, nbCols = 3) {
  * @param {*} levelLength - The height of the grid
  * @param {*} nbCols - The width of the grid, default: 3
  */
-function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
+export function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
     // Init result
     // grid contains the numbers, and a boolean if a tile is a correct answer
     var result = {
@@ -293,21 +294,21 @@ function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
  * @param {*} levelLength - The height of the grid
  * @param {*} nbCols - The width of the grid, default: 3
  */
-function getRandomGridByDiff(difficulty, levelLength, nbCols = 3) {
+export function getRandomGridByDiff(difficulty, levelLength, nbCols = 3) {
     // First, generate the kind of level
     const levelKinds = 2;
-    switch (getRandomInt(1, levelKinds)) {
+    switch (_.random(1, levelKinds)) {
 
         // Generate Sum Grid
         case 1:
             // Set solution, Upperbound fixed: solution * 2
-            var solution = getRandomInt(difficulty * 5, difficulty * 10);
+            var solution = _.random(difficulty * 5, difficulty * 10);
             return createSumGrid(solution, solution * 2, levelLength, nbCols);
 
         // Generate Modulo Grid
         case 2:
             // Set divider, Upperbound is defined by difficulty
-            var divider = getRandomInt(2, 10);
+            var divider = _.random(2, 10);
             var upperBound = difficulty * divider * 3; // Arbitrary, might need tweaking
             return createModuloGrid(divider, upperBound, levelLength, nbCols);
 

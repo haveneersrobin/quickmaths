@@ -3,6 +3,8 @@ import BigButton from '../components/BigButton';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
+import Video from 'react-native-video';
+import _ from 'lodash'
 
 const BackgroundContainer = styled.View`
   position: absolute;
@@ -46,9 +48,59 @@ const ButtonContainer = styled.View`
 
 
 export default class Menu extends React.Component {
+  static defaultProps = {
+    level: 1,
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+    this.randomQuestion();
+  }
+
+  randomQuestion() {
+    const type = _.random(1,1);
+    if(type === 0) {
+      this.setState({ question : 'som'});
+      return 'som';
+    }
+    else if (type === 1) {
+      this.setState({ question : 'deling'});
+      return 'deling';
+    }
+  }
+
+  getUpper(level, question) {
+    if(1 <= level <= 5) {
+      if(question === 'som') {
+        return _.random(1,10);
+      }
+      else if(question === 'deling') {
+        return _.random(3,10);
+      }
+    }
+    else if(6 <= level <= 10) {
+      return _.random(20,30);
+    }
+  }
+
+  getLower(level, question) {
+    if(1 <= level <= 5) {
+      if(question === 'som') {
+        return 0;
+      }
+      else if(question === 'deling') {
+        return _.random(2,10);
+      }
+    }
+    else if(6 <= level <= 10) {
+      return _.random(5,10);
+    }
+  }
+
   render() { 
-    const resizeMode = 'center';
-    const text = 'This is some text inlaid in an <Image />';
     const { navigate } = this.props.navigation;
     return (
         <Container>
@@ -60,7 +112,12 @@ export default class Menu extends React.Component {
                     <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
                 </LogoContainer>
                 <ButtonContainer>
-                    <ImgButton margin={20} onPress={() => navigate('Question')} fontSize={30} image={require('../assets/buttons/play.png')}/>
+                    <ImgButton margin={20} onPress={() => navigate('Question', {
+                      question : this.state.question, 
+                      solution : _.random(this.getLower(this.props.level, this.state.question),this.getUpper(this.props.level, this.state.question)),
+                      level : this.props.level,
+                      })} 
+                      fontSize={30} image={require('../assets/buttons/play.png')}/>
                     <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/highscores.png')}/>
                     <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}]}>
                       <ImgButton margin={20} onPress={() => navigate('Profile', 
