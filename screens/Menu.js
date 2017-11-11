@@ -61,7 +61,7 @@ export default class Menu extends React.Component {
   }
 
   randomQuestion() {
-    const type = _.random(1,1);
+    const type = _.random(0,1);
     if(type === 0) {
       this.setState({ question : 'som'});
       return 'som';
