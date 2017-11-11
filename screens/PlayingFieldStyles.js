@@ -12,7 +12,7 @@ export const RestText = styled.Text`
     padding-bottom:3px;
     font-family: 'roboto';
     text-align:center;
-    font-size: 15;
+    font-size: 22;
     color: white;
     border: 2px solid #77C4E5;
     border-top-width: 0px;

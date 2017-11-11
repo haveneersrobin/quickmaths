@@ -14,7 +14,7 @@ const PARTS = 20;
 
 export default class PlayingField extends React.Component {
     static defaultProps = {
-        interval:3000,
+        interval:300000,
         solution: 7,
         level: 1
     };
