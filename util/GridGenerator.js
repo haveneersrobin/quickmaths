@@ -11,7 +11,7 @@ import _ from 'lodash'
  */
 export function getSumRow(solution, maxNumber=10, nbCols = 3) {
     
-    if(!solution) {
+    if(solution === undefined || solution === null || solution === -1) {
         console.log("No correct solution supplied to getSumRow ! Solution is " + typeof solution);
         return;
     }

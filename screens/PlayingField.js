@@ -14,7 +14,7 @@ const PARTS = 20;
 
 export default class PlayingField extends React.Component {
     static defaultProps = {
-        interval:4000,
+        interval:6000,
         solution: 7,
         level: 1
     };
@@ -27,11 +27,12 @@ export default class PlayingField extends React.Component {
 
         if(params.question === 'som') {
             console.log("SOM");
-            data = createSumGrid(params.solution, params.level*8, params.level*5, nbCols = 3).grid;
+            console.log(params.solution);
+            data = createSumGrid(params.solution, params.solution*2, params.level*5, nbCols = 3).grid;
         }
         else if(params.question === 'deling') {
             console.log("DELING");
-            data = createModuloGrid(params.solution, params.level*8, params.level*5, nbCols = 3).grid;
+            data = createModuloGrid(params.solution, params.solution*2, params.level*5, nbCols = 3).grid;
         }
 
         console.log("DATA= " + JSON.stringify(data));
@@ -141,7 +142,7 @@ export default class PlayingField extends React.Component {
 
     handleBackButton() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);  
-        const resetAction = this.esetNavigatorToMenu(false);       
+        const resetAction = this.resetNavigatorToMenu(false);       
         const { timer, sliderTimer } = this.state;
         if (timer) { clearInterval(timer); }
         if (sliderTimer) { clearInterval(sliderTimer); }

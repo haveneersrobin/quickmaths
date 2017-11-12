@@ -2,6 +2,8 @@ node_modules/**/*
 .expo/*
 npm-debug.*
 
+!node_modules/react-native-swiper
+
 # Created by https://www.gitignore.io/api/osx,node,windows,reactnative
 
 ### Node ###

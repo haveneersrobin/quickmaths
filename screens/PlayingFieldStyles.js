@@ -1,10 +1,11 @@
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export const QuestionText = styled.Text`
     font-family: 'roboto';
     text-align:center;
-    font-size: 30;
+    font-size: ${() => Number(responsiveFontSize(4))};
     color: white;
 `;
 
@@ -12,7 +13,7 @@ export const RestText = styled.Text`
     padding-bottom:3px;
     font-family: 'roboto';
     text-align:center;
-    font-size: 22;
+    font-size: ${() => Number(responsiveFontSize(1.5))};
     color: white;
     border: 2px solid #77C4E5;
     border-top-width: 0px;

@@ -3,6 +3,8 @@ import { Dimensions, NetInfo, StyleSheet, Text, View,Image} from 'react-native';
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
 
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+
 const BackgroundContainer = styled.View`
     position: absolute;
 `;
@@ -27,9 +29,9 @@ const BackdropImage = styled.Image`
 const Logo = styled.Image`
     backgroundColor: transparent;
     align-items: center;
-    width: 360;
-    height: 360;
-    margin-top: 130;
+    width: ${() => Number(responsiveWidth(60))};
+    height: ${() => Number(responsiveWidth(60))};
+    margin-top: ${() => Number(responsiveWidth(50))};
 `;
 
 const LogoContainer = styled.View`
@@ -57,7 +59,7 @@ export default class HomeScreen extends React.Component {
                         <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
                     </LogoContainer>
                     <ButtonContainer>
-                        <ImgButton margin={0} onPress={() =>navigate('Menu')} fontSize={30} image={require('../assets/buttons/enter.png')}/>
+                        <ImgButton margin={0} homeButton={true} onPress={() => navigate('Tutorial')} image={require('../assets/buttons/enter.png')}/>
                     </ButtonContainer>
                 </Overlay>
             </Container>

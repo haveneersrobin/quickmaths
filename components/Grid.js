@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { TouchableOpacity, StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
-import { BlurView } from 'expo';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const Container = styled.View `
     flex: 1;
@@ -44,7 +44,7 @@ const NumberCell = styled.Text`
     ${props => props.isLast ? "" : "text-shadow-radius:10px" };
     font-family: 'roboto-bold';
     text-align:center;
-    font-size: ${props => props.isLast ? "80px" : "40px" };
+    font-size: ${props => props.isLast ? responsiveFontSize(6) : responsiveFontSize(3) };
 `;
 
 const data = [];

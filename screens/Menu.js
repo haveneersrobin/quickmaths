@@ -3,8 +3,7 @@ import BigButton from '../components/BigButton';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
-import Video from 'react-native-video';
-import _ from 'lodash'
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const BackgroundContainer = styled.View`
   position: absolute;
@@ -29,9 +28,9 @@ const BackdropImage = styled.Image`
 const Logo = styled.Image`
   backgroundColor: transparent;
   align-items: center;
-  width: 150;
-  height: 150;
-  margin-top: 130;
+  width: ${() => Number(responsiveWidth(40))};
+  height: ${() => Number(responsiveHeight(40))};
+  margin-top: ${() => Number(responsiveHeight(7))};
 `;
 
 const LogoContainer = styled.View`
@@ -40,9 +39,10 @@ const LogoContainer = styled.View`
 `;
 
 const ButtonContainer = styled.View`
-  margin-top:70px;
   flex: 2;
   align-items: center;
+  justify-content: center;
+  margin-top: ${() => Number(responsiveHeight(5))};
 `;
 
 
@@ -54,50 +54,6 @@ export default class Menu extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    this.randomQuestion();
-  }
-
-  randomQuestion() {
-    const type = _.random(0,1);
-    if(type === 0) {
-      this.setState({ question : 'som'});
-      return 'som';
-    }
-    else if (type === 1) {
-      this.setState({ question : 'deling'});
-      return 'deling';
-    }
-  }
-
-  getUpper(level, question) {
-    if(1 <= level <= 5) {
-      if(question === 'som') {
-        return _.random(1,10);
-      }
-      else if(question === 'deling') {
-        return _.random(3,10);
-      }
-    }
-    else if(6 <= level <= 10) {
-      return _.random(20,30);
-    }
-  }
-
-  getLower(level, question) {
-    if(1 <= level <= 5) {
-      if(question === 'som') {
-        return 0;
-      }
-      else if(question === 'deling') {
-        return _.random(2,10);
-      }
-    }
-    else if(6 <= level <= 10) {
-      return _.random(5,10);
-    }
   }
 
   render() { 
@@ -112,20 +68,18 @@ export default class Menu extends React.Component {
                     <Logo resizeMode = 'contain' source = {require('../assets/img/logo.png')} />
                 </LogoContainer>
                 <ButtonContainer>
-                    <ImgButton margin={20} onPress={() => navigate('Question', {
-                      question : this.state.question, 
-                      solution : _.random(this.getLower(this.props.level, this.state.question),this.getUpper(this.props.level, this.state.question)),
+                    <ImgButton margin={Number(responsiveHeight(2))} onPress={() => navigate('Question', {
                       level : this.props.level,
                       })} 
-                      fontSize={30} image={require('../assets/buttons/play.png')}/>
-                    <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/highscores.png')}/>
-                    <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}]}>
-                      <ImgButton margin={20} onPress={() => navigate('Profile', 
+                      image={require('../assets/buttons/play.png')}/>
+                    <ImgButton margin={Number(responsiveHeight(2))} image={require('../assets/buttons/highscores.png')}/>
+                    <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}, {alignItems:'center'}]}>
+                      <ImgButton bottomButton={true} margin={Number(responsiveHeight(1))} onPress={() => navigate('Profile', 
                           {user:'Sander, Mathias, Robin en Laurens',
                            playerstatus:'Speed Master',
                            img:'../assets/img/icon.png'
                           })}  fontSize={30} image={require('../assets/buttons/profile.png')}/>
-                      <ImgButton margin={20} fontSize={30} image={require('../assets/buttons/settings.png')}/>
+                      <ImgButton bottomButton={true} margin={Number(responsiveHeight(1))} image={require('../assets/buttons/settings.png')}/>
                     </View>
                 </ButtonContainer>
             </Overlay>

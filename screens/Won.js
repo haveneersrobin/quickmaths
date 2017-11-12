@@ -2,6 +2,7 @@ import React from 'react';
 import { Dimensions, NetInfo, StyleSheet, Text, View,Image, Alert} from 'react-native';
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const BackgroundContainer = styled.View`
     position: absolute;
@@ -27,8 +28,8 @@ const BackdropImage = styled.Image`
 const Logo = styled.Image`
     backgroundColor: transparent;
     align-items: center;
-    height: 360;
-    margin-top: 130;
+    height: ${() => Number(responsiveHeight(40))};
+    margin-top: ${() => Number(responsiveHeight(10))}px;
 `;
 
 const LogoContainer = styled.View`
@@ -37,7 +38,7 @@ const LogoContainer = styled.View`
 `;
 
 const WinText = styled.Text`
-    font-size: 40;
+    font-size: ${() => responsiveFontSize(5)};
     color: #2A435C;
     font-family: 'proxima';
     width: 50%;
@@ -56,24 +57,24 @@ export default class Won extends React.Component {
                 </BackgroundContainer>
                 <Overlay>
                     <LogoContainer>
-                        <Logo style={{width:250, height:250}} resizeMode = 'contain' source = {require('../assets/img/won.gif')} />
+                        <Logo resizeMode = 'contain' source = {require('../assets/img/won.gif')} />
                     </LogoContainer>
                     <View style={[{flex:1}, {alignItems: 'center'},{flexDirection:'column'},{justifyContent:'space-around'},{marginTop:-0}]}>
                         <WinText style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}]}>
-                            <Text> Proficiat, je hebt gewonnen!</Text>
+                            <Text> Proficiat, level {this.props.navigation.state.params.level-1} voltooid !</Text>
                         </WinText>
                         <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'center'}]}>
-                            <ImgButton margin={10} onPress={
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={
                                 () => Alert.alert(
                                     'Ben je zeker ?',
                                     'In deze versie van het spel gaat je voortgang verloren als je terug naar het hoofdscherm gaat.',
                                     [
-                                        {text: 'Ja, ik ben zeker!', onPress: (() => navigate('Home'))},
+                                        {text: 'Ja, ik ben zeker!', onPress: (() => navigate('Menu'))},
                                         {text: 'Annuleer', onPress: () => console.log('Annuleren')},
                                     ]
                                   )
-                                } fontSize={30} image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton margin={10} image={require('../assets/buttons/next.png')}/>
+                                } fontSize={30}  image={require('../assets/buttons/home-small.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level:this.props.navigation.state.params.level}))} image={require('../assets/buttons/next.png')}/>
                         </View>
                     </View>
                 </Overlay>

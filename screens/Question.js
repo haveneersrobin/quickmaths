@@ -3,6 +3,9 @@ import { Dimensions, NetInfo, StyleSheet, Text, View,Image, BackHandler, Animate
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
 import { NavigationActions } from 'react-navigation';
+import _ from 'lodash';
+
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const BackgroundContainer = styled.View`
     position: absolute;
@@ -31,16 +34,15 @@ const BackdropImage = styled.Image`
 
 const LargeText = styled.Text`
     font-family: 'proxima';
-    font-size: 70px;
+    font-size: ${() => Number(responsiveFontSize(8))};
     text-align: center;
-    padding: 10px;
+    padding: ${() => parseInt(responsiveHeight(2),10)}px;
 `;
 
 const Timer = styled.Text`
-    margin-top: 30px;
-    border: 1px solid #A1C1B9;
+    margin-top: ${() => Number(responsiveHeight(3))};
     font-family: 'proxima';
-    font-size: 50px;
+    font-size: ${() => Number(responsiveFontSize(3))};
     text-align: center;
     color:#A1C1B9;
 `;
@@ -49,9 +51,7 @@ const Logo = styled.Image`
     margin-top:40;
     backgroundColor: transparent;
     align-items: center;
-    height: 360;
-    width:300;
-    height:300;
+    height: ${() => Number(responsiveHeight(30))};
 `;
 
 const LogoContainer = styled.View`
@@ -59,26 +59,60 @@ const LogoContainer = styled.View`
     border-color: transparent;
 `;
 
+const LargeTextContainer = styled.View`
+    background-color:#E1E2E1;
+    margin: ${() => parseInt(responsiveHeight(3),10)}px;
+    margin-top: -${() => parseInt(responsiveHeight(15),10)}px;
+`;
+
+const SmallText = styled.Text`
+    font-size: ${() => Number(responsiveFontSize(3))};
+    font-family: 'roboto';
+    color: #214868;
+    text-align: center;
+    padding-top: ${() => parseInt(responsiveHeight(2),10)}px;
+`;
+
+
 
 export default class Question extends React.Component {
     static defaultProps = {
-        interval: 5000,
+        interval: 6000,
     };
 
     constructor(props) {
         super(props);
         this.handleBackButton = this.handleBackButton.bind(this);
-        this.state = { 
-            timer : this.props.interval/1000, 
-            question : this.props.navigation.state.params.question,
-            solution : this.props.navigation.state.params.solution,
-            level : this.props.navigation.state.params.level,
-            resetLevel : this.props.navigation.state.params.resetLevel,
-            increaseLevel : this.props.navigation.state.params.increaseLevel,};
+        this.state = { timer : this.props.interval/1000 };
     }
+
+
+    randomQuestion(question, level) {
+        const solution = _.random(this.getLower(level, question),this.getUpper(level, question));
+        this.setState({ solution });
+    }
+    
+    getUpper(level, question) {
+        if(question === 'som') {
+            return _.random(Math.pow(level+2, 2),Math.pow(level+7, 2));
+        }
+        else if(question === 'deling') {
+            return _.random(level*2,level*3);
+        }
+    }
+    
+    getLower(level, question) {
+        if(question === 'som') {
+            return _.random(Math.pow(level, 2),Math.pow(level+5, 2));
+    }
+    else if(question === 'deling') {
+        return _.random(level+1,level+2);
+    }
+  }
 
     goToQuestion() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        console.log(this.state.question, this.state.solution, this.state.level);
         const resetAction = NavigationActions.reset({
             index: 2,
             actions: [
@@ -86,9 +120,9 @@ export default class Question extends React.Component {
                 NavigationActions.navigate({ routeName: 'Menu' }),
                 NavigationActions.navigate({ routeName: 'Field', 
                     params:{
-                        question : this.props.navigation.state.params.question,
-                        solution : this.props.navigation.state.params.solution,
-                        level : this.props.navigation.state.params.level,
+                        question : this.state.question,
+                        solution : this.state.solution,
+                        level : this.state.level
                     }}),
             ]
         });
@@ -99,6 +133,20 @@ export default class Question extends React.Component {
         return true;
     }
 
+    componentWillMount() {
+        const level = this.props.navigation.state.params.level;
+        const type = _.random(0,1);
+        let question;
+        if(type === 0) {
+            question = 'som';
+        }
+        else if (type === 1) {
+            question =  'deling';
+        }
+        this.setState({ question, level }, this.randomQuestion(question, level));
+        
+    }
+
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         const timerz = setTimeout(() => this.goToQuestion(), this.props.interval);
@@ -107,12 +155,7 @@ export default class Question extends React.Component {
               return { timer: previousState.timer - 1 };
             });
           }, 1000);
-        const question = this.props.navigation.state.params.question;
-        const solution = this.props.navigation.state.params.solution;
-        const level = this.props.navigation.state.params.level;
-        const resetLevel = this.props.navigation.state.params.resetLevel;
-        const increaseLevel = this.props.navigation.state.params.increaseLevel;
-        this.setState({ timerz, timer2, question, solution, level, resetLevel, increaseLevel });
+        this.setState({ timerz, timer2 });
     }
 
     componentWillUnmount() {
@@ -129,22 +172,26 @@ export default class Question extends React.Component {
                     <BackdropImage source = {require('../assets/img/background.jpg')} resizeMode = 'cover'/>
                 </BackgroundContainer>
                 <Overlay>
-                    {this.state.question === 'som' && 
-                    <LargeText>
-                        Welke som is gelijk aan {this.state.solution} ?
-                        
-                    </LargeText>
-                    }
-                    {this.state.question === 'deling' && 
-                    <LargeText>
-                        Welk getal is deelbaar door {this.state.solution} ?    
-                    </LargeText>
-                    }
-                    {this.state.question !== 'deling' && this.state.question !== 'som' &&
-                    <LargeText>
-                        Voorlopig gaat er iets mis.
-                    </LargeText>
-                    }
+                    <LargeTextContainer elevation={3}>
+                            <SmallText>
+                                Level: {this.state.level}
+                            </SmallText>
+                        {this.state.question === 'som' && 
+                        <LargeText>
+                            Welke som is gelijk aan {this.state.solution} ?
+                        </LargeText>
+                        }
+                        {this.state.question === 'deling' && 
+                        <LargeText>
+                            Welk getal is deelbaar door {this.state.solution} ?    
+                        </LargeText>
+                        }
+                        {this.state.question !== 'deling' && this.state.question !== 'som' &&
+                        <LargeText>
+                            Voorlopig gaat er iets mis.
+                        </LargeText>
+                        }
+                    </LargeTextContainer>
                     <Timer>
                         Spel start in: {this.state.timer}
                     </Timer>

@@ -8,6 +8,7 @@ import PlayingField from './screens/PlayingField';
 import HomeScreen from './screens/HomeScreen';
 import GameOver from './screens/GameOver';
 import Question from './screens/Question';
+import Tutorial from './screens/Tutorial';
 import Menu from './screens/Menu';
 import Won from './screens/Won';
 
@@ -32,6 +33,9 @@ const Navigator = StackNavigator({
   },
   Won: {
     screen: Won
+  },
+  Tutorial: {
+    screen: Tutorial
   }
 }, {headerMode: 'null'});
 

@@ -2214,10 +2214,6 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-keymirror@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/keymirror/-/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
-
 kind-of@^3.0.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -3143,6 +3139,10 @@ react-native-overlay@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-native-overlay/-/react-native-overlay-0.5.0.tgz#68d44e2d643d896414e78cbe87aa336d831b0614"
 
+react-native-responsive-dimensions@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-dimensions/-/react-native-responsive-dimensions-1.0.2.tgz#521551fa90548f888578eafd71101d19061727ac"
+
 react-native-safe-module@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-module/-/react-native-safe-module-1.2.0.tgz#a23824ca24edc2901913694a76646475113d570d"
@@ -3155,6 +3155,12 @@ react-native-svg@5.4.2:
   dependencies:
     color "^0.11.1"
     lodash "^4.16.6"
+
+react-native-swiper@^1.5.13:
+  version "1.5.13"
+  resolved "https://registry.yarnpkg.com/react-native-swiper/-/react-native-swiper-1.5.13.tgz#fa695cd4ab77b9a9df2d2bfee38ea7274dd07a2e"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-tab-view@^0.0.70:
   version "0.0.70"
@@ -3169,13 +3175,6 @@ react-native-vector-icons@4.4.2, react-native-vector-icons@^4.4.2:
     lodash "^4.0.0"
     prop-types "^15.5.10"
     yargs "^8.0.2"
-
-react-native-video@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-2.0.0.tgz#f33fa6fb7e7e3c93ab5787944cefd58bf7355867"
-  dependencies:
-    keymirror "0.1.1"
-    prop-types "^15.5.10"
 
 "react-native@https://github.com/expo/react-native/archive/sdk-22.0.2.tar.gz":
   version "0.49.3"
