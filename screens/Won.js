@@ -38,7 +38,7 @@ const LogoContainer = styled.View`
 `;
 
 const WinText = styled.Text`
-    font-size: ${() => responsiveFontSize(5)};
+    font-size: ${() => responsiveFontSize(4)};
     color: #2A435C;
     font-family: 'proxima';
     width: 50%;

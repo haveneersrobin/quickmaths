@@ -41,7 +41,7 @@ export function getSumRow(solution, maxNumber=10, nbCols = 3) {
             var currentElem = {
                 string: '',
                 numResult: -1,
-                correct: undefined
+                correct: false
             }
 
             // Generate random number

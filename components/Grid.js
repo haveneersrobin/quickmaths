@@ -69,14 +69,18 @@ class Grid extends Component {
         }
     }
 
-    onClick(correct, selected, row) {
-        if(selected === this.state.selectedTileinRow) {
+    onClick(correctBoolean, selectedTileIndex, row, displayedNumber) {
+        let correct = correctBoolean;
+        if(displayedNumber === "" ) {
+            correct = undefined;
+        }
+        if(selectedTileIndex === this.state.selectedTileinRow) {
             this.setState({ selectedTileinRow: -1});
             this.props.onClick(undefined, row);
             
         }
         else {  
-            this.setState({ selectedTileinRow: selected});
+            this.setState({ selectedTileinRow: selectedTileIndex});
             this.props.onClick(correct, row);
         }
     }
@@ -92,7 +96,7 @@ class Grid extends Component {
         const result = [];
         for(let i = 0; i < this.props.data[index].length; i++) {
             result.push(
-                <NumberBox key={i} isLast={isLast} isMiddle={i===1} selected={isLast && this.state.selectedTileinRow === i} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(this.props.data[index][i].correct, i,this.props.data[index])}>
+                <NumberBox key={i} isLast={isLast} isMiddle={i===1} selected={isLast && this.state.selectedTileinRow === i} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(this.props.data[index][i].correct, i,this.props.data[index], this.props.data[index][i].string)}>
                     <NumberCell isLast={isLast}> 
                         {this.props.data[index][i].string}
                     </NumberCell>
