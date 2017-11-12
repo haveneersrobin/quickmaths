@@ -135,8 +135,8 @@ export default class Question extends React.Component {
 
     componentWillMount() {
         const level = this.props.navigation.state.params.level;
-        const type = 0;
-        //const type = _.random(0,1);
+        //const type = 0;
+        const type = _.random(0,1);
         let question;
         if(type === 0) {
             question = 'som';
