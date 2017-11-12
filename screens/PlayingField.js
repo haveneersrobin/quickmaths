@@ -14,25 +14,25 @@ const PARTS = 20;
 
 export default class PlayingField extends React.Component {
     static defaultProps = {
-        interval:6000,
         solution: 7,
-        level: 1
+        level: 1,
     };
 
     constructor(props) {
         super(props);
-        let data = [];
         const params = this.props.navigation.state.params;
+        
+        let data = [];
         console.log("PARAMS " + JSON.stringify(params));
 
         if(params.question === 'som') {
             console.log("SOM");
             console.log(params.solution);
-            data = createSumGrid(params.solution, params.solution*2, params.level*5, nbCols = 3).grid;
+            data = createSumGrid(params.solution, params.solution*6, params.level*5, nbCols = 3).grid;
         }
         else if(params.question === 'deling') {
             console.log("DELING");
-            data = createModuloGrid(params.solution, params.solution*2, params.level*5, nbCols = 3).grid;
+            data = createModuloGrid(params.solution, params.solution*6, params.level*5, nbCols = 3).grid;
         }
 
         console.log("DATA= " + JSON.stringify(data));
@@ -40,7 +40,6 @@ export default class PlayingField extends React.Component {
         this.state = { 
             currentRow: data.length - 1,
             data: data,
-            timer : this.props.interval/1000,
             filled: PARTS};
         this.handleBackButton = this.handleBackButton.bind(this);
     }
@@ -155,9 +154,10 @@ export default class PlayingField extends React.Component {
         const solution = this.props.navigation.state.params.solution;
         const level = this.props.navigation.state.params.level;
         this.setState({question, solution, level });
+        console.log("PF CDM INTERVAL " + this.state.interval);
         
-        const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.props.interval *0.9) / PARTS);
-        const timer = setInterval(() => this.nextRow(), this.props.interval);
+        const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
+        const timer = setInterval(() => this.nextRow(), this.state.interval);
         this.setState({ timer, sliderTimer });
     }
 
@@ -166,6 +166,12 @@ export default class PlayingField extends React.Component {
         if (timer) { clearInterval(timer); }
         if (sliderTimer) { clearInterval(sliderTimer); }
     }
+
+    
+    componentWillMount() {
+        this.setState({ interval: this.props.navigation.state.params.interval });
+    }
+    
 
     render() {
         return (

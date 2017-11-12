@@ -10,8 +10,7 @@ const Slide = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    background-color: #E1E2E1;
-    border: 1px solid #214868;
+    background-color: transparent;
 `;
 
 const SlideImage = styled.Image`
@@ -55,16 +54,16 @@ export default class Tutorial extends React.Component {
                 </Title>
                 <Swiper showsButtons={true}>
                     <Slide>
-                        <SlideImage resizeMode='contain' source={require('../assets/img/tut1.png')}/>
+                        <SlideImage resizeMode='contain' source={require('../assets/img/tuto1.png')}/>
                     </Slide>
                     <Slide>
-                        <SlideImage resizeMode='contain' source={require('../assets/img/tut2.png')}/>
+                        <SlideImage resizeMode='contain' source={require('../assets/img/tuto2.png')}/>
                     </Slide>
                     <Slide>
-                        <SlideImage resizeMode='contain' source={require('../assets/img/tut3.png')}/>
+                        <SlideImage resizeMode='contain' source={require('../assets/img/tuto3.png')}/>
                     </Slide>
                     <Slide>
-                        <SlideImage resizeMode='contain' source={require('../assets/img/tut4.png')}/>
+                        <SlideImage resizeMode='contain' source={require('../assets/img/tuto4.png')}/>
                     </Slide>
                 </Swiper>
                 <BeginText onPress={() => navigate('Menu')}>
