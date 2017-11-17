@@ -44,7 +44,7 @@ const NumberCell = styled.Text`
     ${props => props.isLast ? "" : "text-shadow-radius:10px" };
     font-family: 'roboto-bold';
     text-align:center;
-    font-size: ${props => props.isLast ? responsiveFontSize(6) : responsiveFontSize(3) };
+    font-size: ${props => props.isLast ? responsiveFontSize(4) : responsiveFontSize(3) };
 `;
 
 const data = [];

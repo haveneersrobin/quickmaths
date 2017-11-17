@@ -77,13 +77,13 @@ const SmallText = styled.Text`
 
 export default class Question extends React.Component {
     static defaultProps = {
-        interval: 6000,
+        questionInterval: 6000,
     };
 
     constructor(props) {
         super(props);
         this.handleBackButton = this.handleBackButton.bind(this);
-        this.state = { timer : this.props.interval/1000 };
+        this.state = { timer : this.props.questionInterval/1000 };
     }
 
 
@@ -97,7 +97,7 @@ export default class Question extends React.Component {
             return _.random(Math.pow(level+2, 2),Math.pow(level+7, 2));
         }
         else if(question === 'deling') {
-            return _.random(level*2,level*3);
+            return _.random(level*2+5,level*4);
         }
     }
     
@@ -106,7 +106,7 @@ export default class Question extends React.Component {
             return _.random(Math.pow(level, 2),Math.pow(level+5, 2));
     }
     else if(question === 'deling') {
-        return _.random(level+1,level+2);
+        return _.random(level*2,level*2+5);
     }
   }
 
@@ -122,7 +122,8 @@ export default class Question extends React.Component {
                     params:{
                         question : this.state.question,
                         solution : this.state.solution,
-                        level : this.state.level
+                        level : this.state.level,
+                        interval : this.state.fieldInterval
                     }}),
             ]
         });
@@ -144,13 +145,19 @@ export default class Question extends React.Component {
         else if (type === 1) {
             question =  'deling';
         }
-        this.setState({ question, level }, this.randomQuestion(question, level));
+        console.log("LVL " + level);
+        let fieldInterval = 5000;
+        if(3 < level && level < 9) {
+            fieldInterval = Number(6000 * (3/level))
+        }
+        console.log("INTERVAL " + fieldInterval);
+        this.setState({ question, level, fieldInterval }, this.randomQuestion(question, level));
         
     }
 
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        const timerz = setTimeout(() => this.goToQuestion(), this.props.interval);
+        const timerz = setTimeout(() => this.goToQuestion(), this.props.questionInterval);
         const timer2 = setInterval(() => {
             this.setState(previousState => {
               return { timer: previousState.timer - 1 };
