@@ -1,7 +1,7 @@
 /**
  * Grid generator
  */
-import _ from 'lodash';
+// import _ from 'lodash';
 
 /**
  * Creates a row with sum questions
@@ -10,7 +10,7 @@ import _ from 'lodash';
  * @param {*} upperbound - The upper bound of results to be generated
  * @param {*} nbCols - The amount of columns on the grid, default: 3
  */
-export function getSumRow(solution, lowerbound, upperbound, nbCols = 3) {
+function getSumRow(solution, lowerbound, upperbound, nbCols = 3) {
 
     if (solution === undefined || solution === null || solution === -1) {
         console.log("No correct solution supplied to getSumRow ! Solution is " + typeof solution);
@@ -141,7 +141,7 @@ export function getSumRow(solution, lowerbound, upperbound, nbCols = 3) {
  * @param {*} levelLength - The height of the grid
  * @param {*} nbCols - The width of the grid, default: 3
  */
-export function createSumGrid(solution, lowerbound, upperbound, levelLength = 20, nbCols = 3) {
+function createSumGrid(solution, lowerbound, upperbound, levelLength = 20, nbCols = 3) {
 
     // Init result
     var result = {
@@ -169,7 +169,7 @@ export function createSumGrid(solution, lowerbound, upperbound, levelLength = 20
  * @param {*} maxNumber - The upper bound of results to be generated
  * @param {*} nbCols - The amount of columns on the grid, default: 3
  */
-export function getModuloRow(divider, maxNumber, nbCols = 3) {
+function getModuloRow(divider, maxNumber, nbCols = 3) {
     // Init const values
     const fillRate = 0.85; // The ratio of filled tiles to total tiles
     const correctRate = 0.45; // The ratio of correct tiles to filled tiles
@@ -278,7 +278,7 @@ export function getModuloRow(divider, maxNumber, nbCols = 3) {
  * @param {*} levelLength - The height of the grid
  * @param {*} nbCols - The width of the grid, default: 3
  */
-export function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
+function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
     // Init result
     // grid contains the numbers, and a boolean if a tile is a correct answer
     var result = {
@@ -298,7 +298,7 @@ export function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
  * @param {*} levelLength - The height of the grid
  * @param {*} nbCols - The width of the grid, default: 3
  */
-export function getRandomGridByDiff(difficulty, levelLength, nbCols = 3) {
+function getRandomGridByDiff(difficulty, levelLength, nbCols = 3) {
     // First, generate the kind of level
     const levelKinds = 2;
     switch (_.random(1, levelKinds)) {
