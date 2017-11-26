@@ -22,26 +22,42 @@ export default class PlayingField extends React.Component {
         super(props);
         const params = this.props.navigation.state.params;
         
-        let data = [];
-        console.log("PARAMS " + JSON.stringify(params));
-
-        if(params.question === 'som') {
-            console.log("SOM");
-            console.log(params.solution);
-            data = createSumGrid(params.solution, params.solution*6, params.level*5, nbCols = 3).grid;
-        }
-        else if(params.question === 'deling') {
-            console.log("DELING");
-            data = createModuloGrid(params.solution, params.solution*6, params.level*5, nbCols = 3).grid;
-        }
-
-        console.log("DATA= " + JSON.stringify(data));
+        let data = params.data;
         
         this.state = { 
             currentRow: data.length - 1,
             data: data,
             filled: PARTS};
         this.handleBackButton = this.handleBackButton.bind(this);
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        const params = this.props.navigation.state.params;
+
+        const question = params.question;
+        const solution = params.solution;
+        const level = params.level;
+        this.setState({question, solution, level });
+        
+        const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
+        const timer = setInterval(() => this.nextRow(), this.state.interval);
+        
+        // DEBUG TIMERS
+        //const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (150000 *0.9) / PARTS);
+        //const timer = setInterval(() => this.nextRow(), 150000);
+        this.setState({ timer, sliderTimer });
+    }
+
+    componentWillUnmount() {
+        const { timer, sliderTimer } = this.state;
+        if (timer) { clearInterval(timer); }
+        if (sliderTimer) { clearInterval(sliderTimer); }
+    }
+
+    
+    componentWillMount() {
+        this.setState({ interval: this.props.navigation.state.params.interval });
     }
     
     handleClick(correct, row) {
@@ -148,51 +164,15 @@ export default class PlayingField extends React.Component {
         this.props.navigation.dispatch(resetAction);
         return true;
     }
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        const question = this.props.navigation.state.params.question;
-        const solution = this.props.navigation.state.params.solution;
-        const level = this.props.navigation.state.params.level;
-        this.setState({question, solution, level });
-        console.log("PF CDM INTERVAL " + this.state.interval);
-        
-        const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
-        const timer = setInterval(() => this.nextRow(), this.state.interval);
-        this.setState({ timer, sliderTimer });
-    }
-
-    componentWillUnmount() {
-        const { timer, sliderTimer } = this.state;
-        if (timer) { clearInterval(timer); }
-        if (sliderTimer) { clearInterval(sliderTimer); }
-    }
-
-    
-    componentWillMount() {
-        this.setState({ interval: this.props.navigation.state.params.interval });
-    }
-    
 
     render() {
         return (
             <Container>
                 <Header>
                     <QuestionContainer elevation={5} >
-                        {this.state.question === 'som' && 
                         <QuestionText>
-                            Welke som is gelijk aan {this.state.solution} ?
+                             {this.state.question}
                         </QuestionText>
-                        }
-                        {this.state.question === 'deling' && 
-                        <QuestionText>
-                            Welk getal is deelbaar door {this.state.solution} ?
-                        </QuestionText>
-                        }
-                        {this.state.question !== 'som' && this.state.question !== 'deling' &&
-                        <QuestionText>
-                            Voorlopig gaat er iets mis.
-                        </QuestionText>
-                        }
                     </QuestionContainer>
                     <InfoContainer>
                         <InfoText>
