@@ -9,6 +9,7 @@ import { createSumGrid, createModuloGrid } from '../util/GridGenerator';
 import { QuestionText, RestText, Container, InfoText, InfoContainer, QuestionContainer, Header, Field } from './PlayingFieldStyles';
 import { StyleSheet, Text, View, Dimensions, BackHandler } from 'react-native';
 
+import { Audio } from 'expo';
 
 const PARTS = 20;
 
@@ -100,12 +101,27 @@ export default class PlayingField extends React.Component {
         this.props.navigation.dispatch(reset);
     }
 
+    async playSound(correct) {
+        const source = correct ? require('../assets/sounds/Correct_1.wav') : require('../assets/sounds/Incorrect_1.wav');
+        try {
+          await Audio.setIsEnabledAsync(true);
+          const sound = new Audio.Sound();
+          await sound.loadAsync(source);
+          await sound.playAsync(); 
+        } catch(error) {
+          console.error(error);
+        }
+      }
+
     nextRow() {
+        const correct = require('../assets/sounds/Correct_1.wav');
+        const incorrect = require('../assets/sounds/Incorrect_1.wav');
         const { timer, sliderTimer } = this.state;
         console.log("CORRECT " + this.state.correct)
         // 1. GEEN ANTWOORD GESELECTEERD
         if(this.state.correct === undefined) {
             // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
+            this.playSound(true);
             if(!this.rowHasTrue(this.state.data[this.state.currentRow - 1])) {
                 // 1.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
                 if(this.state.currentRow === 1) {
@@ -120,6 +136,7 @@ export default class PlayingField extends React.Component {
             }
             // 1.2 ER WAS WEL EEN JUIST ANTWOORD => GAME OVER
             else {
+                this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
@@ -130,6 +147,8 @@ export default class PlayingField extends React.Component {
         else {
             // 2.1 HET GESELECTEERDE ANTWOORD IS JUIST
             if (this.state.correct === true) {
+                
+                this.playSound(true);   
                 // 2.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
                 if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
@@ -146,6 +165,8 @@ export default class PlayingField extends React.Component {
             }
             // 2.2 HET GESELECTEERDE ANTWOORD IS FOUT
             else {
+                
+                this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
@@ -177,7 +198,7 @@ export default class PlayingField extends React.Component {
                     <InfoContainer>
                         <InfoText>
                             <RestText>
-                                Resterend: {this.state.currentRow+1}/{this.state.data.length-1}
+                                Resterend: {this.state.currentRow}/{this.state.data.length-1}
                             </RestText>
                         </InfoText>
                         <InfoText>
