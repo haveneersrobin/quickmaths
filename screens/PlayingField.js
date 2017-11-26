@@ -106,9 +106,9 @@ export default class PlayingField extends React.Component {
         // 1. GEEN ANTWOORD GESELECTEERD
         if(this.state.correct === undefined) {
             // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
-            if(!this.rowHasTrue(this.state.data[this.state.currentRow])) {
+            if(!this.rowHasTrue(this.state.data[this.state.currentRow - 1])) {
                 // 1.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
-                if(this.state.currentRow === 0) {
+                if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
@@ -131,7 +131,7 @@ export default class PlayingField extends React.Component {
             // 2.1 HET GESELECTEERDE ANTWOORD IS JUIST
             if (this.state.correct === true) {
                 // 2.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
-                if(this.state.currentRow === 0) {
+                if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
@@ -177,7 +177,7 @@ export default class PlayingField extends React.Component {
                     <InfoContainer>
                         <InfoText>
                             <RestText>
-                                Resterend: {this.state.currentRow+1}/{this.state.data.length}
+                                Resterend: {this.state.currentRow+1}/{this.state.data.length-1}
                             </RestText>
                         </InfoText>
                         <InfoText>

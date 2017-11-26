@@ -115,7 +115,7 @@ export default class Question extends React.Component {
 
     componentWillMount() {
         const level = this.props.navigation.state.params.level;
-        const data = getRandomGridByDiff(1, 15);
+        const data = getRandomGridByDiff(1, 3);
         // TODO: Interval fixen
         const fieldInterval = 3000;
         console.log(JSON.stringify(data, null, 4));

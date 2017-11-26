@@ -32,8 +32,28 @@ const Row = styled.View `
     border:3px solid #566e89;
     border-left-width: ${props => props.isAnswerRow ? "4px" : "0px" };
     border-right-width: ${props => props.isAnswerRow ? "4px" : "0px" };
-    border-top-width: ${props => props.isAnswerRow ? "4px" : "0px" };
-    background-color: ${props => props.isAnswerRow ? "#214868" : "#E1E2E1" };
+    border-top-width: ${props => {
+        if(props.isAnswerRow && !props.isLastRow) {
+            return "4px";
+        }
+        else if(!props.isAnswerRow && props.isLastRow) {
+            return "8px";
+        }
+        else {
+            return "0px";
+        }
+    }};
+    background-color: ${props => {
+        if(props.isAnswerRow && !props.isLastRow) {
+            return "#214868";
+        }
+        else if(!props.isAnswerRow && props.isLastRow) {
+            return "#bcbcbc";
+        }
+        else {
+            return "#E1E2E1";
+        }
+    }}
     
 `;
 
@@ -54,7 +74,7 @@ const NumberCell = styled.Text`
         else {
             return "yellow";
         }
-    }}
+    }};
     ${props => props.isAnswerRow ? "": "text-shadow-offset: 1px 1px"};
     ${props => props.isAnswerRow ? "" : "text-shadow-color: rgba(33, 72, 104, 0.8)" };
     ${props => props.isAnswerRow ? "" : "text-shadow-radius:10px" };
@@ -119,16 +139,6 @@ class Grid extends Component {
                 </NumberBox> );
         }
         return result;
-        {/*return this
-            .props
-            .data[index]
-            .map((number, idx) => 
-            
-                <NumberBox key={idx} isAnswerRow={isAnswerRow} isMiddle={idx===1} selected={isAnswerRow && this.state.selectedTileinRow === idx} activeOpacity={isAnswerRow ? 0 : 1} onPress={() => isAnswerRow && this.onClick(number, idx)}>
-                    <NumberCell isAnswerRow={isAnswerRow}> 
-                        {number}
-                    </NumberCell>
-        </NumberBox> );*/}
     };
 
     
@@ -137,7 +147,7 @@ class Grid extends Component {
         for (let i = this.props.currentRow - this.props.height + 1; i <= this.props.currentRow; i++) {
             const isAnswerRow = (i === this.props.currentRow -1);
             const isLastRow = (i === this.props.currentRow)
-            rows.push( <Row isAnswerRow={isAnswerRow} key={i}>{this.renderRow(i, isAnswerRow, isLastRow)}</Row>);
+            rows.push( <Row isAnswerRow={isAnswerRow} isLastRow={isLastRow} key={i}>{this.renderRow(i, isAnswerRow, isLastRow)}</Row>);
         }
         return rows;
     };
