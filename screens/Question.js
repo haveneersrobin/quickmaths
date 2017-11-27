@@ -79,7 +79,7 @@ const SmallText = styled.Text`
 
 export default class Question extends React.Component {
     static defaultProps = {
-        questionInterval: 6000,
+        questionInterval: 4000,
     };
 
     constructor(props) {
@@ -121,9 +121,9 @@ export default class Question extends React.Component {
 
         const level = this.props.navigation.state.params.level;
         const score = this.props.navigation.state.params.score;
-        const data = getRandomGridByDiff(1, 3);
+        const data = getRandomGridByDiff(level); // level meegegen is genoeg, al de rest bepaald de generator. Lengte hangt af van het level -> zie functie in generator
         // TODO: Interval fixen
-        const fieldInterval = 3000;
+        const fieldInterval = 5000;
         console.log(JSON.stringify(data, null, 4));
         this.setState({ 
             question : data.objective,
