@@ -37,7 +37,13 @@ const LogoContainer = styled.View`
     align-items: center;
 `;
 
-
+const GameOverText = styled.Text`
+font-size: ${() => responsiveFontSize(4)};
+color: #2A435C;
+font-family: 'proxima';
+width: 50%;
+text-align: center;
+`;
 
 export default class GameOver extends React.Component {
       render() { 
@@ -51,10 +57,13 @@ export default class GameOver extends React.Component {
                     <LogoContainer>
                         <Logo resizeMode = 'contain' source = {require('../assets/img/game-over.png')} />
                     </LogoContainer>
-                    <View style={[{flex:1}, {flexDirection:'column'},{justifyContent:'space-around'}]}>
+                    <View style={[{flex:1}, {alignItems: 'center'},{flexDirection:'column'},{justifyContent:'space-around'},{marginTop:-0}]}>
+                         <GameOverText style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}]}>
+                            <Text> Score: {this.props.navigation.state.params.score}</Text>
+                        </GameOverText>
                         <View style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}, {marginTop:30}]}>
                             <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={() => navigate('Menu')} image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level: this.props.navigation.state.params.level}))}  image={require('../assets/buttons/replay.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level: this.props.navigation.state.params.level, score:this.props.navigation.state.params.score}))}  image={require('../assets/buttons/replay.png')}/>
                         </View>
                     </View>
                 </Overlay>

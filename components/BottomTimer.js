@@ -18,7 +18,7 @@ export default class BottomTimer extends React.Component {
         const { filled, total } = this.props;
         return (
             <Container>
-                <Bar color="#E1E2E1" size={total - filled} />
+                <Bar color="#ffca3b" size={total - filled} />
                 <Bar color="#00213d" size={filled} />
             </Container>
         );
