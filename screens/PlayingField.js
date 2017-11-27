@@ -12,6 +12,8 @@ import { StyleSheet, Text, View, Dimensions, BackHandler } from 'react-native';
 import { Audio } from 'expo';
 
 const PARTS = 20;
+const sound = new Audio.Sound();  
+const firstPlay = true;        
 
 export default class PlayingField extends React.Component {
     static defaultProps = {
@@ -117,17 +119,26 @@ export default class PlayingField extends React.Component {
       }
 
     async playBackground(play) {
-        if( play) {   
+        if(firstPlay){
+            const source = require('../assets/music/766948_Wandering_Edit.mp3');                
+            await Audio.setIsEnabledAsync(true);
+            await sound.loadAsync(source);
+            await sound.setIsLoopingAsync(true);
+            firstPlay = false;
+        }
+        if(play) {   
             try {
-                const source = require('../assets/music/766948_Wandering_Edit.mp3');                
-                const sound = new Audio.Sound();  
-                await Audio.setIsEnabledAsync(true);
-                await sound.loadAsync(source);
                 await sound.playAsync();
             } catch(error) {
                 console.error(error);
             }
         }
+        if(!play){
+            try {
+                await sound.stopAsync();
+            } catch(error) {
+                console.error(error);
+            }        }
     }
 
     nextRow() {
