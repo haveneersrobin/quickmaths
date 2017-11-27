@@ -536,7 +536,7 @@ export function getRandomGridByDiff(level, nbCols = 3) {
         // Generate Sum Grid
         case 1:
             // Set solution, Upperbound fixed: solution * 2
-            var solution = _.random(level * 5, level * 10);
+            var solution = _.random(level * 5, level * 7);
             // range = range of possible answers to be generated
             var range = _.random(level * 3, level * 4);
             // numbers will be generated between solution - 1/2 * range and solution + 1/2 * range
@@ -554,13 +554,13 @@ export function getRandomGridByDiff(level, nbCols = 3) {
                 divider = allowedDivs[_.random(0,5)]; // Choose a random index of the array
             }   
             
-            var upperBound = level * divider * 3; // Arbitrary, might need tweaking
+            var upperBound = level * divider * 2; // Arbitrary, might need tweaking
             return createModuloGrid(divider, upperBound, levelLength, nbCols);
 
         // Generate Subtraction Grid
         case 3:
             // Set solution
-            var solution = _.random(level * 5, level * 10);
+            var solution = _.random(level * 5, level * 7);
             // range = range of possible answers to be generated
             var range = _.random(level * 3, level * 4);
             // numbers will be generated between solution - 1/2 * range and solution + 1/2 * range
@@ -569,7 +569,7 @@ export function getRandomGridByDiff(level, nbCols = 3) {
         // Generate Mixed Grid
         case 4:
             // Set solution
-            var solution = _.random(level * 5, level * 10);
+            var solution = _.random(level * 5, level * 7);
             // range = range of possible answers to be generated
             var range = _.random(level * 3, level * 4);
             // numbers will be generated between solution - 1/2 * range and solution + 1/2 * range
