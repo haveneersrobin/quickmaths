@@ -4,6 +4,8 @@ import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+import { Audio } from 'expo';
+
 
 const BackgroundContainer = styled.View`
   position: absolute;
@@ -45,19 +47,33 @@ const ButtonContainer = styled.View`
   margin-top: ${() => Number(responsiveHeight(5))};
 `;
 
-
-
 export default class Menu extends React.Component {
   static defaultProps = {
     level: 1,
+    score: 0,
   };
 
   constructor(props) {
     super(props);
   }
 
+  async playBackground() {
+    const source = require('../assets/music/766948_Wandering_Edit.mp3');
+    try {
+      await Audio.setIsEnabledAsync(true);
+      const sound = new Audio.Sound();
+      await sound.loadAsync(source);
+      await sound.playAsync(); 
+      await sound.setIsLoopingAsync(true);            
+    } catch(error) {
+      console.error(error);
+    }
+    
+  }
+
   render() { 
     const { navigate } = this.props.navigation;
+    this.playBackground();
     return (
         <Container>
             <BackgroundContainer>
@@ -70,6 +86,7 @@ export default class Menu extends React.Component {
                 <ButtonContainer>
                     <ImgButton margin={Number(responsiveHeight(2))} onPress={() => navigate('Question', {
                       level : this.props.level,
+                      score: this.props.score,
                       })} 
                       image={require('../assets/buttons/play.png')}/>
                     <ImgButton margin={Number(responsiveHeight(2))} image={require('../assets/buttons/highscores.png')}/>

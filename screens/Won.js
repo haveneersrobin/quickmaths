@@ -63,6 +63,9 @@ export default class Won extends React.Component {
                         <WinText style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}]}>
                             <Text> Proficiat, level {this.props.navigation.state.params.level-1} voltooid !</Text>
                         </WinText>
+                        <WinText style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}]}>
+                            <Text> Score: {this.props.navigation.state.params.score}</Text>
+                        </WinText>
                         <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'center'}]}>
                             <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={
                                 () => Alert.alert(
@@ -74,7 +77,7 @@ export default class Won extends React.Component {
                                     ]
                                   )
                                 } fontSize={30}  image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level:this.props.navigation.state.params.level}))} image={require('../assets/buttons/next.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level:this.props.navigation.state.params.level, score:this.props.navigation.state.params.score}))} image={require('../assets/buttons/next.png')}/>
                         </View>
                     </View>
                 </Overlay>
