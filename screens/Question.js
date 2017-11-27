@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, NetInfo, StyleSheet, Text, View,Image, BackHandler, Animated} from 'react-native';
+import { Dimensions, NetInfo, StyleSheet, Text, View,Image, BackHandler, Animated, Alert} from 'react-native';
 import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
 import { NavigationActions } from 'react-navigation';
@@ -106,14 +106,18 @@ export default class Question extends React.Component {
                     }}),
             ]
         });
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         this.props.navigation.dispatch(resetAction);
     }
 
     handleBackButton() {
+        console.log("back pressed");
         return true;
     }
 
     componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
         const level = this.props.navigation.state.params.level;
         const data = getRandomGridByDiff(1, 3);
         // TODO: Interval fixen
@@ -130,7 +134,6 @@ export default class Question extends React.Component {
     }
 
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         const timerz = setTimeout(() => this.goToQuestion(), this.props.questionInterval);
         const timer2 = setInterval(() => {
             this.setState(previousState => {
@@ -139,12 +142,11 @@ export default class Question extends React.Component {
           }, 1000);
         this.setState({ timerz, timer2 });
     }
-
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         const { timerz, timer2 } = this.state;
         if (timerz) { clearInterval(timerz); }
         if (timer2) { clearInterval(timer2); }
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
       render() { 
