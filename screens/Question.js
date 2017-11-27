@@ -9,6 +9,8 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 
 import { getRandomGridByDiff } from '../util/GridGenerator';
 
+import { Audio } from 'expo';
+
 const BackgroundContainer = styled.View`
     position: absolute;
 `;
@@ -36,7 +38,7 @@ const BackdropImage = styled.Image`
 
 const LargeText = styled.Text`
     font-family: 'proxima';
-    font-size: ${() => Number(responsiveFontSize(8))};
+    font-size: ${() => Number(responsiveFontSize(6))};
     text-align: center;
     padding: ${() => parseInt(responsiveHeight(2),10)}px;
 `;
@@ -44,9 +46,9 @@ const LargeText = styled.Text`
 const Timer = styled.Text`
     margin-top: ${() => Number(responsiveHeight(3))};
     font-family: 'proxima';
-    font-size: ${() => Number(responsiveFontSize(4))};
+    font-size: ${() => Number(responsiveFontSize(6))};
     text-align: center;
-    color:#A1C1B9;
+    color:#ffca3b;
 `;
 
 const Logo = styled.Image`
@@ -144,12 +146,25 @@ export default class Question extends React.Component {
             });
           }, 1000);
         this.setState({ timerz, timer2 });
+        this.playSound();
     }
     componentWillUnmount() {
         const { timerz, timer2 } = this.state;
         if (timerz) { clearInterval(timerz); }
         if (timer2) { clearInterval(timer2); }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    async playSound() {
+        const source = require('../assets/sounds/Countdown_1.wav');
+        try {
+          await Audio.setIsEnabledAsync(true);
+          const sound = new Audio.Sound();
+          await sound.loadAsync(source);
+          await sound.playAsync(); 
+        } catch(error) {
+          console.error(error);
+        }
     }
 
       render() { 
