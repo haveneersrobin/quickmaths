@@ -57,23 +57,8 @@ export default class Menu extends React.Component {
     super(props);
   }
 
-  async playBackground() {
-    const source = require('../assets/music/766948_Wandering_Edit.mp3');
-    try {
-      await Audio.setIsEnabledAsync(true);
-      const sound = new Audio.Sound();
-      await sound.loadAsync(source);
-      await sound.playAsync(); 
-      await sound.setIsLoopingAsync(true);            
-    } catch(error) {
-      console.error(error);
-    }
-    
-  }
-
   render() { 
     const { navigate } = this.props.navigation;
-    this.playBackground();
     return (
         <Container>
             <BackgroundContainer>

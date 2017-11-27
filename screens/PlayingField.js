@@ -35,6 +35,7 @@ export default class PlayingField extends React.Component {
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         const params = this.props.navigation.state.params;
+        this.playBackground(true);        
 
         const question = params.question;
         const solution = params.solution;
@@ -55,6 +56,7 @@ export default class PlayingField extends React.Component {
         const { timer, sliderTimer } = this.state;
         if (timer) { clearInterval(timer); }
         if (sliderTimer) { clearInterval(sliderTimer); }
+        this.playBackground(false);
     }
 
     
@@ -114,6 +116,20 @@ export default class PlayingField extends React.Component {
         }
       }
 
+    async playBackground(play) {
+        if( play) {   
+            try {
+                const source = require('../assets/music/766948_Wandering_Edit.mp3');                
+                const sound = new Audio.Sound();  
+                await Audio.setIsEnabledAsync(true);
+                await sound.loadAsync(source);
+                await sound.playAsync();
+            } catch(error) {
+                console.error(error);
+            }
+        }
+    }
+
     nextRow() {
         const correct = require('../assets/sounds/Correct_1.wav');
         const incorrect = require('../assets/sounds/Incorrect_1.wav');
@@ -129,6 +145,7 @@ export default class PlayingField extends React.Component {
                 if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
+                    this.playBackground(false);                    
                     this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10});
                 }
                 // 1.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
@@ -141,6 +158,7 @@ export default class PlayingField extends React.Component {
                 this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
+                this.playBackground(false);                                    
                 this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2});
             }
         }
@@ -155,6 +173,7 @@ export default class PlayingField extends React.Component {
                 if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
+                    this.playBackground(false);                                        
                     this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10});
                 }
                 // 2.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
@@ -171,6 +190,7 @@ export default class PlayingField extends React.Component {
                 this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
+                this.playBackground(false);                                    
                 this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2});
             }
 
