@@ -9,7 +9,7 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 
 import { getRandomGridByDiff } from '../util/GridGenerator';
 
-import {Audio } from expo;
+import { Audio } from 'expo';
 
 const BackgroundContainer = styled.View`
     position: absolute;
@@ -46,7 +46,7 @@ const LargeText = styled.Text`
 const Timer = styled.Text`
     margin-top: ${() => Number(responsiveHeight(3))};
     font-family: 'proxima';
-    font-size: ${() => Number(responsiveFontSize(10))};
+    font-size: ${() => Number(responsiveFontSize(6))};
     text-align: center;
     color:#ffca3b;
 `;
