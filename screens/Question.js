@@ -44,7 +44,7 @@ const LargeText = styled.Text`
 const Timer = styled.Text`
     margin-top: ${() => Number(responsiveHeight(3))};
     font-family: 'proxima';
-    font-size: ${() => Number(responsiveFontSize(3))};
+    font-size: ${() => Number(responsiveFontSize(4))};
     text-align: center;
     color:#A1C1B9;
 `;
@@ -103,6 +103,7 @@ export default class Question extends React.Component {
                         level : this.state.level,
                         interval : this.state.fieldInterval,
                         data: this.state.grid,
+                        score: this.state.score,
                     }}),
             ]
         });
@@ -115,6 +116,7 @@ export default class Question extends React.Component {
 
     componentWillMount() {
         const level = this.props.navigation.state.params.level;
+        const score = this.props.navigation.state.params.score;
         const data = getRandomGridByDiff(1, 3);
         // TODO: Interval fixen
         const fieldInterval = 3000;
@@ -124,7 +126,8 @@ export default class Question extends React.Component {
             solution: data.numericSolution,
             grid : data.grid,
             level: level, 
-            fieldInterval : fieldInterval  
+            fieldInterval : fieldInterval,
+            score: score,
         });
         
     }
@@ -165,9 +168,9 @@ export default class Question extends React.Component {
                     <Timer>
                         Spel start in: {this.state.timer}
                     </Timer>
-                    <LogoContainer>
+                    {/* <LogoContainer>
                         <Logo resizeMode='contain' source = {require('../assets/img/touch.gif')} />
-                    </LogoContainer>
+                    </LogoContainer> */}
                 </Overlay>
             </Container>
         );

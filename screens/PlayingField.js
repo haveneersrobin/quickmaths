@@ -39,7 +39,8 @@ export default class PlayingField extends React.Component {
         const question = params.question;
         const solution = params.solution;
         const level = params.level;
-        this.setState({question, solution, level });
+        const score = params.score;
+        this.setState({question, solution, level, score});
         
         const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
         const timer = setInterval(() => this.nextRow(), this.state.interval);
@@ -123,11 +124,12 @@ export default class PlayingField extends React.Component {
             // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
             if(!this.rowHasTrue(this.state.data[this.state.currentRow - 1])) {
                 this.playSound(true);
+                this.state.score = this.state.score + 1;
                 // 1.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
                 if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
-                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10});
                 }
                 // 1.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
                 else {
@@ -139,7 +141,7 @@ export default class PlayingField extends React.Component {
                 this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
-                this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2});
             }
         }
 
@@ -147,13 +149,13 @@ export default class PlayingField extends React.Component {
         else {
             // 2.1 HET GESELECTEERDE ANTWOORD IS JUIST
             if (this.state.correct === true) {
-                
                 this.playSound(true);   
+                this.state.score = this.state.score + 1;
                 // 2.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
                 if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
-                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10});
                 }
                 // 2.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
                 else {
@@ -169,7 +171,7 @@ export default class PlayingField extends React.Component {
                 this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
-                this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2});
             }
 
         }
@@ -199,6 +201,11 @@ export default class PlayingField extends React.Component {
                         <InfoText>
                             <RestText>
                                 Resterend: {this.state.currentRow}/{this.state.data.length-1}
+                            </RestText>
+                        </InfoText>
+                        <InfoText>
+                            <RestText>
+                                Score: {this.state.score}
                             </RestText>
                         </InfoText>
                         <InfoText>
