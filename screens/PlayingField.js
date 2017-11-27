@@ -121,8 +121,8 @@ export default class PlayingField extends React.Component {
         // 1. GEEN ANTWOORD GESELECTEERD
         if(this.state.correct === undefined) {
             // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
-            this.playSound(true);
             if(!this.rowHasTrue(this.state.data[this.state.currentRow - 1])) {
+                this.playSound(true);
                 // 1.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
                 if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
