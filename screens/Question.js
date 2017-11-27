@@ -38,7 +38,7 @@ const BackdropImage = styled.Image`
 
 const LargeText = styled.Text`
     font-family: 'proxima';
-    font-size: ${() => Number(responsiveFontSize(8))};
+    font-size: ${() => Number(responsiveFontSize(6))};
     text-align: center;
     padding: ${() => parseInt(responsiveHeight(2),10)}px;
 `;
