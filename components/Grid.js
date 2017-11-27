@@ -30,21 +30,57 @@ const Row = styled.View `
     justify-content: center;
     align-items: center;
     border:3px solid #566e89;
-    border-left-width: ${props => props.isLast ? "4px" : "0px" };
-    border-right-width: ${props => props.isLast ? "4px" : "0px" };
-    border-top-width: ${props => props.isLast ? "4px" : "0px" };
-    background-color: ${props => props.isLast ? "#214868" : "#E1E2E1" };
+    border-left-width: ${props => props.isAnswerRow ? "4px" : "0px" };
+    border-right-width: ${props => props.isAnswerRow ? "4px" : "0px" };
+    border-top-width: ${props => {
+        if(props.isAnswerRow && !props.isLastRow) {
+            return "4px";
+        }
+        else if(!props.isAnswerRow && props.isLastRow) {
+            return "8px";
+        }
+        else {
+            return "0px";
+        }
+    }};
+    background-color: ${props => {
+        if(props.isAnswerRow && !props.isLastRow) {
+            return "#214868";
+        }
+        else if(!props.isAnswerRow && props.isLastRow) {
+            return "#bcbcbc";
+        }
+        else {
+            return "#E1E2E1";
+        }
+    }}
     
 `;
 
 const NumberCell = styled.Text`
-    color: ${props => props.isLast ? "#E1E2E1" : "transparent" };;
-    ${props => props.isLast ? "": "text-shadow-offset: 1px 1px"};
-    ${props => props.isLast ? "" : "text-shadow-color: rgba(33, 72, 104, 0.8)" };
-    ${props => props.isLast ? "" : "text-shadow-radius:10px" };
+    color: ${props => { 
+        if(props.isAnswerRow && !props.isLastRow) {
+            return "#E1E2E1";
+        }
+        else if(!props.isAnswerRow && !props.isLastRow) {
+            return "transparent";
+        }
+        else if(!props.isAnswerRow && props.isLastRow && props.isCorrect) {
+            return "green";
+        }
+        else if(!props.isAnswerRow && props.isLastRow && !props.isCorrect) {
+            return "red";
+        }
+        else {
+            return "yellow";
+        }
+    }};
+    ${props => props.isAnswerRow ? "": "text-shadow-offset: 1px 1px"};
+    ${props => props.isAnswerRow ? "" : "text-shadow-color: rgba(33, 72, 104, 0.8)" };
+    ${props => props.isAnswerRow ? "" : "text-shadow-radius:10px" };
     font-family: 'roboto-bold';
     text-align:center;
-    font-size: ${props => props.isLast ? responsiveFontSize(4) : responsiveFontSize(3) };
+    font-size: ${props => props.isAnswerRow ? responsiveFontSize(4) : responsiveFontSize(3) };
 `;
 
 const data = [];
@@ -86,7 +122,7 @@ class Grid extends Component {
     }
 
 
-    renderRow(index, isLast) {
+    renderRow(index, isAnswerRow, isLastRow) {
         if (index < 0) {
             return [ <NumberBox><NumberCell/></ NumberBox>,  
                 <NumberBox isMiddle={true} ><NumberCell/></NumberBox>,
@@ -96,31 +132,22 @@ class Grid extends Component {
         const result = [];
         for(let i = 0; i < this.props.data[index].length; i++) {
             result.push(
-                <NumberBox key={i} isLast={isLast} isMiddle={i===1} selected={isLast && this.state.selectedTileinRow === i} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(this.props.data[index][i].correct, i,this.props.data[index], this.props.data[index][i].string)}>
-                    <NumberCell isLast={isLast}> 
+                <NumberBox key={i} isAnswerRow={isAnswerRow} isMiddle={i===1} selected={isAnswerRow && this.state.selectedTileinRow === i} activeOpacity={isAnswerRow ? 0 : 1} onPress={() => isAnswerRow && this.onClick(this.props.data[index][i].correct, i,this.props.data[index], this.props.data[index][i].string)}>
+                    <NumberCell isAnswerRow={isAnswerRow} isLastRow={isLastRow} isCorrect ={this.props.data[index][i].correct}> 
                         {this.props.data[index][i].string}
                     </NumberCell>
                 </NumberBox> );
         }
         return result;
-        {/*return this
-            .props
-            .data[index]
-            .map((number, idx) => 
-            
-                <NumberBox key={idx} isLast={isLast} isMiddle={idx===1} selected={isLast && this.state.selectedTileinRow === idx} activeOpacity={isLast ? 0 : 1} onPress={() => isLast && this.onClick(number, idx)}>
-                    <NumberCell isLast={isLast}> 
-                        {number}
-                    </NumberCell>
-        </NumberBox> );*/}
     };
 
     
     renderRows() {
         const rows = [];
         for (let i = this.props.currentRow - this.props.height + 1; i <= this.props.currentRow; i++) {
-            const isLast = (i === this.props.currentRow);
-            rows.push( <Row isLast={isLast} key={i}>{this.renderRow(i, isLast)}</Row>);
+            const isAnswerRow = (i === this.props.currentRow -1);
+            const isLastRow = (i === this.props.currentRow)
+            rows.push( <Row isAnswerRow={isAnswerRow} isLastRow={isLastRow} key={i}>{this.renderRow(i, isAnswerRow, isLastRow)}</Row>);
         }
         return rows;
     };

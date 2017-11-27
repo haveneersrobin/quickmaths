@@ -9,6 +9,7 @@ import { createSumGrid, createModuloGrid } from '../util/GridGenerator';
 import { QuestionText, RestText, Container, InfoText, InfoContainer, QuestionContainer, Header, Field } from './PlayingFieldStyles';
 import { StyleSheet, Text, View, Dimensions, BackHandler } from 'react-native';
 
+import { Audio } from 'expo';
 
 const PARTS = 20;
 
@@ -22,26 +23,42 @@ export default class PlayingField extends React.Component {
         super(props);
         const params = this.props.navigation.state.params;
         
-        let data = [];
-        console.log("PARAMS " + JSON.stringify(params));
-
-        if(params.question === 'som') {
-            console.log("SOM");
-            console.log(params.solution);
-            data = createSumGrid(params.solution, params.solution*6, params.level*5, nbCols = 3).grid;
-        }
-        else if(params.question === 'deling') {
-            console.log("DELING");
-            data = createModuloGrid(params.solution, params.solution*6, params.level*5, nbCols = 3).grid;
-        }
-
-        console.log("DATA= " + JSON.stringify(data));
+        let data = params.data;
         
         this.state = { 
             currentRow: data.length - 1,
             data: data,
             filled: PARTS};
         this.handleBackButton = this.handleBackButton.bind(this);
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        const params = this.props.navigation.state.params;
+
+        const question = params.question;
+        const solution = params.solution;
+        const level = params.level;
+        this.setState({question, solution, level });
+        
+        const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
+        const timer = setInterval(() => this.nextRow(), this.state.interval);
+        
+        // DEBUG TIMERS
+        //const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (150000 *0.9) / PARTS);
+        //const timer = setInterval(() => this.nextRow(), 150000);
+        this.setState({ timer, sliderTimer });
+    }
+
+    componentWillUnmount() {
+        const { timer, sliderTimer } = this.state;
+        if (timer) { clearInterval(timer); }
+        if (sliderTimer) { clearInterval(sliderTimer); }
+    }
+
+    
+    componentWillMount() {
+        this.setState({ interval: this.props.navigation.state.params.interval });
     }
     
     handleClick(correct, row) {
@@ -84,15 +101,30 @@ export default class PlayingField extends React.Component {
         this.props.navigation.dispatch(reset);
     }
 
+    async playSound(correct) {
+        const source = correct ? require('../assets/sounds/Correct_1.wav') : require('../assets/sounds/Incorrect_1.wav');
+        try {
+          await Audio.setIsEnabledAsync(true);
+          const sound = new Audio.Sound();
+          await sound.loadAsync(source);
+          await sound.playAsync(); 
+        } catch(error) {
+          console.error(error);
+        }
+      }
+
     nextRow() {
+        const correct = require('../assets/sounds/Correct_1.wav');
+        const incorrect = require('../assets/sounds/Incorrect_1.wav');
         const { timer, sliderTimer } = this.state;
         console.log("CORRECT " + this.state.correct)
         // 1. GEEN ANTWOORD GESELECTEERD
         if(this.state.correct === undefined) {
             // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
-            if(!this.rowHasTrue(this.state.data[this.state.currentRow])) {
+            if(!this.rowHasTrue(this.state.data[this.state.currentRow - 1])) {
+                this.playSound(true);
                 // 1.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
-                if(this.state.currentRow === 0) {
+                if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
@@ -104,6 +136,7 @@ export default class PlayingField extends React.Component {
             }
             // 1.2 ER WAS WEL EEN JUIST ANTWOORD => GAME OVER
             else {
+                this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
@@ -114,8 +147,10 @@ export default class PlayingField extends React.Component {
         else {
             // 2.1 HET GESELECTEERDE ANTWOORD IS JUIST
             if (this.state.correct === true) {
+                
+                this.playSound(true);   
                 // 2.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
-                if(this.state.currentRow === 0) {
+                if(this.state.currentRow === 1) {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.resetNavigatorToGameResult('Won', {level:this.state.level+1});
@@ -130,6 +165,8 @@ export default class PlayingField extends React.Component {
             }
             // 2.2 HET GESELECTEERDE ANTWOORD IS FOUT
             else {
+                
+                this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.resetNavigatorToGameResult('GameOver', {level:this.state.level});
@@ -148,56 +185,20 @@ export default class PlayingField extends React.Component {
         this.props.navigation.dispatch(resetAction);
         return true;
     }
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        const question = this.props.navigation.state.params.question;
-        const solution = this.props.navigation.state.params.solution;
-        const level = this.props.navigation.state.params.level;
-        this.setState({question, solution, level });
-        console.log("PF CDM INTERVAL " + this.state.interval);
-        
-        const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
-        const timer = setInterval(() => this.nextRow(), this.state.interval);
-        this.setState({ timer, sliderTimer });
-    }
-
-    componentWillUnmount() {
-        const { timer, sliderTimer } = this.state;
-        if (timer) { clearInterval(timer); }
-        if (sliderTimer) { clearInterval(sliderTimer); }
-    }
-
-    
-    componentWillMount() {
-        this.setState({ interval: this.props.navigation.state.params.interval });
-    }
-    
 
     render() {
         return (
             <Container>
                 <Header>
                     <QuestionContainer elevation={5} >
-                        {this.state.question === 'som' && 
                         <QuestionText>
-                            Welke som is gelijk aan {this.state.solution} ?
+                             {this.state.question}
                         </QuestionText>
-                        }
-                        {this.state.question === 'deling' && 
-                        <QuestionText>
-                            Welk getal is deelbaar door {this.state.solution} ?
-                        </QuestionText>
-                        }
-                        {this.state.question !== 'som' && this.state.question !== 'deling' &&
-                        <QuestionText>
-                            Voorlopig gaat er iets mis.
-                        </QuestionText>
-                        }
                     </QuestionContainer>
                     <InfoContainer>
                         <InfoText>
                             <RestText>
-                                Resterend: {this.state.currentRow+1}/{this.state.data.length}
+                                Resterend: {this.state.currentRow}/{this.state.data.length-1}
                             </RestText>
                         </InfoText>
                         <InfoText>

@@ -148,6 +148,19 @@ export function createSumGrid(solution, lowerbound, upperbound, levelLength, nbC
     for (var i = 0; i < levelLength; i++) {
         result.grid.push(getSumRow(solution, lowerbound, upperbound, nbCols));
     }
+    result.grid.push([{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    }]);
     return result;
 }
 
@@ -299,6 +312,19 @@ export function createSubtractionGrid(solution, lowerbound, upperbound, levelLen
     for (var i = 0; i < levelLength; i++) {
         result.grid.push(getSubtractionRow(solution, lowerbound, upperbound, nbCols));
     }
+    result.grid.push([{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    }]);
     return result;
 }
 
@@ -336,6 +362,19 @@ export function createMixedGrid(solution, lowerbound, upperbound, levelLength, n
             result.grid.push(getSubtractionRow(solution, lowerbound, upperbound, nbCols));
         }
     }
+    result.grid.push([{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    }]);
     return result;
 }
 
@@ -465,6 +504,19 @@ export function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
     for (var i = 0; i < levelLength; i++) {
         result.grid.push(getModuloRow(divider, maxNumber, nbCols));
     }
+    result.grid.push([{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    },{
+        "string": "",
+        "numResult": -1,
+        "correct": true
+    }]);
     return result;
 }
 

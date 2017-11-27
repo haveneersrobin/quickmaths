@@ -7,6 +7,8 @@ import _ from 'lodash';
 
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
+import { getRandomGridByDiff } from '../util/GridGenerator';
+
 const BackgroundContainer = styled.View`
     position: absolute;
 `;
@@ -87,32 +89,8 @@ export default class Question extends React.Component {
     }
 
 
-    randomQuestion(question, level) {
-        const solution = _.random(this.getLower(level, question),this.getUpper(level, question));
-        this.setState({ solution });
-    }
-    
-    getUpper(level, question) {
-        if(question === 'som') {
-            return _.random(Math.pow(level+2, 2),Math.pow(level+7, 2));
-        }
-        else if(question === 'deling') {
-            return _.random(level*2+5,level*4);
-        }
-    }
-    
-    getLower(level, question) {
-        if(question === 'som') {
-            return _.random(Math.pow(level, 2),Math.pow(level+5, 2));
-    }
-    else if(question === 'deling') {
-        return _.random(level*2,level*2+5);
-    }
-  }
-
     goToQuestion() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-        console.log(this.state.question, this.state.solution, this.state.level);
         const resetAction = NavigationActions.reset({
             index: 2,
             actions: [
@@ -123,7 +101,8 @@ export default class Question extends React.Component {
                         question : this.state.question,
                         solution : this.state.solution,
                         level : this.state.level,
-                        interval : this.state.fieldInterval
+                        interval : this.state.fieldInterval,
+                        data: this.state.grid,
                     }}),
             ]
         });
@@ -136,22 +115,17 @@ export default class Question extends React.Component {
 
     componentWillMount() {
         const level = this.props.navigation.state.params.level;
-        //const type = 0;
-        const type = _.random(0,1);
-        let question;
-        if(type === 0) {
-            question = 'som';
-        }
-        else if (type === 1) {
-            question =  'deling';
-        }
-        console.log("LVL " + level);
-        let fieldInterval = 5000;
-        if(3 < level && level < 9) {
-            fieldInterval = Number(6000 * (3/level))
-        }
-        console.log("INTERVAL " + fieldInterval);
-        this.setState({ question, level, fieldInterval }, this.randomQuestion(question, level));
+        const data = getRandomGridByDiff(1, 3);
+        // TODO: Interval fixen
+        const fieldInterval = 3000;
+        console.log(JSON.stringify(data, null, 4));
+        this.setState({ 
+            question : data.objective,
+            solution: data.numericSolution,
+            grid : data.grid,
+            level: level, 
+            fieldInterval : fieldInterval  
+        });
         
     }
 
@@ -184,21 +158,9 @@ export default class Question extends React.Component {
                             <SmallText>
                                 Level: {this.state.level}
                             </SmallText>
-                        {this.state.question === 'som' && 
                         <LargeText>
-                            Welke som is gelijk aan {this.state.solution} ?
+                            {this.state.question}
                         </LargeText>
-                        }
-                        {this.state.question === 'deling' && 
-                        <LargeText>
-                            Welk getal is deelbaar door {this.state.solution} ?    
-                        </LargeText>
-                        }
-                        {this.state.question !== 'deling' && this.state.question !== 'som' &&
-                        <LargeText>
-                            Voorlopig gaat er iets mis.
-                        </LargeText>
-                        }
                     </LargeTextContainer>
                     <Timer>
                         Spel start in: {this.state.timer}
