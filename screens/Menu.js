@@ -56,7 +56,7 @@ export default class Menu extends React.Component {
   constructor(props) {
     super(props);
   }
-
+  
   render() { 
     const { navigate } = this.props.navigation;
     return (
@@ -72,6 +72,7 @@ export default class Menu extends React.Component {
                     <ImgButton margin={Number(responsiveHeight(2))} onPress={() => navigate('Question', {
                       level : this.props.level,
                       score: this.props.score,
+                      uid: this.props.navigation.state.params.uid,
                       })} 
                       image={require('../assets/buttons/play.png')}/>
                     <ImgButton margin={Number(responsiveHeight(2))} image={require('../assets/buttons/highscores.png')}/>

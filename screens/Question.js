@@ -11,6 +11,8 @@ import { getRandomGridByDiff } from '../util/GridGenerator';
 
 import { Audio } from 'expo';
 
+import * as firebase from 'firebase';
+
 const BackgroundContainer = styled.View`
     position: absolute;
 `;
@@ -118,8 +120,17 @@ export default class Question extends React.Component {
         return true;
     }
 
+    increaseGamePlayed(userId) {
+        firebase.database().ref('users/' + userId + '/games_played').transaction((currentGamesPlayed) => {
+            return (currentGamesPlayed || 0) + 1;
+        });
+      }
+
     componentWillMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        console.log("elllllll");
+        console.log(this.props.navigation.state.params.uid);
+        this.increaseGamePlayed(this.props.navigation.state.params.uid);
 
         const level = this.props.navigation.state.params.level;
         const score = this.props.navigation.state.params.score;

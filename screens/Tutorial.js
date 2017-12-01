@@ -66,7 +66,7 @@ export default class Tutorial extends React.Component {
                         <SlideImage resizeMode='contain' source={require('../assets/img/tuto4.png')}/>
                     </Slide>
                 </Swiper>
-                <BeginText onPress={() => navigate('Menu')}>
+                <BeginText onPress={() => navigate('Menu', { uid : this.props.navigation.state.params.uid })}>
                     Begin >
                 </BeginText>
             </View>

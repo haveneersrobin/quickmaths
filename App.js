@@ -12,6 +12,18 @@ import Tutorial from './screens/Tutorial';
 import Menu from './screens/Menu';
 import Won from './screens/Won';
 
+import * as firebase from 'firebase';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyA30QcshdqvtOFZiUghZnDTuUHCPPwOTic",
+  authDomain: "quickmaths-baf21.firebaseapp.com",
+  databaseURL: "https://quickmaths-baf21.firebaseio.com",
+  storageBucket: "quickmaths-baf21.appspot.com"
+};
+
+firebase.initializeApp(firebaseConfig);
+
 const Navigator = StackNavigator({
   Home: {
     screen: HomeScreen
