@@ -521,13 +521,13 @@ export function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
 }
 
 /**
- * Returns a grid of a random type, given a specified difficulty
+ * Returns a grid of a random type, given a specified difficulty for the Classic Mode
  * @param {*} level - The number of the current level, specifying the difficulty (length and range of numbers)
  * @param {*} nbCols - The width of the grid, default: 3
  */
-export function getRandomGridByDiff(level, nbCols = 3) {
+export function getRandomGridByDiffClassic(level, nbCols = 3) {
     // round levelLength parameter with arbitrary formula
-    var levelLength = Math.floor(5.69*Math.log(level) + 3.04);
+    var levelLength = Math.floor(5.69 * Math.log(level) + 3.04);
 
     // First, generate the kind of level
     const levelKinds = 4;
@@ -546,14 +546,14 @@ export function getRandomGridByDiff(level, nbCols = 3) {
         case 2:
             // Set divider, Upperbound is defined by difficulty
             var divider = 1;
-            if(level <= 5 ){
+            if (level <= 5) {
                 divider = _.random(2, 10); // All dividers allowed
             }
-            else{
-                allowedDivs = [3,4,6,7,8,9]; // No trivial dividers allowed
-                divider = allowedDivs[_.random(0,5)]; // Choose a random index of the array
-            }   
-            
+            else {
+                allowedDivs = [3, 4, 6, 7, 8, 9]; // No trivial dividers allowed
+                divider = allowedDivs[_.random(0, 5)]; // Choose a random index of the array
+            }
+
             var upperBound = level * divider * 2; // Arbitrary, might need tweaking
             return createModuloGrid(divider, upperBound, levelLength, nbCols);
 
@@ -572,6 +572,67 @@ export function getRandomGridByDiff(level, nbCols = 3) {
             var solution = _.random(level * 5, level * 7);
             // range = range of possible answers to be generated
             var range = _.random(level * 3, level * 4);
+            // numbers will be generated between solution - 1/2 * range and solution + 1/2 * range
+            return createMixedGrid(solution, Math.round(solution - (range / 2)), Math.round(solution + (range / 2)), levelLength, nbCols);
+
+        default:
+            console.log('Oops, this kind of level does not exist, yet');
+    }
+}
+
+/**
+ * Returns a grid of a random type, given a specified difficulty for the Endurance Mode
+ * This mode generates slightly easier levels
+ * @param {*} level - The number of the current level, specifying the difficulty (length and range of numbers)
+ * @param {*} nbCols - The width of the grid, default: 3
+ */
+export function getRandomGridByDiffEndurance(level, nbCols = 3) {
+    // round levelLength parameter with arbitrary formula
+    var levelLength = Math.floor(0.75 * level * Math.log(level) + 3.04);
+
+    // First, generate the kind of level
+    const levelKinds = 4;
+    switch (_.random(1, levelKinds)) {
+
+        // Generate Sum Grid
+        case 1:
+            // Set solution, Upperbound fixed: solution * 2
+            var solution = _.random(level * 3, level * 5);
+            // range = range of possible answers to be generated
+            var range = _.random(level * 2, level * 3);
+            // numbers will be generated between solution - 1/2 * range and solution + 1/2 * range
+            return createSumGrid(solution, Math.round(solution - (range / 2)), Math.round(solution + (range / 2)), levelLength, nbCols);
+
+        // Generate Modulo Grid
+        case 2:
+            // Set divider, Upperbound is defined by difficulty
+            var divider = 1;
+            if (level <= 5) {
+                divider = _.random(2, 10); // All dividers allowed
+            }
+            else {
+                allowedDivs = [3, 4, 6, 7, 8, 9]; // No trivial dividers allowed
+                divider = allowedDivs[_.random(0, 5)]; // Choose a random index of the array
+            }
+
+            var upperBound = Math.round(level * divider * 1.25 + 10); // Arbitrary, might need tweaking
+            return createModuloGrid(divider, upperBound, levelLength, nbCols);
+
+        // Generate Subtraction Grid
+        case 3:
+            // Set solution
+            var solution = _.random(level * 3, level * 5);
+            // range = range of possible answers to be generated
+            var range = _.random(level * 2, level * 3);
+            // numbers will be generated between solution - 1/2 * range and solution + 1/2 * range
+            return createSubtractionGrid(solution, Math.round(solution - (range / 2)), Math.round(solution + (range / 2)), levelLength, nbCols);
+
+        // Generate Mixed Grid
+        case 4:
+            // Set solution
+            var solution = _.random(level * 3, level * 5);
+            // range = range of possible answers to be generated
+            var range = _.random(level * 2, level * 3);
             // numbers will be generated between solution - 1/2 * range and solution + 1/2 * range
             return createMixedGrid(solution, Math.round(solution - (range / 2)), Math.round(solution + (range / 2)), levelLength, nbCols);
 
