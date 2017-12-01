@@ -120,23 +120,37 @@ export default class Question extends React.Component {
         return true;
     }
 
-    increaseGamePlayed(userId) {
-        firebase.database().ref('users/' + userId + '/games_played').transaction((currentGamesPlayed) => {
+    startNewGame(userId, current_level, current_score) {
+        firebase.database().ref('users/' + userId + '/nb_games_played').transaction((currentGamesPlayed) => {
             return (currentGamesPlayed || 0) + 1;
         });
+        const start = new Date().getTime();
+        // A post entry.
+        console.log(current_level);
+        console.log(current_score);
+        const gameData = {
+            start_time: start,
+            end_time: 0,
+            level: current_level,
+            score: current_score,
+        };
+
+        // Get a key for a new Post.
+        const newGameKey = firebase.database().ref().child('users/' + userId + '/games/').push();
+        newGameKey.set(gameData);
       }
 
     componentWillMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         console.log("elllllll");
-        console.log(this.props.navigation.state.params.uid);
-        this.increaseGamePlayed(this.props.navigation.state.params.uid);
 
         const level = this.props.navigation.state.params.level;
         const score = this.props.navigation.state.params.score;
         const data = getRandomGridByDiffClassic(level); // level meegegen is genoeg, al de rest bepaald de generator. Lengte hangt af van het level -> zie functie in generator
         // TODO: Interval fixen
         const fieldInterval = 5000;
+
+        this.startNewGame(this.props.navigation.state.params.uid, level, score);
         console.log(JSON.stringify(data, null, 4));
         this.setState({ 
             question : data.objective,

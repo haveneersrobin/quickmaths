@@ -79,7 +79,7 @@ export default class HomeScreen extends React.Component {
                 fb_app_id: data.id
               });
             console.log("navigating");
-            //navigate('Tutorial', { uid : firebase.auth().currentUser.uid });
+            navigate('Tutorial', { uid : firebase.auth().currentUser.uid });
         }
     }
 

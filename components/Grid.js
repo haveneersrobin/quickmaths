@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TouchableOpacity, StyleSheet} from 'react-native';
+import { TouchableOpacity, StyleSheet, BackHandler} from 'react-native';
 import styled from 'styled-components/native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -98,6 +98,20 @@ class Grid extends Component {
         super(props);
         this.state = { selectedTileinRow: -1}
     }
+    
+    handleBackButton() {
+        console.log("back pressed");
+        return true;
+    }
+
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    
 
     componentWillReceiveProps(nextProps) {
         if (this.props.currentRow !== nextProps.currentRow) {

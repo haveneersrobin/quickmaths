@@ -54,15 +54,22 @@ export default class PlayingField extends React.Component {
         this.setState({ timer, sliderTimer });
     }
 
+    handleBackButton() {
+        console.log("back pressed");
+        return true;
+    }
+
     componentWillUnmount() {
         const { timer, sliderTimer } = this.state;
         if (timer) { clearInterval(timer); }
         if (sliderTimer) { clearInterval(sliderTimer); }
         this.playBackground(false);
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     
     componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         this.setState({ interval: this.props.navigation.state.params.interval });
     }
     
