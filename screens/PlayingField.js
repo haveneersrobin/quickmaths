@@ -47,6 +47,8 @@ export default class PlayingField extends React.Component {
         const score = params.score;
         const uid = params.uid;
         const gamekey = params.gamekey;
+        console.log("key");
+        console.log(gamekey);
         this.setState({ question, solution, level, score, uid, gamekey });
         
         const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
@@ -101,10 +103,11 @@ export default class PlayingField extends React.Component {
     }
 
     resetNavigatorToGameResult(whereTo, parameters = undefined) {
-        firebase.database().ref().child('users/' + this.state.uid + '/games/' + this.state.gamekey).update({
+        console.log("reset key: " + this.state.gamekey);
+        this.state.gamekey.update({
             end_time: new Date().getTime(),
             level_length: this.state.data.length-1,
-            last_row: this.state.date.currentRow,
+            last_row: this.state.currentRow,
             result: whereTo,
             end_score: parameters.score
         });

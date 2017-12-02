@@ -123,6 +123,7 @@ export default class Question extends React.Component {
     }
 
     startNewGame(userId, current_level, current_score, current_question, current_solution, current_interval, game_data) {
+        console.log("sol " + current_solution);  
         firebase.database().ref('users/' + userId + '/nb_games_played').transaction((currentGamesPlayed) => {
             return (currentGamesPlayed || 0) + 1;
         });
@@ -142,13 +143,13 @@ export default class Question extends React.Component {
             last_row: 0,
             level_length: 0,
             interrupted: false,
-            data:game_data,
+            grid:game_data,
 
         };
 
         // Get a key for a new Post.
         const newGameKey = firebase.database().ref().child('users/' + userId + '/games/').push();
-        this.setState( { newGameKey });
+        this.setState( { gamekey: newGameKey });
         newGameKey.set(gameData);
       }
 
@@ -161,8 +162,8 @@ export default class Question extends React.Component {
         const data = getRandomGridByDiffClassic(level); // level meegegen is genoeg, al de rest bepaald de generator. Lengte hangt af van het level -> zie functie in generator
         // TODO: Interval fixen
         const fieldInterval = 5000;
-
-        this.startNewGame(uid, level, score, data.objective, data.numericSolution, fieldInterval, data.level_length, data);
+        console.log(data.numericSolution);
+        this.startNewGame(uid, level, score, data.objective, data.numericSolution, fieldInterval, data.grid);
         console.log(JSON.stringify(data, null, 4));
         this.setState({ 
             question : data.objective,
