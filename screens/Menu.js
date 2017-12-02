@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import ImgButton from '../components/ImageButton';
 
 import { Audio } from 'expo';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 
@@ -76,7 +76,15 @@ export default class Menu extends React.Component {
                       gametype: this.props.navigation.state.params.gametype,
                       })} 
                       image={require('../assets/buttons/play.png')}/>
-                    <ImgButton margin={Number(responsiveHeight(2))} image={require('../assets/buttons/highscores.png')}/>
+                    <ImgButton margin={Number(responsiveHeight(2))} onPress={
+                                () => Alert.alert(
+                                    'High Scores',
+                                    'Het klassement is binnenkort verkrijgbaar.',
+                                    [
+                                        {text: 'OK', onPress: () => console.log('Pop-up sluiten')}
+                                    ]
+                                  )
+                                } fontSize={30} image={require('../assets/buttons/highscores.png')}/>
                     <View style={[{flex:2}, {flexDirection:'row'},{justifyContent:'space-around'}, {alignItems:'center'}]}>
                       <ImgButton bottomButton={true} onPress={() => navigate('Info')} margin={Number(responsiveHeight(1))} image={require('../assets/buttons/settings.png')}/>
                     </View>

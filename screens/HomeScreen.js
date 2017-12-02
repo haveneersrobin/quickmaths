@@ -168,7 +168,7 @@ export default class HomeScreen extends React.Component {
                             <InnerText>Dit is een app gemaakt voor een universitair opleidingsonderdeel.</InnerText>
                             <InnerText>We gebruiken je Facebook-account enkel om analytische gegevens aan te kopppelen. <BoldText>Niets</BoldText> van je persoonlijke gegevens wordt opgeslagen.</InnerText>
                             <InnerText>Op geen enkel moment kunnen wij persoonlijke Facebook-data van jou raadplegen.</InnerText>
-                            <InnerText> Je kan ook verder gaan zonder inloggen, maar dan krijgen we jou speel-data niet toegestuurd, waardoor we de app niet kunnen verbeteren <Emoji name="cry"/></InnerText>
+                            <InnerText> Je kan ook verder gaan zonder inloggen, maar dan krijgen we jou speel-data niet toegestuurd, waardoor we de app niet kunnen verbeteren. <Emoji name="cry"/></InnerText>
                         </TextContainer>
                     </View>
                     <DialogButton
