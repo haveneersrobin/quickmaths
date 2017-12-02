@@ -75,12 +75,15 @@ const BoldText = styled.Text`
 
 
 
+
+
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-
         this.showDialogOnPress = this.showDialogOnPress.bind(this);
     }
+
+    
 
     _handleFacebookLogin = async () => {
         const { navigate } = this.props.navigation;
@@ -92,17 +95,18 @@ export default class HomeScreen extends React.Component {
             const credential = firebase.auth.FacebookAuthProvider.credential(token);
             // Sign in with credential from the Facebook user.
             firebase.auth().signInWithCredential(credential).catch((error) => {
-                Alert.alert(
-                    'Firebase Error',
-                    'Er is iets misgegaan bij Firebase.',
-                    [
-                        {text: 'Ok', onPress: (() => navigate('Menu'))},
-                    ]
-                  )
+                console.log("Firebase Sign-In went wrong");
+                console.log(error);
             });
+        }
+        // Listen for authentication state to change.
+        firebase.auth().onAuthStateChanged(async (user) => {
+            if (user != null) {
+            console.log("We are authenticated now!");
             const user_id = firebase.auth().currentUser.uid;
             const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=age_range,gender,name`);
             const data = await response.json();
+            console.log(data);
             firebase.database().ref('users/' + user_id + '/info').set({
                 full_name: data.name,
                 gender: data.gender,
@@ -114,12 +118,12 @@ export default class HomeScreen extends React.Component {
                     os: Platform.OS,
                     version : Platform.OS === "android" ? version.get(Platform.Version) : "ios"
                 }
-              });
+                });
             navigate('Tutorial', { uid : firebase.auth().currentUser.uid, gametype: _.random(0, 1) });
-        }
-
-        
+            }
+        });
     }
+
     showDialogOnPress() {
         this.popupDialog.show();
     }
