@@ -4,5 +4,10 @@
   "packagerPid": 34020,
   "expoServerNgrokUrl": "https://pj-6g7.robinhav.quickmaths.exp.direct",
   "packagerNgrokUrl": "https://packager.pj-6g7.robinhav.quickmaths.exp.direct",
+<<<<<<< HEAD
   "ngrokPid": 34038
 }
+=======
+  "ngrokPid": 33783
+}
+>>>>>>> b8551464e4b20614456b61f56d3ec1aeb6aca8c2
