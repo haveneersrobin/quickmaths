@@ -1,9 +1,13 @@
+!node_modules/
+
+node_modules/*
+!node_modules/react-native-swiper
+!node_modules/react-native-emoji
+
 node_modules/**/*
 .expo/*
 npm-debug.*
 
-!node_modules/react-native-swiper
-!node_modules/react-native-emoji
 
 # Created by https://www.gitignore.io/api/osx,node,windows,reactnative
 
