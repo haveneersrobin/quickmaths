@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import { TouchableOpacity, StyleSheet, BackHandler} from 'react-native';
+import React, { Component } from 'react';
+import { TouchableOpacity, BackHandler} from 'react-native';
 import styled from 'styled-components/native';
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const Container = styled.View `
     flex: 1;
@@ -100,7 +100,6 @@ class Grid extends Component {
     }
     
     handleBackButton() {
-        console.log("back pressed");
         return true;
     }
 

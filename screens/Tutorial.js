@@ -1,9 +1,10 @@
 import React from 'react';
 import Swiper from 'react-native-swiper';
-import { Dimensions, NetInfo, StyleSheet, Text, View,Image, BackHandler, Animated} from 'react-native';
 import styled from 'styled-components/native';
+
+import { Text, View, Image} from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+import { responsiveHeight, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 
 const Slide = styled.View`
@@ -66,7 +67,7 @@ export default class Tutorial extends React.Component {
                         <SlideImage resizeMode='contain' source={require('../assets/img/tuto4.png')}/>
                     </Slide>
                 </Swiper>
-                <BeginText onPress={() => navigate('Menu', { uid : this.props.navigation.state.params.uid })}>
+                <BeginText onPress={() => navigate('Menu', { uid : this.props.navigation.state.params.uid, gametype : this.props.navigation.state.params.gametype })}>
                     Begin >
                 </BeginText>
             </View>

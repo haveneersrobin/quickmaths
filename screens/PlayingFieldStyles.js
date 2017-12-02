@@ -1,6 +1,7 @@
-import { Text } from 'react-native';
 import styled from 'styled-components/native';
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+
+import { Text } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export const QuestionText = styled.Text`
     font-family: 'roboto';

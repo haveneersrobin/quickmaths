@@ -1,17 +1,15 @@
-import React from 'react';
-import { Dimensions, NetInfo, StyleSheet, Text, View,Image, BackHandler, Animated, Alert} from 'react-native';
-import ImgButton from '../components/ImageButton';
-import styled from 'styled-components/native';
-import { NavigationActions } from 'react-navigation';
 import _ from 'lodash';
-
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-
-import { getRandomGridByDiffClassic } from '../util/GridGenerator';
+import React from 'react';
+import * as firebase from 'firebase';
+import styled from 'styled-components/native';
+import ImgButton from '../components/ImageButton';
 
 import { Audio } from 'expo';
+import { NavigationActions } from 'react-navigation';
+import { Text, View, Image, BackHandler} from 'react-native';
+import { getRandomGridByGameType } from '../util/GridGenerator';
+import { responsiveHeight, responsiveFontSize } from 'react-native-responsive-dimensions';
 
-import * as firebase from 'firebase';
 
 const BackgroundContainer = styled.View`
     position: absolute;
@@ -109,7 +107,8 @@ export default class Question extends React.Component {
                         data: this.state.grid,
                         score: this.state.score,
                         gamekey: this.state.gamekey,
-                        uid: this.state.uid
+                        uid: this.state.uid,
+                        gametype: this.state.gametype,
                     }}),
             ]
         });
@@ -118,20 +117,17 @@ export default class Question extends React.Component {
     }
 
     handleBackButton() {
-        console.log("back pressed");
         return true;
     }
 
-    startNewGame(userId, current_level, current_score, current_question, current_solution, current_interval, game_data) {
-        console.log("sol " + current_solution);  
+    startNewGame(userId, current_level, current_score, current_question, current_solution, current_interval, game_data, gametype) {
         firebase.database().ref('users/' + userId + '/nb_games_played').transaction((currentGamesPlayed) => {
             return (currentGamesPlayed || 0) + 1;
         });
-        const start = new Date().getTime();
+        const start = new Date().toTimeString();
         // A post entry.
-        console.log(current_level);
-        console.log(current_score);
         const gameData = {
+            type: gametype == 0 ? "Classic" : "Endurance",
             start_time: start,
             end_time: 0,
             level: current_level,
@@ -140,7 +136,7 @@ export default class Question extends React.Component {
             solution: current_solution,
             interval: current_interval,
             result: "",
-            last_row: 0,
+            remaining_rows: -1,
             level_length: 0,
             interrupted: false,
             grid:game_data,
@@ -149,22 +145,29 @@ export default class Question extends React.Component {
 
         // Get a key for a new Post.
         const newGameKey = firebase.database().ref().child('users/' + userId + '/games/').push();
-        this.setState( { gamekey: newGameKey });
+        this.setState( { gamekey:   newGameKey });
         newGameKey.set(gameData);
       }
 
     componentWillMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-
-        const level = this.props.navigation.state.params.level;
-        const score = this.props.navigation.state.params.score;
-        const uid = this.props.navigation.state.params.uid;
-        const data = getRandomGridByDiffClassic(level); // level meegegen is genoeg, al de rest bepaald de generator. Lengte hangt af van het level -> zie functie in generator
+        const nav_props = this.props.navigation.state.params;
+        const gametype = nav_props.gametype;
+        const level = nav_props.level;
+        const score = nav_props.score;
+        const uid = nav_props.uid;
+        const data = getRandomGridByGameType(gametype, level); // level meegegen is genoeg, al de rest bepaald de generator. Lengte hangt af van het level -> zie functie in generator
         // TODO: Interval fixen
         const fieldInterval = 5000;
-        console.log(data.numericSolution);
-        this.startNewGame(uid, level, score, data.objective, data.numericSolution, fieldInterval, data.grid);
+        console.log("PROPERTIES");
+        console.log(level);
+        console.log(score);
+        console.log(uid);
         console.log(JSON.stringify(data, null, 4));
+        console.log("END PROPERTIES");
+        if(!!uid) {
+            this.startNewGame(uid, level, score, data.objective, data.numericSolution, fieldInterval, data.grid, gametype);
+        }
         this.setState({ 
             question : data.objective,
             solution: data.numericSolution,
@@ -172,7 +175,8 @@ export default class Question extends React.Component {
             level: level, 
             fieldInterval : fieldInterval,
             score: score,
-            uid: uid
+            uid: uid,
+            gametype: gametype
         });
         
     }

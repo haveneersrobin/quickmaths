@@ -1,7 +1,8 @@
 import React from 'react';
-import { Dimensions, NetInfo, StyleSheet, Text, View,Image} from 'react-native';
-import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
+import ImgButton from '../components/ImageButton';
+
+import { Text, View,Image} from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const BackgroundContainer = styled.View`
@@ -62,8 +63,8 @@ export default class GameOver extends React.Component {
                             <Text> Score: {this.props.navigation.state.params.score}</Text>
                         </GameOverText>
                         <View style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}, {marginTop:30}]}>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={() => navigate('Menu', {uid:this.props.navigation.state.params.uid})} image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level: this.props.navigation.state.params.level, score:this.props.navigation.state.params.score, uid:this.props.navigation.state.params.uid}))}  image={require('../assets/buttons/replay.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={() => navigate('Menu', {uid:this.props.navigation.state.params.uid, gametype: this.props.navigation.state.params.gametype})} image={require('../assets/buttons/home-small.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level: this.props.navigation.state.params.level, score:this.props.navigation.state.params.score, uid:this.props.navigation.state.params.uid, gametype: this.props.navigation.state.params.gametype}))}  image={require('../assets/buttons/replay.png')}/>
                         </View>
                     </View>
                 </Overlay>

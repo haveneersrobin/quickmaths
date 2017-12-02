@@ -1,14 +1,11 @@
 import React from 'react';
-import { Image, TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-
-
+import { Image, TouchableOpacity } from 'react-native';
 
 const SpecialImg = styled(Image)`
     resize-mode:contain;
     justify-content:center;
+    ${props => props.back ? "width: 50; height:50" : ""}
     aspect-ratio: ${props => { 
         if(!props.homeButton) {
             if(props.bottomButton) {
@@ -19,7 +16,7 @@ const SpecialImg = styled(Image)`
             }
         }
         else {
-            return 3;
+            return 2;
         }
     }};
 `;
@@ -28,7 +25,6 @@ const SpecialImg = styled(Image)`
 export default class ImgButton extends React.Component {
     constructor(props) {
         super(props);
-
     }
     render() {
         return (
@@ -37,6 +33,7 @@ export default class ImgButton extends React.Component {
                         homeButton={this.props.homeButton}
                         bottomButton={this.props.bottomButton}
                         margin={this.props.margin}
+                        back={this.props.isBack}
                         source={this.props.image}>
                     </SpecialImg>
             </TouchableOpacity>

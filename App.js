@@ -11,6 +11,7 @@ import Question from './screens/Question';
 import Tutorial from './screens/Tutorial';
 import Menu from './screens/Menu';
 import Won from './screens/Won';
+import Info from './screens/Info';
 
 import * as firebase from 'firebase';
 
@@ -48,6 +49,9 @@ const Navigator = StackNavigator({
   },
   Tutorial: {
     screen: Tutorial
+  },
+  Info: {
+    screen: Info
   }
 }, {headerMode: 'null'});
 
@@ -61,6 +65,7 @@ export default class App extends React.Component {
       'roboto-bold': require('./assets/fonts/RobotoCondensed.ttf'),
       'roboto': require('./assets/fonts/Roboto-Light.ttf'),
       'proxima': require('./assets/fonts/Proxima.ttf'),
+      'Arial': require('./assets/fonts/Arial.ttf'),
     })
     this.setState({ fontLoaded: true });
   }

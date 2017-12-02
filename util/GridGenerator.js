@@ -100,7 +100,7 @@ export function getSumRow(solution, lowerbound, upperbound, nbCols = 3) {
             }
             // Else leave elem as default, no action needed
 
-            // Push new elemenent into row
+            // Push caselemenent into row
             currentRow.push(currentElem);
         }
 
@@ -264,7 +264,7 @@ export function getSubtractionRow(solution, lowerbound, upperbound, nbCols = 3) 
             }
             // Else leave elem as default, no action needed
 
-            // Push new elemenent into row
+            // Push caselemenent into row
             currentRow.push(currentElem);
         }
 
@@ -394,7 +394,7 @@ export function getModuloRow(divider, maxNumber, nbCols = 3) {
     var currentRow = [];
     // denotes whether a tile will be filled
     var fillTile = false;
-    // Temp var to generate new number into
+    // Temp var to generate casnumber into
     var currentNum = 0;
 
     // Only one row to be generated
@@ -464,7 +464,7 @@ export function getModuloRow(divider, maxNumber, nbCols = 3) {
             }
             // Else leave elem as default, no action needed
 
-            // Push new elemenent into row
+            // Push caselemenent into row
             currentRow.push(currentElem);
         }
 
@@ -498,7 +498,8 @@ export function createModuloGrid(divider, maxNumber, levelLength, nbCols = 3) {
     // grid contains the numbers, and a boolean if a tile is a correct answer
     var result = {
         objective: 'Welk getal is deelbaar door ' + divider + '?',
-        grid: []
+        grid: [],
+        numericSolution: divider
     }
 
     for (var i = 0; i < levelLength; i++) {
@@ -638,5 +639,14 @@ export function getRandomGridByDiffEndurance(level, nbCols = 3) {
 
         default:
             console.log('Oops, this kind of level does not exist, yet');
+    }
+}
+
+export function getRandomGridByGameType(gameType, level) {
+    switch(gameType) {
+        case 0:
+            return getRandomGridByDiffClassic(level);
+        case 1:
+            return getRandomGridByDiffEndurance(level);
     }
 }

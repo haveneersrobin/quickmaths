@@ -1,17 +1,12 @@
 import React from 'react';
+import * as firebase from 'firebase';
 import Grid from '../components/Grid';
-import Button from 'apsl-react-native-button';
 import BottomTimer from '../components/BottomTimer';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import { NavigationActions } from 'react-navigation';
-import { createSumGrid, createModuloGrid } from '../util/GridGenerator';
-import { QuestionText, RestText, Container, InfoText, InfoContainer, QuestionContainer, Header, Field } from './PlayingFieldStyles';
-import { StyleSheet, Text, View, Dimensions, BackHandler } from 'react-native';
 
 import { Audio } from 'expo';
-
-import * as firebase from 'firebase';
+import { NavigationActions } from 'react-navigation';
+import { Text, View, BackHandler } from 'react-native';
+import { QuestionText, RestText, Container, InfoText, InfoContainer, QuestionContainer, Header, Field } from './PlayingFieldStyles';
 
 const PARTS = 20;
 const sound = new Audio.Sound();  
@@ -47,16 +42,12 @@ export default class PlayingField extends React.Component {
         const score = params.score;
         const uid = params.uid;
         const gamekey = params.gamekey;
-        console.log("key");
-        console.log(gamekey);
-        this.setState({ question, solution, level, score, uid, gamekey });
+        const gametype = params.gametype;
+        this.setState({ question, solution, level, score, uid, gamekey, gametype });
         
         const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
         const timer = setInterval(() => this.nextRow(), this.state.interval);
         
-        // DEBUG TIMERS
-        //const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (150000 *0.9) / PARTS);
-        //const timer = setInterval(() => this.nextRow(), 150000);
         this.setState({ timer, sliderTimer });
     }
 
@@ -88,12 +79,12 @@ export default class PlayingField extends React.Component {
         return hasTrue;
     }
 
-    resetNavigatorToMenu(dispatch = true, user_id) {
+    resetNavigatorToMenu(dispatch = true, user_id, game_type) {
         const reset =  NavigationActions.reset({
             index: 1,
             actions: [
                 NavigationActions.navigate({ routeName: 'Home' }),
-                NavigationActions.navigate({ routeName: 'Menu', params: { uid: user_id } }),
+                NavigationActions.navigate({ routeName: 'Menu', params: { uid: user_id, gametype:game_type } }),
             ]
         });
         if(dispatch)
@@ -103,14 +94,15 @@ export default class PlayingField extends React.Component {
     }
 
     resetNavigatorToGameResult(whereTo, parameters = undefined) {
-        console.log("reset key: " + this.state.gamekey);
-        this.state.gamekey.update({
-            end_time: new Date().getTime(),
-            level_length: this.state.data.length-1,
-            last_row: this.state.currentRow,
-            result: whereTo,
-            end_score: parameters.score
-        });
+        if(!!this.state.uid) {  
+            this.state.gamekey.update({
+                end_time: new Date().toTimeString(),
+                level_length: this.state.data.length-1,
+                last_row: this.state.currentRow,
+                result: whereTo,
+                end_score: parameters.score
+            });
+        }   
         const reset =  NavigationActions.reset({
             index: 2,
             actions: [
@@ -161,7 +153,6 @@ export default class PlayingField extends React.Component {
         const correct = require('../assets/sounds/Correct_1.wav');
         const incorrect = require('../assets/sounds/Incorrect_1.wav');
         const { timer, sliderTimer } = this.state;
-        console.log("CORRECT " + this.state.correct)
         // 1. GEEN ANTWOORD GESELECTEERD
         if(this.state.correct === undefined) {
             // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
@@ -173,7 +164,7 @@ export default class PlayingField extends React.Component {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.playBackground(false);                    
-                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10, uid:this.state.uid});
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10, uid:this.state.uid, gametype: this.state.gametype});
                 }
                 // 1.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
                 else {
@@ -186,7 +177,7 @@ export default class PlayingField extends React.Component {
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);                                    
-                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2, uid:this.state.uid});
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2, uid:this.state.uid, gametype: this.state.gametype});
             }
         }
 
@@ -201,7 +192,7 @@ export default class PlayingField extends React.Component {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.playBackground(false);                                        
-                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10, uid:this.state.uid});
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10, uid:this.state.uid, gametype: this.state.gametype});
                 }
                 // 2.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
                 else {
@@ -218,7 +209,7 @@ export default class PlayingField extends React.Component {
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);                                    
-                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2, uid:this.state.uid});
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2, uid:this.state.uid, gametype: this.state.gametype});
             }
 
         }
@@ -227,14 +218,16 @@ export default class PlayingField extends React.Component {
 
     handleBackButton() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);  
-        const resetAction = this.resetNavigatorToMenu(false, this.state.uid);
-        firebase.database().ref().child('users/' + this.state.uid + '/games/' + this.state.gamekey).update({
-            interrupted: true,
-            end_time: new Date().getTime(),
-            level_length: this.state.data.length-1,
-            last_row: this.state.date.currentRow,
-            result: "interrupted"
-        });
+        const resetAction = this.resetNavigatorToMenu(false, this.state.uid, this.state.gametype);
+        if(!!this.state.uid) {
+            firebase.database().ref().child('users/' + this.state.uid + '/games/' + this.state.gamekey).update({
+                interrupted: true,
+                end_time: new Date().toTimeString(),
+                level_length: this.state.data.length-1,
+                last_row: this.state.date.currentRow,
+                result: "interrupted"
+            });
+        }
         
         const { timer, sliderTimer } = this.state;
         if (timer) { clearInterval(timer); }

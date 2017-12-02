@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native'
-import {StyleSheet, View, Text, Image} from 'react-native';
+
+import { StyleSheet, View, Text, Image } from 'react-native';
 
 const BorderBox = styled.View`
     flex:2;

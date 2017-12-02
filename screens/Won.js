@@ -1,8 +1,9 @@
 import React from 'react';
-import { Dimensions, NetInfo, StyleSheet, Text, View,Image, Alert} from 'react-native';
-import ImgButton from '../components/ImageButton';
 import styled from 'styled-components/native';
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+import ImgButton from '../components/ImageButton';
+
+import { Text, View, Image, Alert} from 'react-native';
+import { responsiveHeight, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const BackgroundContainer = styled.View`
     position: absolute;
@@ -72,12 +73,12 @@ export default class Won extends React.Component {
                                     'Ben je zeker ?',
                                     'In deze versie van het spel gaat je voortgang verloren als je terug naar het hoofdscherm gaat.',
                                     [
-                                        {text: 'Ja, ik ben zeker!', onPress: (() => navigate('Menu', { uid:this.props.navigation.state.params.uid }))},
+                                        {text: 'Ja, ik ben zeker!', onPress: (() => navigate('Menu', { uid:this.props.navigation.state.params.uid, gametype: this.props.navigation.state.params.gametype }))},
                                         {text: 'Annuleer', onPress: () => console.log('Annuleren')},
                                     ]
                                   )
                                 } fontSize={30}  image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level:this.props.navigation.state.params.level, score:this.props.navigation.state.params.score, uid:this.props.navigation.state.params.uid }))} image={require('../assets/buttons/next.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level:this.props.navigation.state.params.level, score:this.props.navigation.state.params.score, uid:this.props.navigation.state.params.uid, gametype: this.props.navigation.state.params.gametype }))} image={require('../assets/buttons/next.png')}/>
                         </View>
                     </View>
                 </Overlay>
