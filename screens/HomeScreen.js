@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Expo from 'expo';
 import React from 'react';
 import * as firebase from 'firebase';
-import Emoji from 'react-native-emoji';
+import Emoji from '../custom_modules/react-native-emoji/index';
 import * as version from 'android-versions';
 import styled from 'styled-components/native';
 import ImgButton from '../components/ImageButton';

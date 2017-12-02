@@ -98,7 +98,7 @@ export default class PlayingField extends React.Component {
             this.state.gamekey.update({
                 end_time: new Date().toTimeString(),
                 level_length: this.state.data.length-1,
-                last_row: this.state.currentRow,
+                remaining_rows: this.state.currentRow-1,
                 result: whereTo,
                 end_score: parameters.score
             });

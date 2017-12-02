@@ -1,5 +1,5 @@
 import React from 'react';
-import Swiper from 'react-native-swiper';
+import Swiper from '../custom_modules/react-native-swiper/src/index';
 import styled from 'styled-components/native';
 
 import { Text, View, Image} from 'react-native';
