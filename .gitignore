@@ -285,3 +285,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/osx,node,linux,windows,reactnative
+.expo/packager-info.json
+.expo/settings.json
