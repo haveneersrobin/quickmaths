@@ -72,12 +72,12 @@ export default class Won extends React.Component {
                                     'Ben je zeker ?',
                                     'In deze versie van het spel gaat je voortgang verloren als je terug naar het hoofdscherm gaat.',
                                     [
-                                        {text: 'Ja, ik ben zeker!', onPress: (() => navigate('Menu'))},
+                                        {text: 'Ja, ik ben zeker!', onPress: (() => navigate('Menu', { uid:this.props.navigation.state.params.uid }))},
                                         {text: 'Annuleer', onPress: () => console.log('Annuleren')},
                                     ]
                                   )
                                 } fontSize={30}  image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level:this.props.navigation.state.params.level, score:this.props.navigation.state.params.score}))} image={require('../assets/buttons/next.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level:this.props.navigation.state.params.level, score:this.props.navigation.state.params.score, uid:this.props.navigation.state.params.uid }))} image={require('../assets/buttons/next.png')}/>
                         </View>
                     </View>
                 </Overlay>

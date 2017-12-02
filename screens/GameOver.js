@@ -62,8 +62,8 @@ export default class GameOver extends React.Component {
                             <Text> Score: {this.props.navigation.state.params.score}</Text>
                         </GameOverText>
                         <View style={[{flex:1}, {flexDirection:'row'},{justifyContent:'center'}, {marginTop:30}]}>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={() => navigate('Menu')} image={require('../assets/buttons/home-small.png')}/>
-                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level: this.props.navigation.state.params.level, score:this.props.navigation.state.params.score}))}  image={require('../assets/buttons/replay.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={() => navigate('Menu', {uid:this.props.navigation.state.params.uid})} image={require('../assets/buttons/home-small.png')}/>
+                            <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', {level: this.props.navigation.state.params.level, score:this.props.navigation.state.params.score, uid:this.props.navigation.state.params.uid}))}  image={require('../assets/buttons/replay.png')}/>
                         </View>
                     </View>
                 </Overlay>

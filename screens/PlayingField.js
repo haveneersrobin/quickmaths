@@ -11,6 +11,8 @@ import { StyleSheet, Text, View, Dimensions, BackHandler } from 'react-native';
 
 import { Audio } from 'expo';
 
+import * as firebase from 'firebase';
+
 const PARTS = 20;
 const sound = new Audio.Sound();  
 const firstPlay = true;        
@@ -43,7 +45,9 @@ export default class PlayingField extends React.Component {
         const solution = params.solution;
         const level = params.level;
         const score = params.score;
-        this.setState({question, solution, level, score});
+        const uid = params.uid;
+        const gamekey = params.gamekey;
+        this.setState({ question, solution, level, score, uid, gamekey });
         
         const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (this.state.interval *0.9) / PARTS);
         const timer = setInterval(() => this.nextRow(), this.state.interval);
@@ -52,11 +56,6 @@ export default class PlayingField extends React.Component {
         //const sliderTimer = setInterval(() => this.setState({ filled: this.state.filled - 1 }), (150000 *0.9) / PARTS);
         //const timer = setInterval(() => this.nextRow(), 150000);
         this.setState({ timer, sliderTimer });
-    }
-
-    handleBackButton() {
-        console.log("back pressed");
-        return true;
     }
 
     componentWillUnmount() {
@@ -87,12 +86,12 @@ export default class PlayingField extends React.Component {
         return hasTrue;
     }
 
-    resetNavigatorToMenu(dispatch = true) {
+    resetNavigatorToMenu(dispatch = true, user_id) {
         const reset =  NavigationActions.reset({
             index: 1,
             actions: [
                 NavigationActions.navigate({ routeName: 'Home' }),
-                NavigationActions.navigate({ routeName: 'Menu' }),
+                NavigationActions.navigate({ routeName: 'Menu', params: { uid: user_id } }),
             ]
         });
         if(dispatch)
@@ -102,6 +101,13 @@ export default class PlayingField extends React.Component {
     }
 
     resetNavigatorToGameResult(whereTo, parameters = undefined) {
+        firebase.database().ref().child('users/' + this.state.uid + '/games/' + this.state.gamekey).update({
+            end_time: new Date().getTime(),
+            level_length: this.state.data.length-1,
+            last_row: this.state.date.currentRow,
+            result: whereTo,
+            end_score: parameters.score
+        });
         const reset =  NavigationActions.reset({
             index: 2,
             actions: [
@@ -164,7 +170,7 @@ export default class PlayingField extends React.Component {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.playBackground(false);                    
-                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10});
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10, uid:this.state.uid});
                 }
                 // 1.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
                 else {
@@ -177,7 +183,7 @@ export default class PlayingField extends React.Component {
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);                                    
-                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2});
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2, uid:this.state.uid});
             }
         }
 
@@ -192,7 +198,7 @@ export default class PlayingField extends React.Component {
                     if (timer) { clearInterval(timer); }
                     if (sliderTimer) { clearInterval(sliderTimer); }
                     this.playBackground(false);                                        
-                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10});
+                    this.resetNavigatorToGameResult('Won', {level:this.state.level+1, score:this.state.score+10, uid:this.state.uid});
                 }
                 // 2.1.2 DIT IS NIET DE LAATSTE RIJ => RIJ OPSCHUIVEN
                 else {
@@ -209,7 +215,7 @@ export default class PlayingField extends React.Component {
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);                                    
-                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2});
+                this.resetNavigatorToGameResult('GameOver', {level:this.state.level, score: this.state.score-this.state.level*2, uid:this.state.uid});
             }
 
         }
@@ -218,7 +224,15 @@ export default class PlayingField extends React.Component {
 
     handleBackButton() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);  
-        const resetAction = this.resetNavigatorToMenu(false);       
+        const resetAction = this.resetNavigatorToMenu(false, this.state.uid);
+        firebase.database().ref().child('users/' + this.state.uid + '/games/' + this.state.gamekey).update({
+            interrupted: true,
+            end_time: new Date().getTime(),
+            level_length: this.state.data.length-1,
+            last_row: this.state.date.currentRow,
+            result: "interrupted"
+        });
+        
         const { timer, sliderTimer } = this.state;
         if (timer) { clearInterval(timer); }
         if (sliderTimer) { clearInterval(sliderTimer); }
