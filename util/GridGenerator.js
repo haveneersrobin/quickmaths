@@ -621,7 +621,7 @@ export function getMultiplicationRow(solution, lowerbound, upperbound, nbCols = 
                     var firstDiv = divs[index];
                     var secondDiv = divs[nbDivs - index];
 
-                    currentElem.string = firstDiv + '.' + secondDiv;
+                    currentElem.string = firstDiv + ' · ' + secondDiv;
                     currentElem.numResult = solution;
                     currentElem.correct = true;
                 }
@@ -633,7 +633,7 @@ export function getMultiplicationRow(solution, lowerbound, upperbound, nbCols = 
                     var firstDiv = divs[index];
                     var secondDiv = divs[nbDivs - index];
 
-                    currentElem.string = firstDiv + '.' + secondDiv;
+                    currentElem.string = firstDiv + ' · ' + secondDiv;
                     currentElem.numResult = currentNum
                 }
             }
@@ -646,7 +646,7 @@ export function getMultiplicationRow(solution, lowerbound, upperbound, nbCols = 
                 var firstDiv = divs[index];
                 var secondDiv = divs[nbDivs - index];
 
-                currentElem.string = firstDiv + '.' + secondDiv;
+                currentElem.string = firstDiv + ' · ' + secondDiv;
                 currentElem.numResult = currentNum
             }
             // Else leave elem as default, no action needed
