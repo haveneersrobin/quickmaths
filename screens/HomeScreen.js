@@ -8,7 +8,7 @@ import styled from 'styled-components/native';
 import ImgButton from '../components/ImageButton';
 
 import PopupDialog, { SlideAnimation, DialogTitle, DialogButton } from 'react-native-popup-dialog';
-import { Text, View, Image, Button, Alert, Platform, TouchableHighlight} from 'react-native';
+import { Text, View, Image, Button, Alert, Platform, TouchableOpacity} from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const BackgroundContainer = styled.View`
@@ -60,7 +60,7 @@ const WhyText = styled.Text`
 const InnerText = styled.Text`
     padding-top: 10px;
     font-family: 'roboto';
-    font-size: ${() =>responsiveFontSize(2)};
+    font-size: ${() =>responsiveFontSize(1.8)};
 `;
 
 const TextContainer = styled.View`
@@ -72,18 +72,11 @@ const BoldText = styled.Text`
     font-family: 'roboto-bold';
 `;
 
-
-
-
-
-
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.showDialogOnPress = this.showDialogOnPress.bind(this);
     }
-
-    
 
     _handleFacebookLogin = async () => {
         const { navigate } = this.props.navigation;
@@ -148,20 +141,19 @@ export default class HomeScreen extends React.Component {
 
                     <ButtonContainer>
                         <ImgButton margin={0} homeButton={true} onPress={this._handleFacebookLogin} image={require('../assets/buttons/enter.png')}/>
-                        <TouchableHighlight activeOpacity={0} onPress={this.showDialogOnPress}>
+                        <TouchableOpacity activeOpacity={1} onPress={this.showDialogOnPress}>
                             <WhyText>
                                 Waarom moet ik inloggen ?
                             </WhyText>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </ButtonContainer>
                 </Overlay>
                 <PopupDialog
                     ref={(popupDialog) => { this.popupDialog = popupDialog; }}
                     width={Number(responsiveWidth(80))}
-                    height={Number(responsiveHeight(65))}
+                    height={Number(responsiveHeight(60))}
                     dialogAnimation={slideAnimation}
-                    cont
-                    dialogTitle={<DialogTitle title="Waarom moet ik inloggen?" />}
+                    dialogTitle={<DialogTitle titleTextStyle={[{fontSize: responsiveFontSize(2)}]} title="Waarom moet ik inloggen?" />}
                     >
                     <View>
                         <TextContainer>
@@ -172,9 +164,9 @@ export default class HomeScreen extends React.Component {
                         </TextContainer>
                     </View>
                     <DialogButton
-                        buttonStyle={[{backgroundColor:'#2a435c'}, {borderRadius:10,}]}
+                        buttonStyle={[{backgroundColor:'#2a435c'}, {alignItems: 'center'}, {justifyContent:'center'}, {borderRadius:10}, {width:responsiveWidth(50)}, {height:responsiveHeight(8)}]}
                         align="center"
-                        textStyle={[{fontSize: 20}, {color:'white'}]}
+                        textStyle={[{fontSize: responsiveFontSize(1.5)}, {color:'white'}]}
                         disabled={false}
                         text="Ok! Ik log me in!"
                         onPress={() => {
@@ -184,7 +176,7 @@ export default class HomeScreen extends React.Component {
                     />
                     <DialogButton
                             align="center"
-                            textStyle={{fontSize: 10}}
+                            textStyle={{fontSize: responsiveFontSize(1)}}
                             disabled={false}
                             text="Doorgaan zonder inloggen"
                             onPress={() => navigate('Tutorial', { uid : firebase.auth().currentUser.uid, gametype: _.random(0, 1) })} 

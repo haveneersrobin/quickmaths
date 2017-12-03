@@ -3,7 +3,6 @@ import {StackNavigator, Easing} from 'react-navigation';
 import { Font } from 'expo';
 import React from 'react';
 
-import ProfileScreen from './screens/ProfileScreen';
 import PlayingField from './screens/PlayingField';
 import HomeScreen from './screens/HomeScreen';
 import GameOver from './screens/GameOver';
@@ -34,9 +33,6 @@ const Navigator = StackNavigator({
   },
   Field: {
     screen: PlayingField
-  },
-  Profile: {
-    screen: ProfileScreen
   },
   GameOver: {
     screen: GameOver

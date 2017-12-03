@@ -8,7 +8,7 @@ import { NavigationActions } from 'react-navigation';
 import { Text, View, BackHandler } from 'react-native';
 import { QuestionText, RestText, Container, InfoText, InfoContainer, QuestionContainer, Header, Field } from './PlayingFieldStyles';
 
-const PARTS = 20;
+const PARTS = 40;
 const sound = new Audio.Sound();
 const firstPlay = true;
 
@@ -92,14 +92,17 @@ export default class PlayingField extends React.Component {
 
     getFeedbackOnError(row, selected) {
         if(this.getCorrectString(row) === ' '){
-            return 'Op deze rij was er geen juist antwoord.';
+            return 'Op deze rij was er geen juist antwoord.\nJij duidde ' + selected + ' aan.';
         }
         else{
-            if(!!selected) {
-                return this.getCorrectString(row) + ' was het juiste antwoord. Jij duidde ' + selected.string + ' aan.';
+            if(selected === "leeg") {
+                return this.getCorrectString(row) + ' was het juiste antwoord.\nJij duidde (foutief) een leeg vakje aan.';
+            }
+            else if(!!selected) {
+                return this.getCorrectString(row) + ' was het juiste antwoord.\nJij duidde ' + selected + ' aan.';
             }
             else {
-                return this.getCorrectString(row) + ' was het juiste antwoord. Jij duidde (foutief) niets aan.';
+                return this.getCorrectString(row) + ' was het juiste antwoord.\nJij duidde (foutief) niks aan.';
             }
         }
     }
@@ -127,14 +130,16 @@ export default class PlayingField extends React.Component {
                 end_score: parameters.score,
                 interrupted: false
             };
-            if(!this.state.correct) {
-                update.error = {
-                    selected: !!this.state.selected ? this.state.selected.string : "geen",
-                    correct: this.getCorrectString(this.state.data[this.state.currentRow - 1]) === ' ' ? "geen" : this.getCorrectString(this.state.data[this.state.currentRow - 1])
+            if(this.state.correct === false || this.state.correct === undefined) {
+                const correctString = this.getCorrectString(this.state.data[this.state.currentRow - 1]);
+                update.error = { 
+                    correct : correctString === ' ' ? "niets" : correctString,
+                    selected  : !!this.state.selected ? this.state.selected : "niets"
                 };
             }
             this.state.gamekey.update(update);
         }
+
         const reset = NavigationActions.reset({
             index: 2,
             actions: [

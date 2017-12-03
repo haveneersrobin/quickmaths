@@ -297,7 +297,7 @@ export function createSubtractionGrid(solution, lowerbound, upperbound, levelLen
 
     // Init result
     var result = {
-        objective: 'Welke aftrekking is gelijk aan ' + solution + '?',
+        objective: 'Welk verschil is gelijk aan ' + solution + '?',
         numericSolution: solution,
         grid: []
     }
@@ -340,7 +340,7 @@ export function createMixedGrid(solution, lowerbound, upperbound, levelLength, n
 
     // Init result
     var result = {
-        objective: 'Welke som of aftrekking is gelijk aan ' + solution + '?',
+        objective: 'Welk(e) som of verschil is gelijk aan ' + solution + '?',
         numericSolution: solution,
         grid: []
     }

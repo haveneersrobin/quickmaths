@@ -38,7 +38,7 @@ const BackdropImage = styled.Image`
 
 const LargeText = styled.Text`
     font-family: 'proxima';
-    font-size: ${() => Number(responsiveFontSize(6))};
+    font-size: ${() => Number(responsiveFontSize(4))};
     text-align: center;
     padding: ${() => parseInt(responsiveHeight(2),10)}px;
 `;
@@ -46,7 +46,7 @@ const LargeText = styled.Text`
 const Timer = styled.Text`
     margin-top: ${() => Number(responsiveHeight(3))};
     font-family: 'proxima';
-    font-size: ${() => Number(responsiveFontSize(6))};
+    font-size: ${() => Number(responsiveFontSize(3))};
     text-align: center;
     color:#ffca3b;
 `;
@@ -70,7 +70,7 @@ const LargeTextContainer = styled.View`
 `;
 
 const SmallText = styled.Text`
-    font-size: ${() => Number(responsiveFontSize(3))};
+    font-size: ${() => Number(responsiveFontSize(2))};
     font-family: 'roboto';
     color: #214868;
     text-align: center;
@@ -81,7 +81,7 @@ const SmallText = styled.Text`
 
 export default class Question extends React.Component {
     static defaultProps = {
-        questionInterval: 4000,
+        questionInterval: 5000,
     };
 
     constructor(props) {

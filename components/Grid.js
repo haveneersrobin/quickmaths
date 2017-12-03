@@ -120,17 +120,19 @@ class Grid extends Component {
 
     onClick(correctBoolean, selectedTileIndex, row, displayedNumber) {
         let correct = correctBoolean;
+        let selectedString = row[selectedTileIndex].string;
         if(displayedNumber === "" ) {
             correct = undefined;
+            selectedString = "leeg";
         }
         if(selectedTileIndex === this.state.selectedTileinRow) {
             this.setState({ selectedTileinRow: -1});
-            this.props.onClick(undefined, row, row[selectedTileIndex]);
+            this.props.onClick(undefined, row, undefined);
             
         }
         else {  
             this.setState({ selectedTileinRow: selectedTileIndex});
-            this.props.onClick(correct, row, row[selectedTileIndex]);
+            this.props.onClick(correct, row, selectedString);
         }
     }
 

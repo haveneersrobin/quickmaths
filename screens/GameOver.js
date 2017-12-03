@@ -49,8 +49,7 @@ text-align: center;
 const FeedbackText = styled.Text`
 text-align:center;
 font-family: 'roboto';
-font-size: ${() => responsiveFontSize(3)};
-width:70%;
+font-size: ${() => responsiveFontSize(2)};
 `;
 
 export default class GameOver extends React.Component {
@@ -67,7 +66,7 @@ export default class GameOver extends React.Component {
                     </LogoContainer>
                     <View style={[{ flex: 1 }, { alignItems: 'center' }, { flexDirection: 'column' }, { justifyContent: 'space-around' }, { marginTop: 5 }]}>
                         <GameOverText style={[{ flex: 1 }, { flexDirection: 'row' }, { justifyContent: 'center' }]}>
-                            <Text> Score: {this.props.navigation.state.params.score}</Text>
+                            <Text style={{fontSize: responsiveFontSize(3)}}> Score: {this.props.navigation.state.params.score}</Text>
                         </GameOverText>
                         <FeedbackText style={[{ flex: 1 }, { flexDirection: 'row' }, { justifyContent: 'center' }]}>
                             Jammer, {this.props.navigation.state.params.failtext}
