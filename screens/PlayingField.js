@@ -151,18 +151,6 @@ export default class PlayingField extends React.Component {
         this.props.navigation.dispatch(reset);
     }
 
-    async playSound(correct) {
-        const source = correct ? require('../assets/sounds/Correct_1.wav') : require('../assets/sounds/Incorrect_1.wav');
-        try {
-            await Audio.setIsEnabledAsync(true);
-            const sound = new Audio.Sound();
-            await sound.loadAsync(source);
-            await sound.playAsync();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     async playBackground(play) {
         if (firstPlay) {
             const source = require('../assets/music/766948_Wandering_Edit.mp3');
@@ -195,7 +183,6 @@ export default class PlayingField extends React.Component {
         if (this.state.correct === undefined) {
             // 1.1 ER IS INDERDAAD GEEN JUIST ANTWOORD
             if (!this.rowHasTrue(this.state.data[this.state.currentRow - 1]))  {
-                this.playSound(true);
                 this.state.score = this.state.score + 1;
                 // 1.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
                 if (this.state.currentRow === 1) {
@@ -211,7 +198,6 @@ export default class PlayingField extends React.Component {
             }
             // 1.2 ER WAS WEL EEN JUIST ANTWOORD => GAME OVER
             else  {
-                this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);
@@ -223,7 +209,6 @@ export default class PlayingField extends React.Component {
         else  {
             // 2.1 HET GESELECTEERDE ANTWOORD IS JUIST
             if (this.state.correct === true) {
-                this.playSound(true);
                 this.state.score = this.state.score + 1;
                 // 2.1.1 DIT IS DE LAATSTE RIJ => SPEL GEWONNEN
                 if (this.state.currentRow === 1) {
@@ -242,8 +227,6 @@ export default class PlayingField extends React.Component {
             }
             // 2.2 HET GESELECTEERDE ANTWOORD IS FOUT
             else {
-
-                this.playSound(false);
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);
@@ -251,7 +234,7 @@ export default class PlayingField extends React.Component {
             }
 
         }
-        this.setState({ filled: PARTS });
+        this.setState({ filled: PARTS, selected: undefined });
     }
 
     handleBackButton() {
