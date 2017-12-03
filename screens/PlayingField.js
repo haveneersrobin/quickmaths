@@ -102,7 +102,7 @@ export default class PlayingField extends React.Component {
                 return this.getCorrectString(row) + ' was het juiste antwoord.\nJij duidde ' + selected + ' aan.';
             }
             else {
-                return this.getCorrectString(row) + ' was het juiste antwoord.\nJij duidde (foutief) niks aan.';
+                return this.getCorrectString(row) + ' was het juiste antwoord.\nJij duidde (foutief) niets aan.';
             }
         }
     }
