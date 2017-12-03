@@ -46,6 +46,13 @@ width: 50%;
 text-align: center;
 `;
 
+const FeedbackText = styled.Text`
+text-align:center;
+font-family: 'roboto';
+font-size: ${() => responsiveFontSize(3)};
+width:70%;
+`;
+
 export default class GameOver extends React.Component {
     render() {
         const { navigate } = this.props.navigation;
@@ -60,12 +67,12 @@ export default class GameOver extends React.Component {
                     </LogoContainer>
                     <View style={[{ flex: 1 }, { alignItems: 'center' }, { flexDirection: 'column' }, { justifyContent: 'space-around' }, { marginTop: 5 }]}>
                         <GameOverText style={[{ flex: 1 }, { flexDirection: 'row' }, { justifyContent: 'center' }]}>
-                            <Text> {this.props.navigation.state.params.failtext} </Text>
-                        </GameOverText>
-                        <GameOverText style={[{ flex: 1 }, { flexDirection: 'row' }, { justifyContent: 'center' }]}>
                             <Text> Score: {this.props.navigation.state.params.score}</Text>
                         </GameOverText>
-                        <View style={[{ flex: 1 }, { flexDirection: 'row' }, { justifyContent: 'center' }, { marginTop: 10 }]}>
+                        <FeedbackText style={[{ flex: 1 }, { flexDirection: 'row' }, { justifyContent: 'center' }]}>
+                            Jammer, {this.props.navigation.state.params.failtext}
+                        </FeedbackText>
+                        <View style={[{ flex: 3 }, { flexDirection: 'row' }, { justifyContent: 'center' }, { marginTop: 10 }]}>
                             <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={() => navigate('Menu', { uid: this.props.navigation.state.params.uid, gametype: this.props.navigation.state.params.gametype })} image={require('../assets/buttons/home-small.png')} />
                             <ImgButton bottomButton={true} margin={Number(responsiveHeight(2))} onPress={(() => navigate('Question', { level: this.props.navigation.state.params.level, score: this.props.navigation.state.params.score, uid: this.props.navigation.state.params.uid, gametype: this.props.navigation.state.params.gametype }))} image={require('../assets/buttons/replay.png')} />
                         </View>

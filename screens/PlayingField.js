@@ -66,8 +66,8 @@ export default class PlayingField extends React.Component {
         this.setState({ interval: this.props.navigation.state.params.interval });
     }
 
-    handleClick(correct, row) {
-        this.setState({ correct, row });
+    handleClick(correct, row, selected) {
+        this.setState({ correct, row, selected });
     }
 
     rowHasTrue(row) {
@@ -90,12 +90,17 @@ export default class PlayingField extends React.Component {
         return answer;
     }
 
-    getFeedbackOnError(row) {
+    getFeedbackOnError(row, selected) {
         if(this.getCorrectString(row) === ' '){
             return 'Op deze rij was er geen juist antwoord.';
         }
         else{
-            return this.getCorrectString(row) + ' was het juiste antwoord.';
+            if(!!selected) {
+                return this.getCorrectString(row) + ' was het juiste antwoord. Jij duidde ' + selected.string + ' aan.';
+            }
+            else {
+                return this.getCorrectString(row) + ' was het juiste antwoord. Jij duidde (foutief) niets aan.';
+            }
         }
     }
 
@@ -112,16 +117,23 @@ export default class PlayingField extends React.Component {
         else
             return reset;
     }
-
-    resetNavigatorToGameResult(whereTo, parameters = undefined) {
+    resetNavigatorToGameResult(whereTo, parameters = undefined) { 
         if (!!this.state.uid) {
-            this.state.gamekey.update({
+            const update = {
                 end_time: new Date().toTimeString(),
                 level_length: this.state.data.length - 1,
                 remaining_rows: this.state.currentRow - 1,
                 result: whereTo,
-                end_score: parameters.score
-            });
+                end_score: parameters.score,
+                interrupted: false
+            };
+            if(!this.state.correct) {
+                update.error = {
+                    selected: !!this.state.selected ? this.state.selected.string : "geen",
+                    correct: this.getCorrectString(this.state.data[this.state.currentRow - 1]) === ' ' ? "geen" : this.getCorrectString(this.state.data[this.state.currentRow - 1])
+                };
+            }
+            this.state.gamekey.update(update);
         }
         const reset = NavigationActions.reset({
             index: 2,
@@ -198,7 +210,7 @@ export default class PlayingField extends React.Component {
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);
-                this.resetNavigatorToGameResult('GameOver', { level: this.state.level, score: this.state.score - this.state.level * 2, uid: this.state.uid, gametype: this.state.gametype, failtext: this.getFeedbackOnError(this.state.data[this.state.currentRow - 1]) });
+                this.resetNavigatorToGameResult('GameOver', { level: this.state.level, score: this.state.score - this.state.level * 2, uid: this.state.uid, gametype: this.state.gametype, failtext: this.getFeedbackOnError(this.state.data[this.state.currentRow - 1], this.state.selected) });
             }
         }
 
@@ -230,7 +242,7 @@ export default class PlayingField extends React.Component {
                 if (timer) { clearInterval(timer); }
                 if (sliderTimer) { clearInterval(sliderTimer); }
                 this.playBackground(false);
-                this.resetNavigatorToGameResult('GameOver', { level: this.state.level, score: this.state.score - this.state.level * 2, uid: this.state.uid, gametype: this.state.gametype, failtext: this.getFeedbackOnError(this.state.data[this.state.currentRow - 1])});
+                this.resetNavigatorToGameResult('GameOver', { level: this.state.level, score: this.state.score - this.state.level * 2, uid: this.state.uid, gametype: this.state.gametype, failtext: this.getFeedbackOnError(this.state.data[this.state.currentRow - 1], this.state.selected)});
             }
 
         }
@@ -285,7 +297,7 @@ export default class PlayingField extends React.Component {
                     </InfoContainer>
                 </Header>
                 <Field>
-                    <Grid data={this.state.data} currentRow={this.state.currentRow} solution={this.state.solution} onClick={(number) => this.handleClick(number)} />
+                    <Grid data={this.state.data} currentRow={this.state.currentRow} solution={this.state.solution} onClick={(number, row, selected) => this.handleClick(number, row, selected)} />
                 </Field>
                 <BottomTimer total={PARTS} filled={this.state.filled} />
             </Container>

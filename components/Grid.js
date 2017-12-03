@@ -125,12 +125,12 @@ class Grid extends Component {
         }
         if(selectedTileIndex === this.state.selectedTileinRow) {
             this.setState({ selectedTileinRow: -1});
-            this.props.onClick(undefined, row);
+            this.props.onClick(undefined, row, row[selectedTileIndex]);
             
         }
         else {  
             this.setState({ selectedTileinRow: selectedTileIndex});
-            this.props.onClick(correct, row);
+            this.props.onClick(correct, row, row[selectedTileIndex]);
         }
     }
 

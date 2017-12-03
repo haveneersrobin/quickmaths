@@ -138,7 +138,7 @@ export default class Question extends React.Component {
             result: "",
             remaining_rows: -1,
             level_length: 0,
-            interrupted: false,
+            interrupted: true,
             grid:game_data,
 
         };
