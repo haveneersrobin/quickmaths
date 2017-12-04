@@ -151,7 +151,7 @@ export default class HomeScreen extends React.Component {
                 <PopupDialog
                     ref={(popupDialog) => { this.popupDialog = popupDialog; }}
                     width={Number(responsiveWidth(80))}
-                    height={Number(responsiveHeight(60))}
+                    height={Number(responsiveHeight(80))}
                     dialogAnimation={slideAnimation}
                     dialogTitle={<DialogTitle titleTextStyle={[{fontSize: responsiveFontSize(2)}]} title="Waarom moet ik inloggen?" />}
                     >
