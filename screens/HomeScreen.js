@@ -179,7 +179,7 @@ export default class HomeScreen extends React.Component {
                             textStyle={{fontSize: responsiveFontSize(1)}}
                             disabled={false}
                             text="Doorgaan zonder inloggen"
-                            onPress={() => navigate('Tutorial', { uid : firebase.auth().currentUser.uid, gametype: _.random(0, 1) })} 
+                            onPress={() => navigate('Tutorial', { uid : undefined, gametype: _.random(0, 1) })} 
                             key="button-1"
                         />
                 </PopupDialog>
