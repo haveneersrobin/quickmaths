@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import ImgButton from '../components/ImageButton';
 
+import { Audio } from 'expo';
 import { Text, View, Image } from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -53,6 +54,23 @@ font-size: ${() => responsiveFontSize(2)};
 `;
 
 export default class GameOver extends React.Component {
+
+    async playSound() {
+        const source = require('../assets/sounds/Incorrect_1.wav');
+        try {
+          await Audio.setIsEnabledAsync(true);
+          const sound = new Audio.Sound();
+          await sound.loadAsync(source);
+          await sound.playAsync(); 
+        } catch(error) {
+          console.error(error);
+        }
+    }
+
+    componentDidMount() {
+        this.playSound();
+    }
+
     render() {
         const { navigate } = this.props.navigation;
         return (
