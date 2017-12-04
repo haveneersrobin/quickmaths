@@ -1,6 +1,6 @@
-import {StyleSheet, Text, View, Button, StatusBar} from 'react-native';
-import {StackNavigator, Easing} from 'react-navigation';
-import { Font } from 'expo';
+import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
+import { StackNavigator, Easing } from 'react-navigation';
+import { Font, Asset, AppLoading } from 'expo';
 import React from 'react';
 
 import PlayingField from './screens/PlayingField';
@@ -51,29 +51,64 @@ const Navigator = StackNavigator({
   }
 }, {headerMode: 'null'});
 
+function cacheImages(images) {
+  return images.map(image => {
+    if (typeof image === 'string') {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+}
+
+function cacheFonts(fonts) {
+  return fonts.map(font => Font.loadAsync(font));
+}
+
 export default class App extends React.Component {
   state = {
-    fontLoaded: false
+    isReady: false
   };
-  async componentDidMount () {
-    await Font.loadAsync({
-      'lovelo': require('./assets/fonts/Lovelo-Black.ttf'),
-      'roboto-bold': require('./assets/fonts/RobotoCondensed.ttf'),
-      'roboto': require('./assets/fonts/Roboto-Light.ttf'),
-      'proxima': require('./assets/fonts/Proxima.ttf'),
-      'Arial': require('./assets/fonts/Arial.ttf'),
-    })
-    this.setState({ fontLoaded: true });
+  async _loadAssetsAsync () {
+    const imageAssets = cacheImages([
+      require('./assets/img/augment.png'),
+      require('./assets/img/background.jpg'),
+      require('./assets/img/game-over.png'),
+      require('./assets/img/icon.png'),
+      require('./assets/img/img.png'),
+      require('./assets/img/kul.png'),
+      require('./assets/img/logo.png'),
+      require('./assets/img/splash.png'),
+      require('./assets/img/tuto1.png'),
+      require('./assets/img/tuto2.png'),
+      require('./assets/img/tuto3.png'),
+      require('./assets/img/tuto4.png'),
+      require('./assets/img/won.gif')
+    ]);
+    const fontAssets = cacheFonts([
+      {'lovelo': require('./assets/fonts/Lovelo-Black.ttf')},
+      {'roboto-bold': require('./assets/fonts/RobotoCondensed.ttf')},
+      {'roboto': require('./assets/fonts/Roboto-Light.ttf')},
+      {'proxima': require('./assets/fonts/Proxima.ttf')},
+    ]);
+    await Promise.all([...imageAssets, ...fontAssets]);
   }
 
   render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._loadAssetsAsync}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={console.warn}
+        />
+      );
+    }
     return (
-      this.state.fontLoaded ? (
       <View style={styles.container}>
         <StatusBar hidden={true}/>
         <Navigator screenProps={this.state.fontLoaded}/>
       </View>
-      ) : null
     );
   }
 }
