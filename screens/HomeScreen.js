@@ -95,24 +95,24 @@ export default class HomeScreen extends React.Component {
         // Listen for authentication state to change.
         firebase.auth().onAuthStateChanged(async (user) => {
             if (user != null) {
-            console.log("We are authenticated now!");
-            const user_id = firebase.auth().currentUser.uid;
-            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=age_range,gender,name`);
-            const data = await response.json();
-            console.log(data);
-            firebase.database().ref('users/' + user_id + '/info').set({
-                full_name: data.name,
-                gender: data.gender,
-                age: data.age_range.min,
-                fb_app_id: data.id,
-                device_info: {
-                    name: Expo.Constants.deviceName,
-                    year_class: Expo.Constants.deviceYearClass,
-                    os: Platform.OS,
-                    version : Platform.OS === "android" ? version.get(Platform.Version) : "ios"
-                }
-                });
-            navigate('Tutorial', { uid : firebase.auth().currentUser.uid, gametype: _.random(0, 1) });
+                console.log("We are authenticated now!");
+                const user_id = user.uid;
+                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=age_range,gender,name`);
+                const data = await response.json();
+                console.log(data);
+                firebase.database().ref('users/' + user_id + '/info').set({
+                    full_name: data.name,
+                    gender: data.gender,
+                    age: data.age_range.min,
+                    fb_app_id: data.id,
+                    device_info: {
+                        name: Expo.Constants.deviceName,
+                        year_class: Expo.Constants.deviceYearClass,
+                        os: Platform.OS,
+                        version : Platform.OS === "android" ? version.get(Platform.Version) : "ios"
+                    }
+                    });
+                navigate('Tutorial', { uid : user_id, gametype: _.random(0, 1) });
             }
         });
     }

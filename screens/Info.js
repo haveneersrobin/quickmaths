@@ -83,7 +83,7 @@ export default class Info extends React.Component {
                     <TextContainer>
                         <InfoText> Deze app is gemaakt door Laurens Cleemput, Sander Cleymans, Mathias Dekempeneer en Robin Haveneers voor het vak Fundamenten van Mens-machine interactie (B-KUL-G0Q55A) aan de KU Leuven. </InfoText>
                         <InfoText>We verzamelen in onze app gebruikersstatistieken gekoppeld aan je Facebook-account. Deze data wordt niet verdeeld aan derden is niet publiek toegankelijk maar wordt enkel gebruikt voor analytische en statistische doeleinden.</InfoText>
-                        <InfoText>Voor vragen of opmerkingen kan je ons bereiken op [naam].[voornaam]@student.kuleuven.be.</InfoText>
+                        <InfoText>Voor vragen of opmerkingen kan je ons bereiken op [voornaam].[naam]@student.kuleuven.be.</InfoText>
                         <InfoText>
                             Achtergrondmuziek: "Wandering" door "Syrapt0r".{"\n"}
                             Luister hier:{"\n"}https://www.newgrounds.com/audio/listen/766948{"\n"}
