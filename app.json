@@ -21,7 +21,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "cs.hciproject.quickmaths"
+      "package": "cs.hciproject.quickmaths",
+      "permissions": ["WAKE_LOCK"]
     },
     "loading": {
       "icon": "./assets/img/logo.png"
