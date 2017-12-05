@@ -80,10 +80,12 @@ export default class HomeScreen extends React.Component {
 
     _handleFacebookLogin = async () => {
         const { navigate } = this.props.navigation;
-        const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
+        const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
             permissions: ['public_profile'],
             });
+
         if (type === 'success') {
+            console.log("Test");
             // Build Firebase credential with the Facebook access token.
             const credential = firebase.auth.FacebookAuthProvider.credential(token);
             // Sign in with credential from the Facebook user.
