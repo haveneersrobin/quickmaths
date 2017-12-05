@@ -130,7 +130,7 @@ export default class PlayingField extends React.Component {
                 end_score: parameters.score,
                 interrupted: false
             };
-            if(this.state.correct === false || this.state.correct === undefined) {
+            if(whereTo === "GameOver" && (this.state.correct === false || this.state.correct === undefined)) {
                 const correctString = this.getCorrectString(this.state.data[this.state.currentRow - 1]);
                 update.error = { 
                     correct : correctString === ' ' ? "niets" : correctString,
