@@ -1,5 +1,8 @@
 import json
+from xxsubtype import spamdict
+
 import numpy as np
+import csv
 
 
 def main():
@@ -45,8 +48,12 @@ def main():
                     total_time = end_time - start_time
                     classic_game_times.append(total_time)
 
-    print(classic_counter)
-    print(classic_game_times)
+            writer = csv.writer(open('gemiddeldes.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+            writer.writerow("Classic")
+            writer.writerow(classic_game_times)
+            writer.writerow("Endurance")
+            writer.writerow(endurance_game_times)
+
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
