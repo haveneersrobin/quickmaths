@@ -27,8 +27,12 @@ def main():
     most_games_played = 0
     endurance_players = 0
     classic_players = 0
-    highest_endurance_level = 0
-    highest_classic_level = 0
+    highest_endurance_level_male = 0
+    highest_endurance_level_female = 0
+
+    highest_classic_level_male = 0
+    highest_classic_level_female = 0
+
 
     for user_str in users:
 
@@ -85,8 +89,15 @@ def main():
 
                 if users[user_str]["games"][game_tag]["result"] == "Won":
                     endurance_games_won += 1
-                if users[user_str]["games"][game_tag]["level"] > highest_endurance_level:
-                    highest_endurance_level = users[user_str]["games"][game_tag]["level"]
+
+                if (users[user_str]["info"]["gender"] == "male" and
+                                users[user_str]["games"][game_tag]["level"] > highest_endurance_level_male):
+                    highest_endurance_level_male = users[user_str]["games"][game_tag]["level"]
+
+                if (users[user_str]["info"]["gender"] == "female" and
+                            users[user_str]["games"][game_tag]["level"] > highest_endurance_level_female):
+                    highest_endurance_level_female = users[user_str]["games"][game_tag]["level"]
+
             else:
                 classic_counter += 1
                 classic_games_played_by_user += 1
@@ -100,8 +111,13 @@ def main():
 
                 if users[user_str]["games"][game_tag]["result"] == "Won":
                     classic_games_won += 1
-                if users[user_str]["games"][game_tag]["level"] > highest_classic_level:
-                    highest_classic_level = users[user_str]["games"][game_tag]["level"]
+                if (users[user_str]["info"]["gender"] == "male" and
+                            users[user_str]["games"][game_tag]["level"] > highest_classic_level_male):
+                    highest_classic_level_male = users[user_str]["games"][game_tag]["level"]
+
+                if (users[user_str]["info"]["gender"] == "female" and
+                            users[user_str]["games"][game_tag]["level"] > highest_classic_level_female):
+                    highest_classic_level_female = users[user_str]["games"][game_tag]["level"]
 
         if endurance_games_played_by_user > 0:
             endurance_players += 1
@@ -109,7 +125,6 @@ def main():
             classic_players += 1
 
         # print(user_str + " speelde " + str(endurance_games_played_by_user + classic_games_played_by_user) + " game(s), " + str(endurance_games_played_by_user) + " endurance, " + str(classic_games_played_by_user) + "classic")
-
 
     writer = csv.writer(open('gemiddeldes.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
     writer.writerow("C")
@@ -126,11 +141,15 @@ def main():
 
     print("Endurance games: " + str(endurance_counter) + " gespeeld en " + str(endurance_games_won) + " werden gewonnen. (" + str(endurance_games_won/endurance_counter) + "%)")
     print(str(endurance_players) + " mensen hebben Endurance gespeeld, dus gemiddeld " + str(endurance_counter/endurance_players) + " games gespeeld.")
-    print("Hoogst behaalde Endurance level: " + str(highest_endurance_level))
+    print("Hoogst behaalde Endurance level: " + str(highest_endurance_level_male) + " (male)")
+    print("Hoogst behaalde Endurance level: " + str(highest_endurance_level_female) + " (female)")
 
     print("Classic games: " + str(classic_counter) + " gespeeld en " + str(classic_games_won) + " werden gewonnen. (" + str(classic_games_won/classic_counter) + "%)")
     print(str(classic_players) + " mensen hebben Classic gespeeld, dus gemiddeld " + str(classic_counter/classic_players) + " games gespeeld.")
-    print("Hoogste behaalde Classic level: " + str(highest_classic_level))
+
+    print("Hoogste behaalde Classic level: " + str(highest_classic_level_male) + " (male)")
+    print("Hoogste behaalde Classic level: " + str(highest_classic_level_female) + " (female)")
+
 
     print(str(solo_game_players) + " mensen hebben slechts 1x een spelletje gespeeld.")
     print("Het meeste spelletjes dat iemand speelde is: " + str(most_games_played) + ".")
