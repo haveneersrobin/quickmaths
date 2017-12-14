@@ -86,6 +86,2044 @@
       },
       "nb_games_played" : 1
     },
+    "8FgnPvNaFeTVuOvGHHDdgim1bry1" : {
+      "games" : {
+        "-L0GuN3yBLd5wWgR_9gX" : {
+          "end_score" : 13,
+          "end_time" : "23:06:09 GMT+0100 (CET)",
+          "error" : {
+            "correct" : "niets",
+            "selected" : "niets"
+          },
+          "grid" : [ [ {
+            "correct" : false,
+            "string" : 4
+          }, {
+            "correct" : false,
+            "string" : 1
+          }, {
+            "correct" : false,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "string" : 1
+          }, {
+            "correct" : false,
+            "string" : 2
+          } ], [ {
+            "correct" : false,
+            "string" : 4
+          }, {
+            "correct" : false,
+            "string" : 5
+          }, {
+            "correct" : false,
+            "string" : ""
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 1,
+          "level_length" : 3,
+          "question" : "Welk getal is deelbaar door 3?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 3,
+          "start_time" : "23:05:48 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GuSxqNmDSztvTIsZV" : {
+          "end_score" : 29,
+          "end_time" : "23:06:48 GMT+0100 (CET)",
+          "grid" : [ [ {
+            "correct" : false,
+            "numResult" : 15,
+            "string" : "4+11"
+          }, {
+            "correct" : true,
+            "numResult" : 11,
+            "string" : "7+4"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 11,
+            "string" : "9+2"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 10,
+            "string" : "8+2"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 8,
+            "string" : "3+5"
+          }, {
+            "correct" : false,
+            "numResult" : 8,
+            "string" : "8+0"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 15,
+            "string" : "8+7"
+          }, {
+            "correct" : true,
+            "numResult" : 11,
+            "string" : "0+11"
+          }, {
+            "correct" : false,
+            "numResult" : 14,
+            "string" : "6+8"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 11,
+            "string" : "5+6"
+          }, {
+            "correct" : false,
+            "numResult" : 8,
+            "string" : "2+6"
+          }, {
+            "correct" : false,
+            "numResult" : 12,
+            "string" : "8+4"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 2,
+          "level_length" : 6,
+          "question" : "Welke som is gelijk aan 11?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 11,
+          "start_time" : "23:06:12 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0Gub3yGh5b-f_sQZlQ" : {
+          "end_score" : 48,
+          "end_time" : "23:07:40 GMT+0100 (CET)",
+          "error" : {
+            "correct" : "niets",
+            "selected" : "niets"
+          },
+          "grid" : [ [ {
+            "correct" : false,
+            "numResult" : 20,
+            "string" : "23-3"
+          }, {
+            "correct" : false,
+            "numResult" : 11,
+            "string" : "12-1"
+          }, {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "25-4"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 15,
+            "string" : "28-13"
+          }, {
+            "correct" : false,
+            "numResult" : 20,
+            "string" : "27-7"
+          }, {
+            "correct" : false,
+            "numResult" : 12,
+            "string" : "14-2"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 10,
+            "string" : "14-4"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 15,
+            "string" : "16-1"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 20,
+            "string" : "25-5"
+          }, {
+            "correct" : true,
+            "numResult" : 15,
+            "string" : "31-16"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 19,
+            "string" : "29-10"
+          }, {
+            "correct" : false,
+            "numResult" : 19,
+            "string" : "25-6"
+          }, {
+            "correct" : true,
+            "numResult" : 15,
+            "string" : "18-3"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 17,
+            "string" : "28-11"
+          }, {
+            "correct" : false,
+            "numResult" : 14,
+            "string" : "16-2"
+          }, {
+            "correct" : true,
+            "numResult" : 15,
+            "string" : "25-10"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 12,
+            "string" : "27-15"
+          }, {
+            "correct" : true,
+            "numResult" : 15,
+            "string" : "26-11"
+          }, {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "21-0"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 11,
+            "string" : "20-9"
+          }, {
+            "correct" : false,
+            "numResult" : 11,
+            "string" : "20-9"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "25-4"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "30-9"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 3,
+          "level_length" : 9,
+          "question" : "Welk verschil is gelijk aan 15?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 15,
+          "start_time" : "23:06:50 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GuoTK3yePmYh0bWw-" : {
+          "end_score" : 68,
+          "end_time" : "23:08:40 GMT+0100 (CET)",
+          "error" : {
+            "correct" : "niets",
+            "selected" : "niets"
+          },
+          "grid" : [ [ {
+            "correct" : false,
+            "string" : 1
+          }, {
+            "correct" : false,
+            "string" : 14
+          }, {
+            "correct" : false,
+            "string" : 3
+          } ], [ {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "string" : 4
+          } ], [ {
+            "correct" : false,
+            "string" : 11
+          }, {
+            "correct" : false,
+            "string" : 32
+          }, {
+            "correct" : true,
+            "string" : 10
+          } ], [ {
+            "correct" : false,
+            "string" : 29
+          }, {
+            "correct" : false,
+            "string" : 1
+          }, {
+            "correct" : false,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "string" : 13
+          }, {
+            "correct" : false,
+            "string" : 12
+          }, {
+            "correct" : false,
+            "string" : 23
+          } ], [ {
+            "correct" : true,
+            "string" : 35
+          }, {
+            "correct" : false,
+            "string" : 3
+          }, {
+            "correct" : false,
+            "string" : 2
+          } ], [ {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "string" : 21
+          }, {
+            "correct" : true,
+            "string" : 15
+          } ], [ {
+            "correct" : true,
+            "string" : 20
+          }, {
+            "correct" : false,
+            "string" : 39
+          }, {
+            "correct" : false,
+            "string" : 11
+          } ], [ {
+            "correct" : false,
+            "string" : 4
+          }, {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "string" : 9
+          } ], [ {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "string" : 15
+          }, {
+            "correct" : false,
+            "string" : 33
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 4,
+          "level_length" : 10,
+          "question" : "Welk getal is deelbaar door 5?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 5,
+          "start_time" : "23:07:45 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0Gv1_fdr5L-cu4N1lJ" : {
+          "end_score" : 68,
+          "end_time" : "23:09:43 GMT+0100 (CET)",
+          "error" : {
+            "correct" : "29-2",
+            "selected" : "niets"
+          },
+          "grid" : [ [ {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "27+0"
+          }, {
+            "correct" : false,
+            "numResult" : 28,
+            "string" : "27+1"
+          }, {
+            "correct" : false,
+            "numResult" : 29,
+            "string" : "20+9"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 34,
+            "string" : "40-6"
+          }, {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "29-2"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 22,
+            "string" : "3+19"
+          }, {
+            "correct" : false,
+            "numResult" : 33,
+            "string" : "22+11"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "39-18"
+          }, {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "46-19"
+          }, {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "33-12"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "27+0"
+          }, {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "4+17"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 24,
+            "string" : "28-4"
+          }, {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "46-19"
+          }, {
+            "correct" : false,
+            "numResult" : 33,
+            "string" : "38-5"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "21+6"
+          }, {
+            "correct" : false,
+            "numResult" : 35,
+            "string" : "26+9"
+          }, {
+            "correct" : false,
+            "numResult" : 26,
+            "string" : "19+7"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 23,
+            "string" : "12+11"
+          }, {
+            "correct" : false,
+            "numResult" : 31,
+            "string" : "13+18"
+          }, {
+            "correct" : false,
+            "numResult" : 29,
+            "string" : "23+6"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 33,
+            "string" : "21+12"
+          }, {
+            "correct" : false,
+            "numResult" : 30,
+            "string" : "29+1"
+          }, {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "3+24"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 23,
+            "string" : "1+22"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "15+12"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 22,
+            "string" : "38-16"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : 20,
+            "string" : "37-17"
+          }, {
+            "correct" : false,
+            "numResult" : 34,
+            "string" : "50-16"
+          }, {
+            "correct" : true,
+            "numResult" : 27,
+            "string" : "48-21"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 5,
+          "level_length" : 12,
+          "question" : "Welk(e) som of verschil is gelijk aan 27?",
+          "remaining_rows" : 1,
+          "result" : "GameOver",
+          "solution" : 27,
+          "start_time" : "23:08:42 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GvHgjh3LxJlZHBXad" : {
+          "end_score" : 90,
+          "end_time" : "23:10:54 GMT+0100 (CET)",
+          "grid" : [ [ {
+            "correct" : true,
+            "string" : 8
+          }, {
+            "correct" : false,
+            "string" : 11
+          }, {
+            "correct" : false,
+            "string" : 36
+          } ], [ {
+            "correct" : true,
+            "string" : 72
+          }, {
+            "correct" : false,
+            "string" : 33
+          }, {
+            "correct" : false,
+            "string" : 26
+          } ], [ {
+            "correct" : false,
+            "string" : 31
+          }, {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "string" : 73
+          } ], [ {
+            "correct" : true,
+            "string" : 80
+          }, {
+            "correct" : false,
+            "string" : 46
+          }, {
+            "correct" : false,
+            "string" : 63
+          } ], [ {
+            "correct" : true,
+            "string" : 24
+          }, {
+            "correct" : false,
+            "string" : 75
+          }, {
+            "correct" : false,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "string" : 68
+          }, {
+            "correct" : false,
+            "string" : 58
+          }, {
+            "correct" : false,
+            "string" : 5
+          } ], [ {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "string" : 24
+          }, {
+            "correct" : false,
+            "string" : 61
+          } ], [ {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "string" : 32
+          }, {
+            "correct" : false,
+            "string" : 15
+          } ], [ {
+            "correct" : false,
+            "string" : 5
+          }, {
+            "correct" : true,
+            "string" : 48
+          }, {
+            "correct" : false,
+            "string" : 21
+          } ], [ {
+            "correct" : false,
+            "string" : 3
+          }, {
+            "correct" : false,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "string" : 8
+          } ], [ {
+            "correct" : false,
+            "string" : 4
+          }, {
+            "correct" : false,
+            "string" : 66
+          }, {
+            "correct" : false,
+            "string" : 4
+          } ], [ {
+            "correct" : false,
+            "string" : 10
+          }, {
+            "correct" : true,
+            "string" : 64
+          }, {
+            "correct" : false,
+            "string" : 14
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 5,
+          "level_length" : 12,
+          "question" : "Welk getal is deelbaar door 8?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 8,
+          "start_time" : "23:09:48 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GvYF6eN76zhm7ieze" : {
+          "end_score" : 81,
+          "end_time" : "23:11:21 GMT+0100 (CET)",
+          "error" : {
+            "correct" : "45-10",
+            "selected" : "66-39"
+          },
+          "grid" : [ [ {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "42-7"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : 28,
+            "string" : "60-32"
+          }, {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "38-3"
+          }, {
+            "correct" : false,
+            "numResult" : 46,
+            "string" : "66-20"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "58-18"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "37-2"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "39-4"
+          }, {
+            "correct" : false,
+            "numResult" : 46,
+            "string" : "52-6"
+          }, {
+            "correct" : false,
+            "numResult" : 34,
+            "string" : "41-7"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 28,
+            "string" : "44-16"
+          }, {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "56-21"
+          }, {
+            "correct" : false,
+            "numResult" : 46,
+            "string" : "64-18"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "41-6"
+          }, {
+            "correct" : false,
+            "numResult" : 39,
+            "string" : "69-30"
+          }, {
+            "correct" : false,
+            "numResult" : 24,
+            "string" : "46-22"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 33,
+            "string" : "63-30"
+          }, {
+            "correct" : false,
+            "numResult" : 31,
+            "string" : "58-27"
+          }, {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "49-14"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "51-15"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "52-11"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "64-29"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "45-10"
+          }, {
+            "correct" : false,
+            "numResult" : 32,
+            "string" : "69-37"
+          }, {
+            "correct" : false,
+            "numResult" : 27,
+            "string" : "66-39"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "38-3"
+          }, {
+            "correct" : false,
+            "numResult" : 25,
+            "string" : "37-12"
+          }, {
+            "correct" : false,
+            "numResult" : 43,
+            "string" : "64-21"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "69-29"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "67-32"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 35,
+            "string" : "40-5"
+          }, {
+            "correct" : false,
+            "numResult" : 28,
+            "string" : "43-15"
+          }, {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "42-2"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 6,
+          "level_length" : 13,
+          "question" : "Welk verschil is gelijk aan 35?",
+          "remaining_rows" : 9,
+          "result" : "GameOver",
+          "solution" : 35,
+          "start_time" : "23:10:56 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GvfPT4ZhBayQlSd5J" : {
+          "end_score" : 79,
+          "end_time" : "23:12:30 GMT+0100 (CET)",
+          "error" : {
+            "correct" : "29+9",
+            "selected" : "niets"
+          },
+          "grid" : [ [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 49,
+            "string" : "9+40"
+          }, {
+            "correct" : false,
+            "numResult" : 30,
+            "string" : "28+2"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 38,
+            "string" : "34+4"
+          }, {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "27+14"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "25+16"
+          }, {
+            "correct" : true,
+            "numResult" : 38,
+            "string" : "29+9"
+          }, {
+            "correct" : false,
+            "numResult" : 30,
+            "string" : "17+13"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "40+1"
+          }, {
+            "correct" : false,
+            "numResult" : 27,
+            "string" : "3+24"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 38,
+            "string" : "26+12"
+          }, {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "29+11"
+          }, {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "27+13"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 45,
+            "string" : "45+0"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 38,
+            "string" : "0+38"
+          }, {
+            "correct" : false,
+            "numResult" : 35,
+            "string" : "5+30"
+          }, {
+            "correct" : false,
+            "numResult" : 32,
+            "string" : "19+13"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 31,
+            "string" : "9+22"
+          }, {
+            "correct" : true,
+            "numResult" : 38,
+            "string" : "14+24"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 38,
+            "string" : "27+11"
+          }, {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "7+34"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : 39,
+            "string" : "27+12"
+          }, {
+            "correct" : false,
+            "numResult" : 30,
+            "string" : "28+2"
+          }, {
+            "correct" : false,
+            "numResult" : 35,
+            "string" : "6+29"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 45,
+            "string" : "1+44"
+          }, {
+            "correct" : false,
+            "numResult" : 48,
+            "string" : "5+43"
+          }, {
+            "correct" : false,
+            "numResult" : 30,
+            "string" : "9+21"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "31+10"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 32,
+            "string" : "28+4"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 44,
+            "string" : "42+2"
+          }, {
+            "correct" : false,
+            "numResult" : 34,
+            "string" : "10+24"
+          }, {
+            "correct" : true,
+            "numResult" : 38,
+            "string" : "11+27"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 6,
+          "level_length" : 13,
+          "question" : "Welke som is gelijk aan 38?",
+          "remaining_rows" : 2,
+          "result" : "GameOver",
+          "solution" : 38,
+          "start_time" : "23:11:30 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GvvEdtz5CQqp8oxwQ" : {
+          "end_score" : 102,
+          "end_time" : "23:13:45 GMT+0100 (CET)",
+          "grid" : [ [ {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "25+5"
+          }, {
+            "correct" : false,
+            "numResult" : 21,
+            "string" : "16+5"
+          }, {
+            "correct" : false,
+            "numResult" : 26,
+            "string" : "22+4"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "26+4"
+          }, {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "22+18"
+          }, {
+            "correct" : false,
+            "numResult" : 29,
+            "string" : "12+17"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 27,
+            "string" : "5+22"
+          }, {
+            "correct" : false,
+            "numResult" : 28,
+            "string" : "10+18"
+          }, {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "6+24"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 35,
+            "string" : "11+24"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 37,
+            "string" : "29+8"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 38,
+            "string" : "4+34"
+          }, {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "21+9"
+          }, {
+            "correct" : false,
+            "numResult" : 35,
+            "string" : "21+14"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "8+22"
+          }, {
+            "correct" : false,
+            "numResult" : 24,
+            "string" : "16+8"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "9+21"
+          }, {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "30+11"
+          }, {
+            "correct" : false,
+            "numResult" : 19,
+            "string" : "12+7"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "27+3"
+          }, {
+            "correct" : false,
+            "numResult" : 20,
+            "string" : "10+10"
+          }, {
+            "correct" : false,
+            "numResult" : 29,
+            "string" : "18+11"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 25,
+            "string" : "4+21"
+          }, {
+            "correct" : false,
+            "numResult" : 42,
+            "string" : "16+26"
+          }, {
+            "correct" : false,
+            "numResult" : 31,
+            "string" : "1+30"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "10+20"
+          }, {
+            "correct" : false,
+            "numResult" : 18,
+            "string" : "4+14"
+          }, {
+            "correct" : false,
+            "numResult" : 38,
+            "string" : "33+5"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "15+15"
+          }, {
+            "correct" : false,
+            "numResult" : 37,
+            "string" : "24+13"
+          }, {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "17+19"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 30,
+            "string" : "26+4"
+          }, {
+            "correct" : false,
+            "numResult" : 33,
+            "string" : "12+21"
+          }, {
+            "correct" : false,
+            "numResult" : 29,
+            "string" : "23+6"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "36+0"
+          }, {
+            "correct" : false,
+            "numResult" : 34,
+            "string" : "17+17"
+          }, {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "23+18"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 6,
+          "level_length" : 13,
+          "question" : "Welke som is gelijk aan 30?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 30,
+          "start_time" : "23:12:34 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GwBoMWevLo0r6cTf7" : {
+          "end_score" : 126,
+          "end_time" : "23:15:02 GMT+0100 (CET)",
+          "grid" : [ [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "2 · 26"
+          }, {
+            "correct" : false,
+            "numResult" : 66,
+            "string" : "3 · 22"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 63,
+            "string" : "9 · 7"
+          }, {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "5 · 8"
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "13 · 4"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 66,
+            "string" : "22 · 3"
+          }, {
+            "correct" : false,
+            "numResult" : 56,
+            "string" : "8 · 7"
+          }, {
+            "correct" : false,
+            "numResult" : 54,
+            "string" : "6 · 9"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "2 · 26"
+          }, {
+            "correct" : false,
+            "numResult" : 50,
+            "string" : "5 · 10"
+          }, {
+            "correct" : false,
+            "numResult" : 45,
+            "string" : "3 · 15"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 42,
+            "string" : "7 · 6"
+          }, {
+            "correct" : false,
+            "numResult" : 56,
+            "string" : "2 · 28"
+          }, {
+            "correct" : false,
+            "numResult" : 48,
+            "string" : "12 · 4"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "13 · 4"
+          }, {
+            "correct" : false,
+            "numResult" : 44,
+            "string" : "22 · 2"
+          }, {
+            "correct" : false,
+            "numResult" : 64,
+            "string" : "16 · 4"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "4 · 13"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 64,
+            "string" : "4 · 16"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 63,
+            "string" : "7 · 9"
+          }, {
+            "correct" : false,
+            "numResult" : 64,
+            "string" : "4 · 16"
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "13 · 4"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "2 · 26"
+          }, {
+            "correct" : false,
+            "numResult" : 64,
+            "string" : "2 · 32"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 42,
+            "string" : "6 · 7"
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "13 · 4"
+          }, {
+            "correct" : false,
+            "numResult" : 44,
+            "string" : "11 · 4"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 50,
+            "string" : "25 · 2"
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "4 · 13"
+          }, {
+            "correct" : false,
+            "numResult" : 48,
+            "string" : "2 · 24"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "13 · 4"
+          }, {
+            "correct" : false,
+            "numResult" : 48,
+            "string" : "4 · 12"
+          }, {
+            "correct" : false,
+            "numResult" : 63,
+            "string" : "7 · 9"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "26 · 2"
+          }, {
+            "correct" : false,
+            "numResult" : 64,
+            "string" : "2 · 32"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "5 · 8"
+          }, {
+            "correct" : true,
+            "numResult" : 52,
+            "string" : "2 · 26"
+          }, {
+            "correct" : false,
+            "numResult" : 44,
+            "string" : "11 · 4"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 7,
+          "level_length" : 14,
+          "question" : "Welke vermenigvuldiging is gelijk aan 52?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 52,
+          "start_time" : "23:13:46 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GwU_QXTDxlCp6KVbQ" : {
+          "end_score" : 150,
+          "end_time" : "23:16:19 GMT+0100 (CET)",
+          "error" : {
+            "correct" : "niets",
+            "selected" : "niets"
+          },
+          "grid" : [ [ {
+            "correct" : false,
+            "numResult" : 49,
+            "string" : "40+9"
+          }, {
+            "correct" : false,
+            "numResult" : 44,
+            "string" : "19+25"
+          }, {
+            "correct" : false,
+            "numResult" : 45,
+            "string" : "44+1"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "36+12"
+          }, {
+            "correct" : false,
+            "numResult" : 34,
+            "string" : "13+21"
+          }, {
+            "correct" : false,
+            "numResult" : 58,
+            "string" : "42+16"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 60,
+            "string" : "46+14"
+          }, {
+            "correct" : false,
+            "numResult" : 39,
+            "string" : "27+12"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : 43,
+            "string" : "31+12"
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "12+36"
+          }, {
+            "correct" : false,
+            "numResult" : 41,
+            "string" : "24+17"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 50,
+            "string" : "22+28"
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "15+33"
+          }, {
+            "correct" : false,
+            "numResult" : 42,
+            "string" : "37+5"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 46,
+            "string" : "46+0"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "16+32"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 61,
+            "string" : "36+25"
+          }, {
+            "correct" : false,
+            "numResult" : 60,
+            "string" : "46+14"
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "0+48"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 49,
+            "string" : "11+38"
+          }, {
+            "correct" : false,
+            "numResult" : 45,
+            "string" : "29+16"
+          }, {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "0+36"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 45,
+            "string" : "35+10"
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "39+9"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 43,
+            "string" : "23+20"
+          }, {
+            "correct" : false,
+            "numResult" : 54,
+            "string" : "54+0"
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "16+32"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 61,
+            "string" : "7+54"
+          }, {
+            "correct" : false,
+            "numResult" : 51,
+            "string" : "38+13"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "20+28"
+          }, {
+            "correct" : false,
+            "numResult" : 58,
+            "string" : "28+30"
+          }, {
+            "correct" : false,
+            "numResult" : 50,
+            "string" : "47+3"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 37,
+            "string" : "26+11"
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "4+44"
+          }, {
+            "correct" : false,
+            "numResult" : 58,
+            "string" : "43+15"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "2+34"
+          }, {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "0+36"
+          }, {
+            "correct" : true,
+            "numResult" : 48,
+            "string" : "26+22"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 8,
+          "level_length" : 14,
+          "question" : "Welke som is gelijk aan 48?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 48,
+          "start_time" : "23:15:03 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GwpdQF2LCvSytfT2M" : {
+          "end_score" : 150,
+          "end_time" : 0,
+          "grid" : [ [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "6+44"
+          }, {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "23+17"
+          }, {
+            "correct" : false,
+            "numResult" : 57,
+            "string" : "45+12"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "0+50"
+          }, {
+            "correct" : false,
+            "numResult" : 59,
+            "string" : "17+42"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          } ], [ {
+            "correct" : false,
+            "numResult" : 59,
+            "string" : "2+57"
+          }, {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "26+24"
+          }, {
+            "correct" : false,
+            "numResult" : 39,
+            "string" : "27+12"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "16+34"
+          }, {
+            "correct" : false,
+            "numResult" : 60,
+            "string" : "39+21"
+          }, {
+            "correct" : false,
+            "numResult" : 58,
+            "string" : "33+25"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 42,
+            "string" : "33+9"
+          }, {
+            "correct" : false,
+            "numResult" : 47,
+            "string" : "34+13"
+          }, {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "12+38"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "50+0"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 62,
+            "string" : "57+5"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 57,
+            "string" : "17+40"
+          }, {
+            "correct" : false,
+            "numResult" : 63,
+            "string" : "34+29"
+          }, {
+            "correct" : false,
+            "numResult" : 49,
+            "string" : "23+26"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "32+4"
+          }, {
+            "correct" : false,
+            "numResult" : 36,
+            "string" : "34+2"
+          }, {
+            "correct" : false,
+            "numResult" : 39,
+            "string" : "26+13"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "46+4"
+          }, {
+            "correct" : false,
+            "numResult" : 52,
+            "string" : "39+13"
+          }, {
+            "correct" : false,
+            "numResult" : 35,
+            "string" : "22+13"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "0+50"
+          }, {
+            "correct" : false,
+            "numResult" : 60,
+            "string" : "39+21"
+          }, {
+            "correct" : false,
+            "numResult" : 52,
+            "string" : "23+29"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 40,
+            "string" : "8+32"
+          }, {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "10+40"
+          }, {
+            "correct" : false,
+            "numResult" : 39,
+            "string" : "3+36"
+          } ], [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "31+19"
+          }, {
+            "correct" : false,
+            "numResult" : 47,
+            "string" : "25+22"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "17+33"
+          }, {
+            "correct" : false,
+            "numResult" : 35,
+            "string" : "21+14"
+          }, {
+            "correct" : false,
+            "numResult" : 43,
+            "string" : "18+25"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "13+37"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 56,
+            "string" : "9+47"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 50,
+            "string" : "10+40"
+          }, {
+            "correct" : false,
+            "numResult" : 59,
+            "string" : "52+7"
+          }, {
+            "correct" : false,
+            "numResult" : 64,
+            "string" : "33+31"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : true,
+          "interval" : 5000,
+          "level" : 9,
+          "level_length" : 0,
+          "question" : "Welke som is gelijk aan 50?",
+          "remaining_rows" : -1,
+          "result" : "",
+          "solution" : 50,
+          "start_time" : "23:16:34 GMT+0100 (CET)",
+          "type" : "Classic"
+        },
+        "-L0GwvYUhR1eJeOdNRiU" : {
+          "end_score" : 13,
+          "end_time" : "23:17:18 GMT+0100 (CET)",
+          "grid" : [ [ {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : 5,
+            "string" : "8-3"
+          } ], [ {
+            "correct" : false,
+            "numResult" : 4,
+            "string" : "1+3"
+          }, {
+            "correct" : false,
+            "numResult" : 4,
+            "string" : "3+1"
+          }, {
+            "correct" : false,
+            "numResult" : 6,
+            "string" : "5+1"
+          } ], [ {
+            "correct" : true,
+            "numResult" : 5,
+            "string" : "7-2"
+          }, {
+            "correct" : false,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : false,
+            "numResult" : 6,
+            "string" : "6-0"
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 1,
+          "level_length" : 3,
+          "question" : "Welk(e) som of verschil is gelijk aan 5?",
+          "remaining_rows" : 0,
+          "result" : "Won",
+          "solution" : 5,
+          "start_time" : "23:16:58 GMT+0100 (CET)",
+          "type" : "Endurance"
+        },
+        "-L0Gx-tAadZvIygAxv7-" : {
+          "end_score" : 12,
+          "end_time" : "23:17:45 GMT+0100 (CET)",
+          "error" : {
+            "correct" : 3,
+            "selected" : "niets"
+          },
+          "grid" : [ [ {
+            "correct" : false,
+            "string" : 17
+          }, {
+            "correct" : false,
+            "string" : 2
+          }, {
+            "correct" : true,
+            "string" : 3
+          } ], [ {
+            "correct" : false,
+            "string" : 13
+          }, {
+            "correct" : false,
+            "string" : 4
+          }, {
+            "correct" : false,
+            "string" : 14
+          } ], [ {
+            "correct" : false,
+            "string" : 7
+          }, {
+            "correct" : true,
+            "string" : 9
+          }, {
+            "correct" : false,
+            "string" : 1
+          } ], [ {
+            "correct" : true,
+            "string" : 9
+          }, {
+            "correct" : false,
+            "string" : 11
+          }, {
+            "correct" : false,
+            "string" : 16
+          } ], [ {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          }, {
+            "correct" : true,
+            "numResult" : -1,
+            "string" : ""
+          } ] ],
+          "interrupted" : false,
+          "interval" : 5000,
+          "level" : 2,
+          "level_length" : 4,
+          "question" : "Welk getal is deelbaar door 3?",
+          "remaining_rows" : 0,
+          "result" : "GameOver",
+          "solution" : 3,
+          "start_time" : "23:17:20 GMT+0100 (CET)",
+          "type" : "Endurance"
+        }
+      },
+      "info" : {
+        "age" : 18,
+        "device_info" : {
+          "name" : "Moto G (5)",
+          "os" : "android",
+          "version" : {
+            "api" : 24,
+            "name" : "Nougat",
+            "ndk" : 8,
+            "semver" : "7.0",
+            "versionCode" : "N"
+          },
+          "year_class" : 2012
+        },
+        "fb_app_id" : "1506168899490889",
+        "full_name" : "Wannes Lembrechts",
+        "gender" : "male"
+      },
+      "nb_games_played" : 14
+    },
     "A96fOejfY4eOUxXJC3Dq9MBJ7zW2" : {
       "games" : {
         "-L-aUXoJG7cU6qfTG8VU" : {
