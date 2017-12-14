@@ -39,6 +39,8 @@ def main():
     highest_classic_level_male = 0
     highest_classic_level_female = 0
 
+    endurance_fails = 0
+    classic_fails = 0
 
     for user_str in users:
 
@@ -69,6 +71,9 @@ def main():
 
         endurance_games_played_by_user = 0
         classic_games_played_by_user = 0
+        endurance_fails_by_user = 0
+        classic_fails_by_user = 0
+
         # GET GAME TIME PER MODE
         for game_tag in users[user_str]["games"]:
             if users[user_str]["info"]["age"] < 18:
@@ -95,6 +100,8 @@ def main():
 
                 if users[user_str]["games"][game_tag]["result"] == "Won":
                     endurance_games_won += 1
+                if users[user_str]["games"][game_tag]["result"] == "GameOver":
+                    endurance_fails_by_user += 1
 
                 if (users[user_str]["info"]["gender"] == "male" and
                                 users[user_str]["games"][game_tag]["level"] > highest_endurance_level_male):
@@ -117,6 +124,9 @@ def main():
 
                 if users[user_str]["games"][game_tag]["result"] == "Won":
                     classic_games_won += 1
+                if users[user_str]["games"][game_tag]["result"] == "GameOver":
+                    classic_fails_by_user += 1
+
                 if (users[user_str]["info"]["gender"] == "male" and
                             users[user_str]["games"][game_tag]["level"] > highest_classic_level_male):
                     highest_classic_level_male = users[user_str]["games"][game_tag]["level"]
@@ -124,6 +134,13 @@ def main():
                 if (users[user_str]["info"]["gender"] == "female" and
                             users[user_str]["games"][game_tag]["level"] > highest_classic_level_female):
                     highest_classic_level_female = users[user_str]["games"][game_tag]["level"]
+
+        if endurance_games_played_by_user > 0:
+            endurance_verhouding_user = endurance_fails_by_user / endurance_games_played_by_user
+            endurance_fails += endurance_verhouding_user
+        if classic_games_played_by_user > 0:
+            classic_verhouding_user = classic_fails_by_user / classic_games_played_by_user
+            classic_fails += classic_verhouding_user
 
         if endurance_games_played_by_user > 0:
             endurance_players += 1
@@ -171,6 +188,9 @@ def main():
     print(str(males+females) + " spelers hebben " + str(total_games_played) + " games gespeeld, dus " + str( (float(total_games_played))/(float(males+females))) + " per persoon")
     print(str(males) + " mannen hebben " + str(male_games_played) + " games gespeeld, dus " + str(float(male_games_played)/float(males)) + " per persoon.")
     print(str(females) + " vrouwen hebben " + str(female_games_played) + " games gespeeld, dus " + str(float(female_games_played)/float(females)) + " per persoon.")
+
+    print("Gemiddeld aantal verloren Endurance games tov aantal games dat een gebruiker speelde:" + str(endurance_fails/endurance_players))
+    print("Gemiddeld aantal verloren Classic games tov aantal games dat een gebruiker speelde:" + str(classic_fails/classic_players))
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
