@@ -1,10 +1,14 @@
 import json
 import numpy as np
 import csv
-
+import urllib
 
 def main():
-    data = json.load(open('data.json'))
+    url = "https://quickmaths-baf21.firebaseio.com/.json?auth=b0gfYHOMZCMzHEw2MtRs98eWCOWKwa6f5zG6hSyy"
+    response = urllib.urlopen(url)
+    data = json.loads(response.read())
+    print data
+    #data = json.load(open('data.json'))
     users = data["users"]
 
     total_games_played = 0
