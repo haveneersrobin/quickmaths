@@ -2,12 +2,14 @@ import json
 import numpy as np
 import csv
 import urllib
+import matplotlib.pyplot as plt
+import numpy as np
+import pylab
 
 def main():
     url = "https://quickmaths-baf21.firebaseio.com/.json?auth=b0gfYHOMZCMzHEw2MtRs98eWCOWKwa6f5zG6hSyy"
     response = urllib.urlopen(url)
     data = json.loads(response.read())
-    print data
     #data = json.load(open('data.json'))
     users = data["users"]
 
@@ -130,26 +132,34 @@ def main():
 
         # print(user_str + " speelde " + str(endurance_games_played_by_user + classic_games_played_by_user) + " game(s), " + str(endurance_games_played_by_user) + " endurance, " + str(classic_games_played_by_user) + "classic")
 
-    writer = csv.writer(open('gemiddeldes.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
-    writer.writerow("C")
-    writer.writerow(classic_game_times)
-    writer.writerow("E")
-    writer.writerow(endurance_game_times)
-    print("gemiddeldes.csv generated")
+    # writer = csv.writer(open('gemiddeldes.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+    # writer.writerow("C")
+    # writer.writerow(classic_game_times)
+    # writer.writerow("E")
+    # writer.writerow(endurance_game_times)
+    #print("gemiddeldes.csv generated")
 
-    youngling_verhouding = younglings_games_played / total_games_played
-    elderling_verhouding = elderlings_games_played / total_games_played
+    fig = plt.figure(1, figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.set_title('Gemiddelde tijd per game mode', fontsize=14, fontweight='bold')
+    ax.set_ylabel('Seconden per spel')
+    axes = plt.gca()
+    axes.set_ylim([0,np.amax(np.concatenate((classic_game_times, endurance_game_times)))+10])
+    bp = ax.boxplot(([classic_game_times, endurance_game_times]),labels=("Classic", "Endurance"), widths=(0.5, 0.5))
+    pylab.savefig('boxplot.pdf', bbox_inches='tight')
+    youngling_verhouding = float(younglings_games_played) / float(total_games_played)
+    elderling_verhouding = float(elderlings_games_played )/ float(total_games_played)
 
-    print("Verhouding spelers <18jaar: " + str(youngling_verhouding))
-    print("Verhouding spelers >18jaar: " + str(elderling_verhouding))
+    print("Verhouding spelers <18jaar: " + str(youngling_verhouding*100)+" %")
+    print("Verhouding spelers >18jaar: " + str(elderling_verhouding*100)+" %")
 
-    print("Endurance games: " + str(endurance_counter) + " gespeeld en " + str(endurance_games_won) + " werden gewonnen. (" + str(endurance_games_won/endurance_counter) + "%)")
-    print(str(endurance_players) + " mensen hebben Endurance gespeeld, dus gemiddeld " + str(endurance_counter/endurance_players) + " games gespeeld.")
+    print("Endurance games: " + str(endurance_counter) + " gespeeld en " + str(endurance_games_won) + " werden gewonnen. (" + str((float(endurance_games_won)/float(endurance_counter))*100) + " %)")
+    print(str(endurance_players) + " mensen hebben Endurance gespeeld, dus gemiddeld " + str(float(endurance_counter)/float(endurance_players)) + " games gespeeld.")
     print("Hoogst behaalde Endurance level: " + str(highest_endurance_level_male) + " (male)")
     print("Hoogst behaalde Endurance level: " + str(highest_endurance_level_female) + " (female)")
 
-    print("Classic games: " + str(classic_counter) + " gespeeld en " + str(classic_games_won) + " werden gewonnen. (" + str(classic_games_won/classic_counter) + "%)")
-    print(str(classic_players) + " mensen hebben Classic gespeeld, dus gemiddeld " + str(classic_counter/classic_players) + " games gespeeld.")
+    print("Classic games: " + str(classic_counter) + " gespeeld en " + str(classic_games_won) + " werden gewonnen. (" + str((float(classic_games_won)/float(classic_counter))*100) + " %)")
+    print(str(classic_players) + " mensen hebben Classic gespeeld, dus gemiddeld " + str(float(classic_counter)/float(classic_players)) + " games gespeeld.")
 
     print("Hoogste behaalde Classic level: " + str(highest_classic_level_male) + " (male)")
     print("Hoogste behaalde Classic level: " + str(highest_classic_level_female) + " (female)")
@@ -158,9 +168,9 @@ def main():
     print(str(solo_game_players) + " mensen hebben slechts 1x een spelletje gespeeld.")
     print("Het meeste spelletjes dat iemand speelde is: " + str(most_games_played) + ".")
 
-    print(str(males+females) + " spelers hebben " + str(total_games_played) + " games gespeeld, dus " + str( (total_games_played)/(males+females)) + " per persoon")
-    print(str(males) + " mannen hebben " + str(male_games_played) + " games gespeeld, dus " + str(male_games_played/males) + " per persoon.")
-    print(str(females) + " vrouwen hebben " + str(female_games_played) + " games gespeeld, dus " + str(female_games_played/females) + " per persoon.")
+    print(str(males+females) + " spelers hebben " + str(total_games_played) + " games gespeeld, dus " + str( (float(total_games_played))/(float(males+females))) + " per persoon")
+    print(str(males) + " mannen hebben " + str(male_games_played) + " games gespeeld, dus " + str(float(male_games_played)/float(males)) + " per persoon.")
+    print(str(females) + " vrouwen hebben " + str(female_games_played) + " games gespeeld, dus " + str(float(female_games_played)/float(females)) + " per persoon.")
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
