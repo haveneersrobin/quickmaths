@@ -136,10 +136,10 @@ def main():
                     highest_classic_level_female = users[user_str]["games"][game_tag]["level"]
 
         if endurance_games_played_by_user > 0:
-            endurance_verhouding_user = endurance_fails_by_user / endurance_games_played_by_user
+            endurance_verhouding_user = float(endurance_fails_by_user) / float(endurance_games_played_by_user)
             endurance_fails += endurance_verhouding_user
         if classic_games_played_by_user > 0:
-            classic_verhouding_user = classic_fails_by_user / classic_games_played_by_user
+            classic_verhouding_user = float(classic_fails_by_user) / float(classic_games_played_by_user)
             classic_fails += classic_verhouding_user
 
         if endurance_games_played_by_user > 0:
@@ -185,12 +185,12 @@ def main():
     print(str(solo_game_players) + " mensen hebben slechts 1x een spelletje gespeeld.")
     print("Het meeste spelletjes dat iemand speelde is: " + str(most_games_played) + ".")
 
-    print(str(males+females) + " spelers hebben " + str(total_games_played) + " games gespeeld, dus " + str( (float(total_games_played))/(float(males+females))) + " per persoon")
+    print(str(males+females) + " spelers hebben " + str(total_games_played) + " games gespeeld, dus " + str((float(total_games_played))/(float(males+females))) + " per persoon")
     print(str(males) + " mannen hebben " + str(male_games_played) + " games gespeeld, dus " + str(float(male_games_played)/float(males)) + " per persoon.")
     print(str(females) + " vrouwen hebben " + str(female_games_played) + " games gespeeld, dus " + str(float(female_games_played)/float(females)) + " per persoon.")
 
-    print("Gemiddeld aantal verloren Endurance games tov aantal games dat een gebruiker speelde:" + str(endurance_fails/endurance_players))
-    print("Gemiddeld aantal verloren Classic games tov aantal games dat een gebruiker speelde:" + str(classic_fails/classic_players))
+    print("Gemiddeld aantal verloren Endurance games tov aantal games dat een gebruiker speelde:" + str(((float(endurance_fails))/float(endurance_players))*100) + " %")
+    print("Gemiddeld aantal verloren Classic games tov aantal games dat een gebruiker speelde:" + str(((float(classic_fails))/float(classic_players))*100) + " %")
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
