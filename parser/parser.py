@@ -19,8 +19,8 @@ def main():
     younglings = []
     elderlings = []
     all_players = []
-    endurance_game_times = []
-    classic_game_times = []
+    endurance_game_times = np.zeros((100,), dtype=np.int)
+    classic_game_times = np.zeros((100,), dtype=np.int)
     younglings_games_played = 0
     elderlings_games_played = 0
     solo_game_players = 0
@@ -41,11 +41,12 @@ def main():
 
     endurance_fails = 0
     classic_fails = 0
+    player_count = 0
 
     for user_str in users:
 
         all_players.append(user_str)
-
+        player_count += 1
         total_games_played += users[user_str]["nb_games_played"]
 
         # check for solo-game players
@@ -96,7 +97,7 @@ def main():
                     end_time = get_sec(end_time[:8])
                     total_time = end_time - start_time
                     if abs(total_time) < 1000:
-                        endurance_game_times.append(total_time)
+                        endurance_game_times[player_count] += total_time
 
                 if users[user_str]["games"][game_tag]["result"] == "Won":
                     endurance_games_won += 1
@@ -120,7 +121,7 @@ def main():
                     end_time = get_sec(end_time[:8])
                     total_time = end_time - start_time
                     if abs(total_time) < 1000:
-                        classic_game_times.append(total_time)
+                        classic_game_times[player_count] += total_time
 
                 if users[user_str]["games"][game_tag]["result"] == "Won":
                     classic_games_won += 1
@@ -156,13 +157,16 @@ def main():
     # writer.writerow(endurance_game_times)
     #print("gemiddeldes.csv generated")
 
+    arr1 = np.concatenate(([], classic_game_times[classic_game_times != 0]))
+    arr2 = np.concatenate(([], endurance_game_times[endurance_game_times != 0]))
+
     fig = plt.figure(1, figsize=(10, 6))
     ax = fig.add_subplot(111)
-    ax.set_title('Gemiddelde tijd per game mode', fontsize=14, fontweight='bold')
-    ax.set_ylabel('Seconden per spel')
+    ax.set_title('Totale tijd per speler', fontsize=14, fontweight='bold')
+    ax.set_ylabel('Seconden')
     axes = plt.gca()
-    axes.set_ylim([0,np.amax(np.concatenate((classic_game_times, endurance_game_times)))+10])
-    bp = ax.boxplot(([classic_game_times, endurance_game_times]),labels=("Classic", "Endurance"), widths=(0.5, 0.5))
+    axes.set_ylim([0,np.amax(np.concatenate((arr1, arr2)))+10])
+    bp = ax.boxplot(([arr1, arr2]),labels=("Classic", "Endurance"), widths=(0.5, 0.5))
     pylab.savefig('boxplot.pdf', bbox_inches='tight')
     youngling_verhouding = float(younglings_games_played) / float(total_games_played)
     elderling_verhouding = float(elderlings_games_played )/ float(total_games_played)
@@ -191,6 +195,11 @@ def main():
 
     print("Gemiddeld aantal verloren Endurance games tov aantal games dat een gebruiker speelde:" + str(((float(endurance_fails))/float(endurance_players))*100) + " %")
     print("Gemiddeld aantal verloren Classic games tov aantal games dat een gebruiker speelde:" + str(((float(classic_fails))/float(classic_players))*100) + " %")
+
+    print("Endurance fails: " + str(float(endurance_fails)))
+    print("Endurance players: " + str(endurance_players))
+    print("Classic fails: " + str(float(classic_fails)))
+    print("Classic players: " + str(classic_players))
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
