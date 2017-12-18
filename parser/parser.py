@@ -217,7 +217,7 @@ def main():
     print("")
 
     print(str(solo_game_players) + " mensen hebben slechts 1 level gespeeld.")
-    print("Het meeste spelletjes dat iemand speelde is: " + str(most_games_played) + ".")
+    print("Het meeste levels dat iemand speelde is: " + str(most_games_played) + ".")
     print("")
 
     print(str(males+females) + " spelers hebben " + str(total_games_played) + " levels gespeeld,\tdus " + str((float(total_games_played))/(float(males+females))) + " per persoon")
