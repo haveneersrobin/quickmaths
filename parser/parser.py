@@ -45,7 +45,16 @@ def main():
     classic_fails = 0
     player_count = 0
 
+    user_max_level_classic = 0
+    user_max_level_endurance = 0
+
+    user_gamemode_highest_level = csv.writer(open('highestLevels.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+    user_gamemode_highest_level.writerow(['userID', 'gamemode', 'level'])
+
     for user_str in users:
+
+        user_max_level_classic = 0
+        user_max_level_endurance = 0
 
         all_players.append(user_str)
         player_count += 1
@@ -117,6 +126,8 @@ def main():
                 if (users[user_str]["info"]["gender"] == "female" and
                             users[user_str]["games"][game_tag]["level"] > highest_endurance_level_female):
                     highest_endurance_level_female = users[user_str]["games"][game_tag]["level"]
+                if users[user_str]["games"][game_tag]["level"] > user_max_level_endurance:
+                    user_max_level_endurance = users[user_str]["games"][game_tag]["level"]
 
             else:
                 classic_counter += 1
@@ -141,6 +152,8 @@ def main():
                 if (users[user_str]["info"]["gender"] == "female" and
                             users[user_str]["games"][game_tag]["level"] > highest_classic_level_female):
                     highest_classic_level_female = users[user_str]["games"][game_tag]["level"]
+                if users[user_str]["games"][game_tag]["level"] > user_max_level_classic:
+                    user_max_level_classic = users[user_str]["games"][game_tag]["level"]
 
         if endurance_games_played_by_user > 0:
             endurance_verhouding_user = float(endurance_fails_by_user) / float(endurance_games_played_by_user)
@@ -153,6 +166,12 @@ def main():
             endurance_players += 1
         if classic_games_played_by_user > 0:
             classic_players += 1
+
+        if user_max_level_endurance > 0:
+            user_gamemode_highest_level.writerow([user_str, 'Endurance', user_max_level_endurance])
+
+        if user_max_level_classic > 0:
+            user_gamemode_highest_level.writerow([user_str, 'Classic', user_max_level_classic])
 
         # print(user_str + " speelde " + str(endurance_games_played_by_user + classic_games_played_by_user) + " game(s), " + str(endurance_games_played_by_user) + " endurance, " + str(classic_games_played_by_user) + "classic")
 
@@ -178,31 +197,37 @@ def main():
     midling_verhouding = float(midlings_games_played) / float(total_games_played)
     elderling_verhouding = float(elderlings_games_played )/ float(total_games_played)
 
-    print("Verhouding spelers 13-17 jaar: " + str(youngling_verhouding*100)+" %")
-    print("Verhouding spelers 18-20 jaar: " + str(midling_verhouding*100)+" %")
-    print("Verhouding spelers 21+ jaar: " + str(elderling_verhouding*100)+" %")
+    total_players = (len(younglings)+len(midlings)+len(elderlings))
 
-    print("Endurance games: " + str(endurance_counter) + " gespeeld en " + str(endurance_games_won) + " werden gewonnen. (" + str((float(endurance_games_won)/float(endurance_counter))*100) + " %)")
-    print(str(endurance_players) + " mensen hebben Endurance gespeeld, dus gemiddeld " + str(float(endurance_counter)/float(endurance_players)) + " games gespeeld.")
+    print("Verhouding spelers 13-17 jaar: " + str((float(len(younglings))/float(total_players))*100)+" %")
+    print("Verhouding spelers 18-20 jaar: " + str((float(len(midlings))/float(total_players))*100)+" %")
+    print("Verhouding spelers 21+ jaar: " + str((float(len(elderlings))/float(total_players))*100)+" %")
+
+    print("Verhouding spelers 13-17 jaar gespeeld: " + str(youngling_verhouding*100)+" %")
+    print("Verhouding spelers 18-20 jaar gespeeld: " + str(midling_verhouding*100)+" %")
+    print("Verhouding spelers 21+ jaar gespeeld: " + str(elderling_verhouding*100)+" %")
+
+    print("Endurance levels: " + str(endurance_counter) + " gespeeld en " + str(endurance_games_won) + " werden gewonnen. (" + str((float(endurance_games_won)/float(endurance_counter))*100) + " %)")
+    print(str(endurance_players) + " mensen hebben Endurance gespeeld, dus gemiddeld " + str(float(endurance_counter)/float(endurance_players)) + " levels gespeeld.")
     print("Hoogst behaalde Endurance level: " + str(highest_endurance_level_male) + " (male)")
     print("Hoogst behaalde Endurance level: " + str(highest_endurance_level_female) + " (female)")
 
-    print("Classic games: " + str(classic_counter) + " gespeeld en " + str(classic_games_won) + " werden gewonnen. (" + str((float(classic_games_won)/float(classic_counter))*100) + " %)")
-    print(str(classic_players) + " mensen hebben Classic gespeeld, dus gemiddeld " + str(float(classic_counter)/float(classic_players)) + " games gespeeld.")
+    print("Classic levels: " + str(classic_counter) + " gespeeld en " + str(classic_games_won) + " werden gewonnen. (" + str((float(classic_games_won)/float(classic_counter))*100) + " %)")
+    print(str(classic_players) + " mensen hebben Classic gespeeld, dus gemiddeld " + str(float(classic_counter)/float(classic_players)) + " levels gespeeld.")
 
     print("Hoogste behaalde Classic level: " + str(highest_classic_level_male) + " (male)")
     print("Hoogste behaalde Classic level: " + str(highest_classic_level_female) + " (female)")
 
 
-    print(str(solo_game_players) + " mensen hebben slechts 1x een spelletje gespeeld.")
+    print(str(solo_game_players) + " mensen hebben slechts 1 level gespeeld.")
     print("Het meeste spelletjes dat iemand speelde is: " + str(most_games_played) + ".")
 
-    print(str(males+females) + " spelers hebben " + str(total_games_played) + " games gespeeld, dus " + str((float(total_games_played))/(float(males+females))) + " per persoon")
-    print(str(males) + " mannen hebben " + str(male_games_played) + " games gespeeld, dus " + str(float(male_games_played)/float(males)) + " per persoon.")
-    print(str(females) + " vrouwen hebben " + str(female_games_played) + " games gespeeld, dus " + str(float(female_games_played)/float(females)) + " per persoon.")
+    print(str(males+females) + " spelers hebben " + str(total_games_played) + " levels gespeeld, dus " + str((float(total_games_played))/(float(males+females))) + " per persoon")
+    print(str(males) + " mannen hebben " + str(male_games_played) + " levels gespeeld, dus " + str(float(male_games_played)/float(males)) + " per persoon.")
+    print(str(females) + " vrouwen hebben " + str(female_games_played) + " levels gespeeld, dus " + str(float(female_games_played)/float(females)) + " per persoon.")
 
-    print("Gemiddeld aantal verloren Endurance games tov aantal games dat een gebruiker speelde:" + str(((float(endurance_fails))/float(endurance_players))*100) + " %")
-    print("Gemiddeld aantal verloren Classic games tov aantal games dat een gebruiker speelde:" + str(((float(classic_fails))/float(classic_players))*100) + " %")
+    print("Gemiddeld aantal verloren Endurance levels tov aantal levels dat een gebruiker speelde:" + str(((float(endurance_fails))/float(endurance_players))*100) + " %")
+    print("Gemiddeld aantal verloren Classic levels tov aantal levels dat een gebruiker speelde:" + str(((float(classic_fails))/float(classic_players))*100) + " %")
 
     print("Endurance fails: " + str(float(endurance_fails)))
     print("Classic fails: " + str(float(classic_fails)))
