@@ -48,13 +48,26 @@ def main():
     user_max_level_classic = 0
     user_max_level_endurance = 0
 
+    user_fails_classic = 0
+    user_played_classic = 0
+    user_fails_endurance = 0
+    user_played_endurance = 0
+
     user_gamemode_highest_level = csv.writer(open('highestLevels.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
     user_gamemode_highest_level.writerow(['userID', 'gamemode', 'level'])
+
+    user_fail_rate = csv.writer(open('failRate.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+    user_fail_rate.writerow(['userID', 'gamemode', 'failrate'])
 
     for user_str in users:
 
         user_max_level_classic = 0
         user_max_level_endurance = 0
+
+        user_fails_classic = 0
+        user_played_classic = 0
+        user_fails_endurance = 0
+        user_played_endurance = 0
 
         all_players.append(user_str)
         player_count += 1
@@ -104,6 +117,7 @@ def main():
 
             game_type = users[user_str]["games"][game_tag]["type"]
             if game_type == "Endurance":
+                user_played_endurance += 1
                 endurance_counter += 1
                 endurance_games_played_by_user += 1
                 start_time = get_sec(users[user_str]["games"][game_tag]["start_time"][:8])
@@ -118,6 +132,7 @@ def main():
                     endurance_games_won += 1
                 if users[user_str]["games"][game_tag]["result"] == "GameOver":
                     endurance_fails_by_user += 1
+                    user_fails_endurance += 1
 
                 if (users[user_str]["info"]["gender"] == "male" and
                                 users[user_str]["games"][game_tag]["level"] > highest_endurance_level_male):
@@ -130,6 +145,7 @@ def main():
                     user_max_level_endurance = users[user_str]["games"][game_tag]["level"]
 
             else:
+                user_played_classic += 1
                 classic_counter += 1
                 classic_games_played_by_user += 1
                 start_time = get_sec(users[user_str]["games"][game_tag]["start_time"][:8])
@@ -144,6 +160,7 @@ def main():
                     classic_games_won += 1
                 if users[user_str]["games"][game_tag]["result"] == "GameOver":
                     classic_fails_by_user += 1
+                    user_fails_classic += 1
 
                 if (users[user_str]["info"]["gender"] == "male" and
                             users[user_str]["games"][game_tag]["level"] > highest_classic_level_male):
@@ -167,11 +184,19 @@ def main():
         if classic_games_played_by_user > 0:
             classic_players += 1
 
+        if user_max_level_classic > 0:
+            user_gamemode_highest_level.writerow([user_str, 'Classic', user_max_level_classic])
+
         if user_max_level_endurance > 0:
             user_gamemode_highest_level.writerow([user_str, 'Endurance', user_max_level_endurance])
 
-        if user_max_level_classic > 0:
-            user_gamemode_highest_level.writerow([user_str, 'Classic', user_max_level_classic])
+        if user_played_classic > 3:
+            user_fail_rate_classic = float(user_fails_classic) / float(user_played_classic)
+            user_fail_rate.writerow([user_str, 'Classic', user_fail_rate_classic])
+
+        if user_played_endurance > 3:
+            user_fail_rate_endurance = float(user_fails_endurance) / float(user_played_endurance)
+            user_fail_rate.writerow([user_str, 'Endurance', user_fail_rate_endurance])
 
         # print(user_str + " speelde " + str(endurance_games_played_by_user + classic_games_played_by_user) + " game(s), " + str(endurance_games_played_by_user) + " endurance, " + str(classic_games_played_by_user) + "classic")
 
