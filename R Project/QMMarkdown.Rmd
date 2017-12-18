@@ -1,0 +1,39 @@
+---
+title: "QM"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(dplyr)
+library(ez)
+
+setwd("D:/Laurens/Documents/( School/CW 2/1e Semester/FMMI/R Project")
+
+# Loading file
+failData <- read.csv("failRate.csv")
+levelData <- read.csv("highestLevels.csv")
+
+# Group data by gamemode
+failGrouped <- group_by(failData, gamemode)
+
+levelGrouped <- group_by(levelData, gamemode)
+
+# Summary
+summarise(failGrouped, MeanFail=mean(failrate), SDFail=sd(failrate))
+
+summarise(levelGrouped, MeanLevel=mean(level), SDLevel=sd(level))
+
+# ANOVA analysis
+failModel <- aov(failrate ~ gamemode, data=failData)
+summary(failModel)
+
+levelModel <- aov(level ~ gamemode, data=levelData)
+summary(levelModel)
+
+```
