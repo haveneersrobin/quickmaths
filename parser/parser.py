@@ -17,11 +17,13 @@ def main():
     endurance_counter = 0
     classic_counter = 0
     younglings = []
+    midlings = []
     elderlings = []
     all_players = []
     endurance_game_times = np.zeros((100,), dtype=np.int)
     classic_game_times = np.zeros((100,), dtype=np.int)
     younglings_games_played = 0
+    midlings_games_played = 0
     elderlings_games_played = 0
     solo_game_players = 0
     males  = 0
@@ -60,6 +62,8 @@ def main():
         #check for age
         if users[user_str]["info"]["age"] < 18 :
             younglings.append(user_str)
+        elif users[user_str]["info"]["age"] < 21:
+            midlings.append(user_str)
         else:
             elderlings.append(user_str)
 
@@ -79,6 +83,8 @@ def main():
         for game_tag in users[user_str]["games"]:
             if users[user_str]["info"]["age"] < 18:
                 younglings_games_played += 1
+            elif users[user_str]["info"]["age"] < 21:
+                midlings_games_played += 1
             else:
                 elderlings_games_played += 1
 
@@ -169,10 +175,12 @@ def main():
     bp = ax.boxplot(([arr1, arr2]),labels=("Classic", "Endurance"), widths=(0.5, 0.5))
     pylab.savefig('boxplot.pdf', bbox_inches='tight')
     youngling_verhouding = float(younglings_games_played) / float(total_games_played)
+    midling_verhouding = float(midlings_games_played) / float(total_games_played)
     elderling_verhouding = float(elderlings_games_played )/ float(total_games_played)
 
-    print("Verhouding spelers <18jaar: " + str(youngling_verhouding*100)+" %")
-    print("Verhouding spelers >18jaar: " + str(elderling_verhouding*100)+" %")
+    print("Verhouding spelers 13-17 jaar: " + str(youngling_verhouding*100)+" %")
+    print("Verhouding spelers 18-20 jaar: " + str(midling_verhouding*100)+" %")
+    print("Verhouding spelers 21+ jaar: " + str(elderling_verhouding*100)+" %")
 
     print("Endurance games: " + str(endurance_counter) + " gespeeld en " + str(endurance_games_won) + " werden gewonnen. (" + str((float(endurance_games_won)/float(endurance_counter))*100) + " %)")
     print(str(endurance_players) + " mensen hebben Endurance gespeeld, dus gemiddeld " + str(float(endurance_counter)/float(endurance_players)) + " games gespeeld.")
@@ -197,9 +205,7 @@ def main():
     print("Gemiddeld aantal verloren Classic games tov aantal games dat een gebruiker speelde:" + str(((float(classic_fails))/float(classic_players))*100) + " %")
 
     print("Endurance fails: " + str(float(endurance_fails)))
-    print("Endurance players: " + str(endurance_players))
     print("Classic fails: " + str(float(classic_fails)))
-    print("Classic players: " + str(classic_players))
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
