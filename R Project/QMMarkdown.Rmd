@@ -29,6 +29,27 @@ summarise(failGrouped, MeanFail=mean(failrate), SDFail=sd(failrate))
 
 summarise(levelGrouped, MeanLevel=mean(level), SDLevel=sd(level))
 
+# Boxplots
+par(mfrow=c(1,2))
+
+failClassic <- filter(failData, gamemode == "Classic")
+failBox1 <- select(failClassic, failrate)
+boxplot(failBox1)
+
+failEndurance <- filter(failData, gamemode == "Endurance")
+failBox2 <- select(failEndurance, failrate)
+boxplot(failBox2)
+
+par(mfrow=c(1,2))
+
+levelClassic <- filter(levelData, gamemode == "Classic")
+levelBox1 <- select(levelClassic, level)
+boxplot(levelBox1)
+
+levelEndurance <- filter(levelData, gamemode == "Endurance")
+levelBox2 <- select(levelEndurance, level)
+boxplot(levelBox2)
+
 # ANOVA analysis
 failModel <- aov(failrate ~ gamemode, data=failData)
 summary(failModel)
