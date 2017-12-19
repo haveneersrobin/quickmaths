@@ -56,6 +56,9 @@ def main():
     user_fail_rate = csv.writer(open('failRate.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
     user_fail_rate.writerow(['userID', 'gamemode', 'failrate'])
 
+    ios_users = 0
+    android_users = 0
+
     for user_str in users:
 
         user_max_level_classic = 0
@@ -90,6 +93,13 @@ def main():
             males += 1
         else:
             females += 1
+
+        if users[user_str]["info"]["device_info"]["os"] == "ios":
+            ios_users += 1
+
+        if users[user_str]["info"]["device_info"]["os"] == "android":
+            android_users += 1
+
 
         # GET GAME TIME PER MODE
         for game_tag in users[user_str]["games"]:
@@ -223,6 +233,10 @@ def main():
     print(str(males+females) + " spelers hebben " + str(total_games_played) + " levels gespeeld,\tdus " + str((float(total_games_played))/(float(males+females))) + " per persoon")
     print(str(males) + " mannen hebben  " + str(male_games_played) + " levels gespeeld,\tdus " + str(float(male_games_played)/float(males)) + " per persoon.")
     print(str(females) + " vrouwen hebben " + str(female_games_played) + " levels gespeeld,\tdus " + str(float(female_games_played)/float(females)) + " per persoon.")
+    print("")
+
+    print("iOS gebruikers:\t\t" + str(ios_users))
+    print("Android gebruikers:\t" + str(android_users))
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
