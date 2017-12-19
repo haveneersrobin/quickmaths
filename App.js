@@ -75,7 +75,7 @@ export default class App extends React.Component {
       require('./assets/img/background.jpg'),
       require('./assets/img/game-over.png'),
       require('./assets/img/icon.png'),
-      require('./assets/img/icon_ios.png')
+      require('./assets/img/icon_ios.png'),
       require('./assets/img/img.png'),
       require('./assets/img/kul.png'),
       require('./assets/img/logo.png'),
