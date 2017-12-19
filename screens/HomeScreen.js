@@ -80,10 +80,17 @@ export default class HomeScreen extends React.Component {
 
     _handleFacebookLogin = async () => {
         const { navigate } = this.props.navigation;
-        const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
-            permissions: ['public_profile'],
-            });
-
+        if(Platform.OS === "ios") {
+            const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
+                permissions: ['public_profile'],
+                behavior: 'native'
+                });
+        }
+        else {
+            const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
+                permissions: ['public_profile'],
+                });
+        }
         if (type === 'success') {
             console.log("Test");
             // Build Firebase credential with the Facebook access token.
