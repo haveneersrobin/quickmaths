@@ -80,8 +80,8 @@ export default class HomeScreen extends React.Component {
 
     _handleFacebookLogin = async () => {
         const { navigate } = this.props.navigation;
+        console.log("os" + Platform.OS);
         if(Platform.OS === "ios") {
-            
             const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
                 permissions: ['public_profile'],
                 behavior: 'native'
