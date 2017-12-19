@@ -17,8 +17,9 @@
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
-      "bundleIdentifier": "cs.hciproject.quickmaths",      
-      "supportsTablet": true
+      "bundleIdentifier": "cs.hciproject.quickmaths",
+      "supportsTablet": true,
+      "icon": "./assets/img/icon_ios.png"
     },
     "android": {
       "package": "cs.hciproject.quickmaths",
