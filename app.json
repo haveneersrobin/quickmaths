@@ -5,7 +5,7 @@
     "slug": "hciproject-quickmaths",
     "privacy": "public",
     "sdkVersion": "22.0.0",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/img/icon.png",
     "splash": {

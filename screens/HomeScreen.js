@@ -80,28 +80,11 @@ export default class HomeScreen extends React.Component {
 
     _handleFacebookLogin = async () => {
         const { navigate } = this.props.navigation;
-        console.log("os" + Platform.OS);
-        if(Platform.OS === "ios") {
-            const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
-                permissions: ['public_profile'],
-                behavior: 'native'
-                });
-                Alert.alert(
-                    'Debug Info',
-                    'Facebook Login Response. Type: ' + type + " Token: " + token + " Expires=: " + expires,
-                    [
-                      {text: 'OK', onPress: () => console.log('OK Pressed')},
-                    ],
-                    { cancelable: true }
-                  )
-        }
-        else if(Platform.OS === 'android') {
-            const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
+
+        const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('388911471560747', {
                 permissions: ['public_profile'],
                 });
-        }
         if (type === 'success') {
-            console.log("Test");
             // Build Firebase credential with the Facebook access token.
             const credential = firebase.auth.FacebookAuthProvider.credential(token);
             // Sign in with credential from the Facebook user.
@@ -139,9 +122,9 @@ export default class HomeScreen extends React.Component {
         this.popupDialog.show();
     }
 
-      
 
-    render() { 
+
+    render() {
         const slideAnimation = new SlideAnimation({
             slideFrom: 'bottom',
         });
@@ -197,7 +180,7 @@ export default class HomeScreen extends React.Component {
                             textStyle={{fontSize: responsiveFontSize(1)}}
                             disabled={false}
                             text="Doorgaan zonder inloggen"
-                            onPress={() => navigate('Tutorial', { uid : undefined, gametype: _.random(0, 1) })} 
+                            onPress={() => navigate('Tutorial', { uid : undefined, gametype: _.random(0, 1) })}
                             key="button-1"
                         />
                 </PopupDialog>
@@ -205,5 +188,3 @@ export default class HomeScreen extends React.Component {
         );
       }
     }
-
-    
