@@ -56,6 +56,9 @@ def main():
     user_fail_rate = csv.writer(open('failRate.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
     user_fail_rate.writerow(['userID', 'gamemode', 'failrate'])
 
+    user_total_time = csv.writer(open('totalTime.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+    user_total_time.writerow(['userID', 'gamemode', 'totaltime'])
+
     ios_users = 0
     android_users = 0
 
@@ -182,6 +185,13 @@ def main():
             user_fail_rate_endurance = float(user_fails_endurance) / float(user_played_endurance)
             user_fail_rate.writerow([user_str, 'Endurance', user_fail_rate_endurance])
 
+        if classic_game_times[player_count] > 0:
+            user_total_time.writerow([user_str, 'Classic', classic_game_times[player_count]])
+
+        if endurance_game_times[player_count] > 0:
+            user_total_time.writerow([user_str, 'Endurance', endurance_game_times[player_count]])
+
+
     # writer = csv.writer(open('gemiddeldes.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
     # writer.writerow("C")
     # writer.writerow(classic_game_times)
@@ -200,6 +210,7 @@ def main():
     axes.set_ylim([0,np.amax(np.concatenate((arr1, arr2)))+10])
     bp = ax.boxplot(([arr1, arr2]),labels=("Classic", "Endurance"), widths=(0.5, 0.5))
     pylab.savefig('boxplot.pdf', bbox_inches='tight')
+
     youngling_verhouding = float(younglings_games_played) / float(total_games_played)
     midling_verhouding = float(midlings_games_played) / float(total_games_played)
     elderling_verhouding = float(elderlings_games_played )/ float(total_games_played)
