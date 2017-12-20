@@ -18,16 +18,21 @@ setwd("D:/Laurens/Documents/( School/CW 2/1e Semester/FMMI/R Project")
 # Loading file
 failData <- read.csv("failRate.csv")
 levelData <- read.csv("highestLevels.csv")
+timeData <- read.csv("totalTime.csv")
 
 # Group data by gamemode
 failGrouped <- group_by(failData, gamemode)
 
 levelGrouped <- group_by(levelData, gamemode)
 
+timeGrouped <- group_by(timeData, gamemode)
+
 # Summary
 summarise(failGrouped, MeanFail=mean(failrate), SDFail=sd(failrate))
 
 summarise(levelGrouped, MeanLevel=mean(level), SDLevel=sd(level))
+
+summarise(timeGrouped, MeanLevel=mean(totaltime), SDLevel=sd(totaltime))
 
 # Boxplots
 par(mfrow=c(1,2))
@@ -50,11 +55,24 @@ levelEndurance <- filter(levelData, gamemode == "Endurance")
 levelBox2 <- select(levelEndurance, level)
 boxplot(levelBox2)
 
+par(mfrow=c(1,2))
+
+timeClassic <- filter(timeData, gamemode == "Classic")
+timeBox1 <- select(timeClassic, totaltime)
+boxplot(timeBox1)
+
+timeEndurance <- filter(timeData, gamemode == "Endurance")
+timeBox2 <- select(timeEndurance, totaltime)
+boxplot(timeBox2)
+
 # ANOVA analysis
 failModel <- aov(failrate ~ gamemode, data=failData)
 summary(failModel)
 
 levelModel <- aov(level ~ gamemode, data=levelData)
 summary(levelModel)
+
+timeModel <- aov(totaltime ~ gamemode, data=timeData)
+summary(timeModel)
 
 ```
