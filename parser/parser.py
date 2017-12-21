@@ -62,6 +62,8 @@ def main():
     ios_users = 0
     android_users = 0
 
+    interruptions = 0
+
     for user_str in users:
 
         user_max_level_classic = 0
@@ -106,70 +108,75 @@ def main():
 
         # GET GAME TIME PER MODE
         for game_tag in users[user_str]["games"]:
-            if users[user_str]["info"]["age"] < 18:
-                younglings_games_played += 1
-            elif users[user_str]["info"]["age"] < 21:
-                midlings_games_played += 1
-            else:
-                elderlings_games_played += 1
+            if users[user_str]["games"][game_tag]["interrupted"] == True:
+                interruptions += 1
+                total_games_played -= 1
 
-            if users[user_str]["info"]["gender"] == "male":
-                male_games_played += 1
-            else:
-                female_games_played += 1
+            if users[user_str]["games"][game_tag]["interrupted"] == False:
+                if users[user_str]["info"]["age"] < 18:
+                    younglings_games_played += 1
+                elif users[user_str]["info"]["age"] < 21:
+                    midlings_games_played += 1
+                else:
+                    elderlings_games_played += 1
 
-            game_type = users[user_str]["games"][game_tag]["type"]
+                if users[user_str]["info"]["gender"] == "male":
+                    male_games_played += 1
+                else:
+                    female_games_played += 1
 
-            if game_type == "Endurance":
-                user_played_endurance += 1
-                endurance_counter += 1
-                start_time = get_sec(users[user_str]["games"][game_tag]["start_time"][:8])
+                game_type = users[user_str]["games"][game_tag]["type"]
 
-                if users[user_str]["games"][game_tag]["end_time"] != 0:
-                    end_time = get_sec(users[user_str]["games"][game_tag]["end_time"][:8])
-                    total_time = end_time - start_time
-                    if abs(total_time) < 1000:
-                        endurance_game_times[player_count] += total_time
+                if game_type == "Endurance":
+                    user_played_endurance += 1
+                    endurance_counter += 1
+                    start_time = get_sec(users[user_str]["games"][game_tag]["start_time"][:8])
 
-                if users[user_str]["games"][game_tag]["result"] == "Won":
-                    endurance_games_won += 1
-                if users[user_str]["games"][game_tag]["result"] == "GameOver":
-                    user_fails_endurance += 1
+                    if users[user_str]["games"][game_tag]["end_time"] != 0:
+                        end_time = get_sec(users[user_str]["games"][game_tag]["end_time"][:8])
+                        total_time = end_time - start_time
+                        if abs(total_time) < 1000:
+                            endurance_game_times[player_count] += total_time
 
-                if (users[user_str]["info"]["gender"] == "male" and
-                        users[user_str]["games"][game_tag]["level"] > highest_endurance_level_male):
-                    highest_endurance_level_male = users[user_str]["games"][game_tag]["level"]
+                    if users[user_str]["games"][game_tag]["result"] == "Won":
+                        endurance_games_won += 1
+                    if users[user_str]["games"][game_tag]["result"] == "GameOver":
+                        user_fails_endurance += 1
 
-                if (users[user_str]["info"]["gender"] == "female" and
-                        users[user_str]["games"][game_tag]["level"] > highest_endurance_level_female):
-                    highest_endurance_level_female = users[user_str]["games"][game_tag]["level"]
-                if users[user_str]["games"][game_tag]["level"] > user_max_level_endurance:
-                    user_max_level_endurance = users[user_str]["games"][game_tag]["level"]
+                    if (users[user_str]["info"]["gender"] == "male" and
+                            users[user_str]["games"][game_tag]["level"] > highest_endurance_level_male):
+                        highest_endurance_level_male = users[user_str]["games"][game_tag]["level"]
 
-            else:
-                user_played_classic += 1
-                classic_counter += 1
-                start_time = get_sec(users[user_str]["games"][game_tag]["start_time"][:8])
-                if users[user_str]["games"][game_tag]["end_time"] != 0:
-                    end_time = get_sec(users[user_str]["games"][game_tag]["end_time"][:8])
-                    total_time = end_time - start_time
-                    if abs(total_time) < 1000:
-                        classic_game_times[player_count] += total_time
+                    if (users[user_str]["info"]["gender"] == "female" and
+                            users[user_str]["games"][game_tag]["level"] > highest_endurance_level_female):
+                        highest_endurance_level_female = users[user_str]["games"][game_tag]["level"]
+                    if users[user_str]["games"][game_tag]["level"] > user_max_level_endurance:
+                        user_max_level_endurance = users[user_str]["games"][game_tag]["level"]
 
-                if users[user_str]["games"][game_tag]["result"] == "Won":
-                    classic_games_won += 1
-                if users[user_str]["games"][game_tag]["result"] == "GameOver":
-                    user_fails_classic += 1
+                else:
+                    user_played_classic += 1
+                    classic_counter += 1
+                    start_time = get_sec(users[user_str]["games"][game_tag]["start_time"][:8])
+                    if users[user_str]["games"][game_tag]["end_time"] != 0:
+                        end_time = get_sec(users[user_str]["games"][game_tag]["end_time"][:8])
+                        total_time = end_time - start_time
+                        if abs(total_time) < 1000:
+                            classic_game_times[player_count] += total_time
 
-                if (users[user_str]["info"]["gender"] == "male" and
-                        users[user_str]["games"][game_tag]["level"] > highest_classic_level_male):
-                    highest_classic_level_male = users[user_str]["games"][game_tag]["level"]
+                    if users[user_str]["games"][game_tag]["result"] == "Won":
+                        classic_games_won += 1
+                    if users[user_str]["games"][game_tag]["result"] == "GameOver":
+                        user_fails_classic += 1
 
-                if (users[user_str]["info"]["gender"] == "female" and
-                        users[user_str]["games"][game_tag]["level"] > highest_classic_level_female):
-                    highest_classic_level_female = users[user_str]["games"][game_tag]["level"]
-                if users[user_str]["games"][game_tag]["level"] > user_max_level_classic:
-                    user_max_level_classic = users[user_str]["games"][game_tag]["level"]
+                    if (users[user_str]["info"]["gender"] == "male" and
+                            users[user_str]["games"][game_tag]["level"] > highest_classic_level_male):
+                        highest_classic_level_male = users[user_str]["games"][game_tag]["level"]
+
+                    if (users[user_str]["info"]["gender"] == "female" and
+                            users[user_str]["games"][game_tag]["level"] > highest_classic_level_female):
+                        highest_classic_level_female = users[user_str]["games"][game_tag]["level"]
+                    if users[user_str]["games"][game_tag]["level"] > user_max_level_classic:
+                        user_max_level_classic = users[user_str]["games"][game_tag]["level"]
 
         if user_max_level_classic > 2:
             user_gamemode_highest_level.writerow([user_str, 'Classic', user_max_level_classic])
@@ -191,14 +198,6 @@ def main():
         if endurance_game_times[player_count] > 0:
             user_total_time.writerow([user_str, 'Endurance', endurance_game_times[player_count]])
 
-
-    # writer = csv.writer(open('gemiddeldes.csv', 'w'), delimiter=',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
-    # writer.writerow("C")
-    # writer.writerow(classic_game_times)
-    # writer.writerow("E")
-    # writer.writerow(endurance_game_times)
-    #print("gemiddeldes.csv generated")
-
     arr1 = np.concatenate(([], classic_game_times[classic_game_times != 0]))
     arr2 = np.concatenate(([], endurance_game_times[endurance_game_times != 0]))
 
@@ -215,7 +214,7 @@ def main():
     midling_verhouding = float(midlings_games_played) / float(total_games_played)
     elderling_verhouding = float(elderlings_games_played )/ float(total_games_played)
 
-    total_players = (len(younglings)+len(midlings)+len(elderlings))
+    total_players = len(younglings)+len(midlings)+len(elderlings)
 
     print("Verhouding spelers 13-17 jaar:\t" + str((float(len(younglings))/float(total_players))*100)+" %")
     print("Verhouding spelers 18-20 jaar:\t" + str((float(len(midlings))/float(total_players))*100)+" %")
@@ -248,6 +247,9 @@ def main():
 
     print("iOS gebruikers:\t\t" + str(ios_users))
     print("Android gebruikers:\t" + str(android_users))
+    print("")
+
+    print("Interruptions:\t" + str(interruptions))
 
 def get_sec(time_str):
     h, m, s = time_str.split(':')
