@@ -35,35 +35,39 @@ summarise(levelGrouped, MeanLevel=mean(level), SDLevel=sd(level))
 summarise(timeGrouped, MeanLevel=mean(totaltime), SDLevel=sd(totaltime))
 
 # Boxplots
-par(mfrow=c(1,2))
 
+# Failrates
+png(filename="D:/Laurens/Documents/( School/CW 2/1e Semester/FMMI/R Project/Graphs/Failrates.png")
 failClassic <- filter(failData, gamemode == "Classic")
 failBox1 <- select(failClassic, failrate)
-boxplot(failBox1)
+boxplot(failBox1, at=1, xlim=c(0,3), boxwex=1.75, ylim=c(0,1), ylab="Failrate", main="Failrates per gamemode", xlab="Classic                                            ")
 
 failEndurance <- filter(failData, gamemode == "Endurance")
 failBox2 <- select(failEndurance, failrate)
-boxplot(failBox2)
+boxplot(failBox2, at=2, add=TRUE, boxwex=1.75, ylim=c(0,1), xlab="                                              Endurance")
+dev.off()
 
-par(mfrow=c(1,2))
-
+# Levels
+png(filename="D:/Laurens/Documents/( School/CW 2/1e Semester/FMMI/R Project/Graphs/Levels.png")
 levelClassic <- filter(levelData, gamemode == "Classic")
 levelBox1 <- select(levelClassic, level)
-boxplot(levelBox1)
+boxplot(levelBox1, at=1, xlim=c(0,3), boxwex=1.75, ylim=c(0,max(levelBox1, levelBox2)),  ylab="Level", main="Hoogst behaalde level per gamemode", xlab="Classic                                            ")
 
 levelEndurance <- filter(levelData, gamemode == "Endurance")
 levelBox2 <- select(levelEndurance, level)
-boxplot(levelBox2)
+boxplot(levelBox2, at=2, add=TRUE, boxwex=1.75, ylim=c(0,max(levelBox1, levelBox2)), xlab="                                              Endurance")
+dev.off()
 
-par(mfrow=c(1,2))
-
+# Total time played
+png(filename="D:/Laurens/Documents/( School/CW 2/1e Semester/FMMI/R Project/Graphs/TimePlayed.png")
 timeClassic <- filter(timeData, gamemode == "Classic")
 timeBox1 <- select(timeClassic, totaltime)
-boxplot(timeBox1)
+boxplot(timeBox1, at=1, xlim=c(0,3), boxwex=1.75, ylim=c(0,max(timeBox1, timeBox2)),  ylab="Tijd in seconden", main="Totale speelduur per gamemode", xlab="Classic                                            ")
 
 timeEndurance <- filter(timeData, gamemode == "Endurance")
 timeBox2 <- select(timeEndurance, totaltime)
-boxplot(timeBox2)
+boxplot(timeBox2, at=2, add=TRUE, boxwex=1.75, ylim=c(0,max(timeBox1, timeBox2)), xlab="                                              Endurance")
+dev.off()
 
 # ANOVA analysis
 failModel <- aov(failrate ~ gamemode, data=failData)
