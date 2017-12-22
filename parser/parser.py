@@ -2,7 +2,6 @@ import json
 import numpy as np
 import csv
 import urllib
-import matplotlib.pyplot as plt
 import numpy as np
 import pylab
 
@@ -197,18 +196,6 @@ def main():
 
         if endurance_game_times[player_count] > 0:
             user_total_time.writerow([user_str, 'Endurance', endurance_game_times[player_count]])
-
-    arr1 = np.concatenate(([], classic_game_times[classic_game_times != 0]))
-    arr2 = np.concatenate(([], endurance_game_times[endurance_game_times != 0]))
-
-    fig = plt.figure(1, figsize=(10, 6))
-    ax = fig.add_subplot(111)
-    ax.set_title('Totale tijd per speler', fontsize=14, fontweight='bold')
-    ax.set_ylabel('Seconden')
-    axes = plt.gca()
-    axes.set_ylim([0,np.amax(np.concatenate((arr1, arr2)))+10])
-    bp = ax.boxplot(([arr1, arr2]),labels=("Classic", "Endurance"), widths=(0.5, 0.5))
-    pylab.savefig('boxplot.pdf', bbox_inches='tight')
 
     youngling_verhouding = float(younglings_games_played) / float(total_games_played)
     midling_verhouding = float(midlings_games_played) / float(total_games_played)
