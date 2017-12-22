@@ -178,17 +178,17 @@ def main():
                     if users[user_str]["games"][game_tag]["level"] > user_max_level_classic:
                         user_max_level_classic = users[user_str]["games"][game_tag]["level"]
 
-        if user_max_level_classic > 2:
+        if user_max_level_classic > 1:
             user_gamemode_highest_level.writerow([user_str, 'Classic', user_max_level_classic])
 
-        if user_max_level_endurance > 2:
+        if user_max_level_endurance > 1:
             user_gamemode_highest_level.writerow([user_str, 'Endurance', user_max_level_endurance])
 
-        if user_played_classic > 3:
+        if user_played_classic > 1:
             user_fail_rate_classic = float(user_fails_classic) / float(user_played_classic)
             user_fail_rate.writerow([user_str, 'Classic', user_fail_rate_classic])
 
-        if user_played_endurance > 3:
+        if user_played_endurance > 1:
             user_fail_rate_endurance = float(user_fails_endurance) / float(user_played_endurance)
             user_fail_rate.writerow([user_str, 'Endurance', user_fail_rate_endurance])
 
